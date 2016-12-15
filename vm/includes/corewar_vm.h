@@ -6,13 +6,13 @@
 /*   By: jcao <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/22 13:38:55 by jcao              #+#    #+#             */
-/*   Updated: 2016/12/03 13:36:20 by jcao             ###   ########.fr       */
+/*   Updated: 2016/12/15 16:55:34 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 # define COREWAR_H
-# include "libft/includes/libft.h"
+# include "libft.h"
 # include "op.h"
 # include <fcntl.h>
 # include <sys/types.h>

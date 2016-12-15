@@ -6,7 +6,7 @@
 /*   By: jcao <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/22 13:34:53 by jcao              #+#    #+#             */
-/*   Updated: 2016/12/05 11:47:52 by jcao             ###   ########.fr       */
+/*   Updated: 2016/12/15 16:59:30 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static header_t head_init(header_t *head, int i)
 
 int	main(int ac, char **av)
 {
-	t_war var;
+	t_war		var;
 	header_t	*head;
 
 	var = var_init();
@@ -68,6 +68,5 @@ int	main(int ac, char **av)
 		}
 		intro_display(var, head, ac);
 	}
-	//while (1);
 	return (0);
 }

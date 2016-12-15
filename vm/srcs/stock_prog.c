@@ -6,7 +6,7 @@
 /*   By: jcao <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 13:29:03 by jcao              #+#    #+#             */
-/*   Updated: 2016/11/27 13:31:08 by jcao             ###   ########.fr       */
+/*   Updated: 2016/12/15 16:58:58 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int		stock_prog(t_war prog)
 		octet2 = ft_itoa_base(prog.buf[0], 2);
 		tmp = ft_strjoin(octet1, octet2);
 		i = ft_atoi_base(tmp, 2);
-//		ft_putnbr(i);
 	}
 	else
 		return (-1);
@@ -38,4 +37,4 @@ int		stock_prog(t_war prog)
 	free(octet2);
 	free(tmp);
 	return (get_comment(prog));
-}
+
