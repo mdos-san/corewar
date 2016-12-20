@@ -3,6 +3,7 @@ I		=		-I./includes
 L		=		-L./libs -lftprintf
 
 SRC_O	=		main.o\
+				bytecode_read.o\
 				board_print.o
 
 all:    corewar
