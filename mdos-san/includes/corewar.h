@@ -19,7 +19,7 @@
 **|	Permet de stoker toute les infos relative a un processus
 **|
 **|	nb_champ: numero du champion associé
-**|	pc: pointeur sur la zone lu par le processus
+**|	pc: index de l octet lu par rapport au debut de board
 **| 
 **|
 */
@@ -27,7 +27,7 @@
 typedef struct		s_process
 {
 	int				nb_champ;
-	unsigned char	*pc;
+	int				pc;
 }					t_process;
 
 /*
@@ -55,5 +55,6 @@ typedef	struct		s_cw
 
 void	board_print(t_cw cw);
 int		bytecode_read(t_cw *cw);
+void	process_add(t_cw *cw, int champ, int pc);
 
 #endif

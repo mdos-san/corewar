@@ -44,7 +44,8 @@ TMP_C=		ft_memset.c		ft_bzero.c		ft_memcpy.c\
 			str_array_add.c\
 			str_array_sub.c\
 			str_array_find.c\
-			ft_putnbrl.c
+			ft_putnbrl.c\
+			ft_lstpushb.c
 SRC_C=$(TMP_C:%=libft/%)
 SRC_O=$(SRC_C:.c=.o)
 DEL_1=$(TMP_C:.c=.o)

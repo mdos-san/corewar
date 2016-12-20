@@ -4,7 +4,8 @@ L		=		-L./libs -lftprintf
 
 SRC_O	=		main.o\
 				bytecode_read.o\
-				board_print.o
+				board_print.o\
+				process_add.o
 
 all:    corewar
 
