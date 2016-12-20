@@ -53,6 +53,7 @@ typedef	struct		s_cw
 	unsigned char	*board;
 	long long		nb_process;
 	t_list			*process;
+	void			*fct_tab[256];
 }					t_cw;
 
 void	board_print(t_cw cw);
