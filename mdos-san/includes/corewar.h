@@ -29,6 +29,8 @@ typedef struct		s_process
 	int				nb_champ;
 	int				pc;
 	long long		nb_process;
+	int				is_waiting;
+	int				waiting_turn;
 }					t_process;
 
 /*
@@ -53,7 +55,7 @@ typedef	struct		s_cw
 	unsigned char	*board;
 	long long		nb_process;
 	t_list			*process;
-	void			*fct_tab[256];
+	void			(*fct_tab[256])(struct s_cw*, t_process*);
 }					t_cw;
 
 void	board_print(t_cw cw);
