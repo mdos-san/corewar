@@ -38,11 +38,8 @@ void	zjmp(t_cw *cw, t_process *p)
 	{
 		if (p->waiting_turn == 0)
 		{
-			ft_printf("1: %d 2: %d\n", cw->board[p->pc + 1], cw->board[p->pc + 2]);
 			*(((char *)&j) + 1) = cw->board[p->pc + 1];
 			*(((char *)&j)) = cw->board[p->pc + 2];
-			ft_printf("short : %d\n", sizeof(short));
-			ft_printf("jmp %d\n", j - 65535);
 			if (j > 32768)
 				p->pc += j - 65535 - 1;
 			else
@@ -54,9 +51,35 @@ void	zjmp(t_cw *cw, t_process *p)
 
 }
 
+void	frk(t_cw *cw, t_process *p)
+{
+	unsigned short	j;
+
+	if (!p->is_waiting)
+	{
+		++p->is_waiting;
+		p->waiting_turn = 800;
+	}
+	else
+	{
+		if (p->waiting_turn == 0)
+		{
+			*(((char *)&j) + 1) = cw->board[p->pc + 1];
+			*(((char *)&j)) = cw->board[p->pc + 2];
+			if (j > 32768)
+				process_add(cw, p->nb_champ, p->pc + (j - 65535 - 1));
+			else
+				process_add(cw, p->nb_champ, p->pc + j);
+			p->is_waiting = 0;
+		}
+		--p->waiting_turn;
+	}
+
+}
+
 static int	is_useless(unsigned char c)
 {
-	if (c == 1 || c == 9)
+	if (c == 1 || c == 9 || c == 12)
 		return (0);
 	else
 		return (1);
@@ -84,6 +107,7 @@ int main(int ac, char **av)
 	}
 	cw.fct_tab[1] = live;
 	cw.fct_tab[9] = zjmp;
+	cw.fct_tab[12] = frk;
 	bytecode_read(&cw);
 	process_add(&cw, 1, 0);
 	while (cw.process)
@@ -110,7 +134,7 @@ int main(int ac, char **av)
 				p->pc = 0;
 			l = l->next;
 		}
-		usleep(100000);
+		usleep(50000);
 		++turn;
 	}
 	(cw.board) ? free(cw.board) : (void)0;
