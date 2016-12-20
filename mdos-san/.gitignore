@@ -1,0 +1,4 @@
+coreware
+*.a
+*.o
+*.swp

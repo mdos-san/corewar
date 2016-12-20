@@ -21,3 +21,13 @@ libs/libftprintf.a:
 
 %.o:    srcs/%.c
 	gcc -c $< $(FLAG) $(I)
+
+clean:
+	rm -rf $(SRC_O)
+
+fclean:	clean
+	rm -rf corewar
+	rm -rf includes/libft.h includes/libftprintf.h
+	rm -rf libft/libftprintf.a
+
+re:	fclean all
