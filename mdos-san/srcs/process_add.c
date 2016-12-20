@@ -6,6 +6,7 @@ void	process_add(t_cw *cw, int champ, int pc)
 
 	new.nb_champ = champ;
 	new.pc = pc;
+	new.nb_process = ++cw->nb_process;
 	if (cw->process == NULL)
 		cw->process = ft_lstnew((void*)(&new), sizeof(t_process));
 	else

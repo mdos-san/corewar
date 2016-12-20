@@ -28,6 +28,7 @@ typedef struct		s_process
 {
 	int				nb_champ;
 	int				pc;
+	long long		nb_process;
 }					t_process;
 
 /*
@@ -50,6 +51,7 @@ typedef	struct		s_cw
 	int				ac;
 	char			**av;
 	unsigned char	*board;
+	long long		nb_process;
 	t_list			*process;
 }					t_cw;
 
