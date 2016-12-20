@@ -2,7 +2,8 @@ FLAG	=		-Wextra -Werror -Wall
 I		=		-I./includes
 L		=		-L./libs -lftprintf
 
-SRC_O	=  main.o
+SRC_O	=		main.o\
+				board_print.o
 
 all:    corewar
 
@@ -28,6 +29,6 @@ clean:
 fclean:	clean
 	rm -rf corewar
 	rm -rf includes/libft.h includes/libftprintf.h
-	rm -rf libft/libftprintf.a
+	rm -rf libs/libftprintf.a
 
 re:	fclean all

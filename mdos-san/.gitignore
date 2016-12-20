@@ -2,3 +2,4 @@ coreware
 *.a
 *.o
 *.swp
+*DS_Store*
