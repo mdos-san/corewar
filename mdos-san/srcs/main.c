@@ -4,6 +4,7 @@ int main(int ac, char **av)
 {
 	t_cw	cw;
 
+	cw.debug = DEBUG;
 	cw.board = (unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE);
 	cw.ac = ac;
 	cw.av = av;
