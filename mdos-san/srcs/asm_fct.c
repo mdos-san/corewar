@@ -42,7 +42,6 @@ void	zjmp(t_cw *cw, t_process *p)
 		}
 		--p->waiting_turn;
 	}
-
 }
 
 void	frk(t_cw *cw, t_process *p)
@@ -69,5 +68,4 @@ void	frk(t_cw *cw, t_process *p)
 		}
 		--p->waiting_turn;
 	}
-
 }
