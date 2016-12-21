@@ -7,7 +7,8 @@ SRC_O	=		main.o\
 				asm_fct.o\
 				bytecode_read.o\
 				board_print.o\
-				process_add.o
+				process_add.o\
+				ocp_get.o
 
 all:    corewar
 

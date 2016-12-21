@@ -13,6 +13,13 @@
 # define DEBUG 1
 # define NB_COL	64
 
+typedef struct		s_ocp
+{
+	char			one[3];
+	char			two[3];
+	char			three[3];
+}					t_ocp;
+
 /*
 **|	struct s_process
 **|
@@ -66,8 +73,11 @@ t_cw	cw_init(int ac, char **av);
 void	board_print(t_cw cw);
 int		bytecode_read(t_cw *cw, char *file, int	index);
 void	process_add(t_cw *cw, int champ, int pc);
+void	exec(t_cw *cw, t_process *p, void (*fct)(t_cw *, t_process *));
 void	live(t_cw *cw, t_process *p);
 void	zjmp(t_cw *cw, t_process *p);
+void	sti(t_cw *cw, t_process *p);
 void	frk(t_cw *cw, t_process *p);
+t_ocp	ocp_get(unsigned char ocp);
 
 #endif
