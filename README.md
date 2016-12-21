@@ -3,7 +3,7 @@ Apres avoir cloner le repo, aller sur la branche dev puis aller dans le dossier 
 
     $> git clone https://github.com/mdos-san/corewar
     $> cd corewar
-    $> git checkout dev
+    $> git checkout vm
     $> cd mdos-san
 
 Pour compiler la vm il suffit de faire un faire un:
