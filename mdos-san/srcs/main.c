@@ -17,12 +17,21 @@ int main(int ac, char **av)
 
 	cw = cw_init(ac, av);
 	turn = 0;
+	/*
+	**	TODO
+	**
+	**	Systeme qui parse les parametre et qui initialise les premiers processus
+	**	voici trois initialisation faite en dur
+	*/
 	bytecode_read(&cw, av[1], 0);
 	process_add(&cw, -1, 0);
 	bytecode_read(&cw, av[2], MEM_SIZE / 3);
 	process_add(&cw, -2, MEM_SIZE / 3);
 	bytecode_read(&cw, av[3], (MEM_SIZE / 3) * 2);
 	process_add(&cw, -3, (MEM_SIZE / 3) * 2);
+	/*
+	**	END TODO 
+	*/
 	while (cw.process)
 	{
 		ft_printf("\033[H\033[2J");

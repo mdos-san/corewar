@@ -52,3 +52,40 @@ t_ocp	ocp_get(unsigned char ocp)
 	free(str);
 	return (st);
 }
+
+/*
+**	ocp_parse permet de recuperer les bons parametre en fonction de t_ocp ocp
+**	les parametres sont initialise dans des int passé en parametre
+**	La fonction est juste faite pour sti, des amelioration sont a faire pour quelle soit utilisable dans toute les fonctions
+*/
+
+void	ocp_parse(t_cw *cw, t_process *p, int *i, t_ocp ocp, int *one, int *two, int *three)
+{
+	*one = 0;
+	*two = 0;
+	*three = 0;
+	*one = p->r[cw->board[p->pc + *i] - 1];
+	++*i;
+	if (ft_strcmp(ocp.two, "01") == 0)
+	{
+		*two = p->r[cw->board[p->pc + *i - 1]];
+		++*i;
+	}
+	else if (ft_strcmp(ocp.two, "10") == 0)
+	{
+		((unsigned char *)two)[1] = cw->board[p->pc + *i];
+		((unsigned char *)two)[0] = cw->board[p->pc + *i + 1];
+		*i += 2;
+	}
+	if (ft_strcmp(ocp.three, "01") == 0)
+	{
+		*three = p->r[cw->board[p->pc + *i - 1]];
+		++*i;
+	}
+	else if (ft_strcmp(ocp.three, "10") == 0)
+	{
+		((unsigned char *)three)[1] = cw->board[p->pc + *i];
+		((unsigned char *)three)[0] = cw->board[p->pc + *i + 1];
+		*i += 2;
+	}
+}

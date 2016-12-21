@@ -18,11 +18,20 @@ t_cw	cw_init(int ac, char **av)
 	cw.nb_process = 0;
 	cw.process = NULL;
 	i = 0;
+	/*
+	**	Init par defaut toutes les fonctions de fct_tab a useless
+	**	pour eviter d eventuelle segfault
+	*/
 	while (i < 256)
 	{
 		cw.fct_tab[i] = useless;	
 		++i;
 	}
+	/*
+	*|	On init le tableau de pointeur sur fonctions ici
+	*|	les fonctions correspondent au commandes asm
+	*|	on gere deja 4 presque fonctions yeah!
+	*/
 	cw.fct_tab[1] = live;
 	cw.fct_tab[9] = zjmp;
 	cw.fct_tab[11] = sti;

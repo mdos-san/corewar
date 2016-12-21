@@ -51,9 +51,9 @@ typedef struct		s_process
 **|
 **|	ac:	nombre d'argument passé en parametre
 **|	av: les arguments passé en parametre
-**|	board:	zone memoire alloué pour le 'jeu' les champ seront chargé dedans
+**|	board:	zone memoire alloué pour le 'jeu' les champions seront chargés dedans
 **|	nb_process: nombre de processus actif dans la vm
-**|	process: liste chainnée contenant des element t_process
+**|	process: liste chainnée contenant des elements t_process
 **|	fct_tab: tableau de pointeur sur fonction utilise pour les fonctions asm gerée. (add, zjmp, sti, ...)
 **|
 */
@@ -79,5 +79,6 @@ void	zjmp(t_cw *cw, t_process *p);
 void	sti(t_cw *cw, t_process *p);
 void	frk(t_cw *cw, t_process *p);
 t_ocp	ocp_get(unsigned char ocp);
+void	ocp_parse(t_cw *cw, t_process *p, int *i, t_ocp ocp, int *one, int *two, int *three);
 
 #endif

@@ -1,5 +1,16 @@
 #include "corewar.h"
 
+/*
+**|
+**|	process_add
+**|
+**|	
+**|	Ajoute un nouveau processus appartenant au champion champ, et commençant a l addresse pc
+**|	Le processus est ajouter a la liste chainée des processus.
+**|	
+**|	
+*/
+
 void	process_add(t_cw *cw, int champ, int pc)
 {
 	t_process	new;
