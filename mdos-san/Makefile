@@ -3,6 +3,8 @@ I		=		-I./includes
 L		=		-L./libs -lftprintf
 
 SRC_O	=		main.o\
+				cw_init.o\
+				asm_fct.o\
 				bytecode_read.o\
 				board_print.o\
 				process_add.o

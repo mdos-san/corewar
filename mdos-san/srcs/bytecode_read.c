@@ -6,7 +6,7 @@
 **|	fonction qui permet de lire le bytecode d'un fichier passé par cw->av
 */
 
-int	bytecode_read(t_cw *cw)
+int	bytecode_read(t_cw *cw, char *file, int	index)
 {
 	int				fd;
 	unsigned char	buf[1];
@@ -15,7 +15,7 @@ int	bytecode_read(t_cw *cw)
 
 	i = 0;
 	j = 0;
-	fd = open(cw->av[1], O_RDONLY);	
+	fd = open(file, O_RDONLY);	
 	if (fd == -1)
 		return (-1);
 	else
@@ -26,7 +26,7 @@ int	bytecode_read(t_cw *cw)
 			//Processus is written in board directly
 			if (i >= 4 + 128 + 8 + 2048 + 4)
 			{
-				cw->board[j] = buf[0];
+				cw->board[j + index] = buf[0];
 				++j;
 			}
 			++i;
