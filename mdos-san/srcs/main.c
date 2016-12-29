@@ -17,6 +17,14 @@ int main(int ac, char **av)
 
 	cw = cw_init(ac, av);
 	turn = 0;
+	initscr();
+	noecho();
+	curs_set(FALSE);
+	start_color();
+	init_pair(1, COLOR_WHITE, COLOR_BLACK);
+	init_pair(2, COLOR_WHITE, COLOR_BLUE);
+	init_pair(3, COLOR_GREEN, COLOR_BLACK);
+	init_pair(4, COLOR_GREEN, COLOR_BLUE);
 	/*
 	**	TODO
 	**
@@ -34,10 +42,9 @@ int main(int ac, char **av)
 	*/
 	while (cw.process)
 	{
-		ft_printf("\033[H\033[2J");
-		ft_printf("TURN: %lld NB_PROCESS: %lld\n", turn, cw.nb_process);
-		l = cw.process;
+		mvprintw(0, 0, "TURN: %lld NB_PROCESS: %lld\n", turn, cw.nb_process);
 		board_print(cw);
+		l = cw.process;
 		while (l)
 		{
 			p = (t_process*)l->content;
@@ -49,9 +56,10 @@ int main(int ac, char **av)
 				p->pc = 0;
 			l = l->next;
 		}
-		usleep(50000);
+		refresh();
 		++turn;
 	}
+	endwin();
 	(cw.board) ? free(cw.board) : (void)0;
 	return (1);
 }

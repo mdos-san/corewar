@@ -9,22 +9,26 @@ void	board_print(t_cw cw)
 	while (i < MEM_SIZE)
 	{
 		l = cw.process;
-		ft_printf("\033[40m");
+		if (cw.board[i] > 0)
+			attron(COLOR_PAIR(3));
+		else
+			attron(COLOR_PAIR(1));
 		while (l)
 		{
 			if (((t_process*)(l->content))->pc == i)
 			{
-				ft_printf("\033[44m");
+				if (cw.board[i] > 0)
+					attron(COLOR_PAIR(4));
+				else
+					attron(COLOR_PAIR(2));
 				break ;
 			}
 			l = l->next;
 		}
-		if (cw.board[i] > 0)
-			ft_printf("\033[32m%.2x ", (int)cw.board[i]);
-		else
-			ft_printf("\033[37m%.2x ", (int)cw.board[i]);
+		printw("%.2x", (int)cw.board[i]);
 		if ((i + 1) % NB_COL  == 0)
-			ft_putchar('\n');
+			printw("\n");
 		++i;
 	}
+	(void)l;
 }

@@ -6,12 +6,13 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <unistd.h>
+# include <ncurses.h>
 
 # include "op.h"
 # include "libftprintf.h"
 
 # define DEBUG 1
-# define NB_COL	64
+# define NB_COL	80
 
 typedef struct		s_ocp
 {

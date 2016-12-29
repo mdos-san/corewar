@@ -13,6 +13,7 @@
 #ifndef LIBFTPRINTF_H
 # define LIBFTPRINTF_H
 
+# include <stdint.h>
 # include <stdarg.h>
 # include <unistd.h>
 # include "libft.h"

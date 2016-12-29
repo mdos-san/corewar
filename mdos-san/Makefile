@@ -1,6 +1,6 @@
 FLAG	=		-Wextra -Werror -Wall
 I		=		-I./includes
-L		=		-L./libs -lftprintf
+L		=		-L./libs -lftprintf -lncurses
 
 SRC_O	=		main.o\
 				cw_init.o\
@@ -13,7 +13,7 @@ SRC_O	=		main.o\
 all:    corewar
 
 corewar:    libs/libftprintf.a includes/libftprintf.h includes/libft.h $(SRC_O)
-	gcc $(FLAG) $(I) $(L) -o corewar $(SRC_O)
+	gcc $(FLAG) -o corewar $(SRC_O) $(I) $(L)
 includes/libftprintf.h:
 	cp libs/libftprintf/includes/libftprintf.h includes
 
