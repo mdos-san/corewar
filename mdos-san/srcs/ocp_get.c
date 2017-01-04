@@ -64,28 +64,61 @@ void	ocp_parse(t_cw *cw, t_process *p, int *i, t_ocp ocp, int *one, int *two, in
 	*one = 0;
 	*two = 0;
 	*three = 0;
-	*one = p->r[cw->board[p->pc + *i] - 1];
-	++*i;
-	if (ft_strcmp(ocp.two, "01") == 0)
+	if (ft_strcmp(ocp.one, "01") == 0)
+	{
+		*one = p->r[cw->board[p->pc + *i] - 1];
+		++*i;
+	}
+	else if (ft_strcmp(ocp.three, "10") == 0 || ft_strcmp(ocp.one, "11") == 0)
+	{
+		((unsigned char *)one)[1] = cw->board[p->pc + *i];
+		((unsigned char *)one)[0] = cw->board[p->pc + *i + 1];
+		*i += 2;
+	}
+/*	else if (ft_strcmp(ocp.one, "11") == 0)
+	{
+		((unsigned char *)one)[3] = cw->board[p->pc + *i];
+		((unsigned char *)one)[2] = cw->board[p->pc + *i + 1];
+		((unsigned char *)one)[1] = cw->board[p->pc + *i + 2];
+		((unsigned char *)one)[0] = cw->board[p->pc + *i + 3];
+		*i += 4;
+	}
+*/	if (ft_strcmp(ocp.two, "01") == 0)
 	{
 		*two = p->r[cw->board[p->pc + *i - 1]];
 		++*i;
 	}
-	else if (ft_strcmp(ocp.two, "10") == 0)
+	else if (ft_strcmp(ocp.three, "10") == 0 || ft_strcmp(ocp.two, "11") == 0)
 	{
 		((unsigned char *)two)[1] = cw->board[p->pc + *i];
 		((unsigned char *)two)[0] = cw->board[p->pc + *i + 1];
 		*i += 2;
 	}
-	if (ft_strcmp(ocp.three, "01") == 0)
+/*	else if (ft_strcmp(ocp.two, "11") == 0)
 	{
-		*three = p->r[cw->board[p->pc + *i - 1]];
+		((unsigned char *)two)[3] = cw->board[p->pc + *i];
+		((unsigned char *)two)[2] = cw->board[p->pc + *i + 1];
+		((unsigned char *)two)[1] = cw->board[p->pc + *i + 2];
+		((unsigned char *)two)[0] = cw->board[p->pc + *i + 3];
+		*i += 4;
+	}
+*/	if (ft_strcmp(ocp.three, "01") == 0)
+	{
+		*three = p->r[cw->board[p->pc + *i - 1] - 1];
 		++*i;
 	}
-	else if (ft_strcmp(ocp.three, "10") == 0)
+	else if (ft_strcmp(ocp.three, "11") == 0 || ft_strcmp(ocp.three, "10") == 0)
 	{
 		((unsigned char *)three)[1] = cw->board[p->pc + *i];
 		((unsigned char *)three)[0] = cw->board[p->pc + *i + 1];
 		*i += 2;
 	}
-}
+/*	else if (ft_strcmp(ocp.three, "11") == 0)
+	{
+		((unsigned char *)three)[3] = cw->board[p->pc + *i];
+		((unsigned char *)three)[2] = cw->board[p->pc + *i + 1];
+		((unsigned char *)three)[1] = cw->board[p->pc + *i + 2];
+		((unsigned char *)three)[0] = cw->board[p->pc + *i + 3];
+		*i += 4;
+	}
+*/}

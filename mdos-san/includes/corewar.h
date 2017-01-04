@@ -78,6 +78,7 @@ int		bytecode_read(t_cw *cw, char *file, int	index);
 void	process_add(t_cw *cw, int champ, int pc);
 void	exec(t_cw *cw, t_process *p, void (*fct)(t_cw *, t_process *));
 void	live(t_cw *cw, t_process *p);
+void	st(t_cw *cw, t_process *p);
 void	zjmp(t_cw *cw, t_process *p);
 void	sti(t_cw *cw, t_process *p);
 void	frk(t_cw *cw, t_process *p);

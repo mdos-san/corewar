@@ -32,6 +32,26 @@ void	frk(t_cw *cw, t_process *p)
 	p->pc += 3;
 }
 
+void	st(t_cw *cw, t_process *p)
+{
+	int		one;
+	int		two;
+	int		three;
+	int		i;
+	t_ocp	ocp;
+
+	i = 1;
+	ocp = ocp_get(cw->board[p->pc + i]);
+	++i;
+	ocp_parse(cw, p, &i, ocp, &one, &two, &three);
+	one = (one < 0) ? 4294967295 + one + 1 : one;
+	cw->board[(p->pc + two + 0) % MEM_SIZE] = ((char *)(&one))[3];
+	cw->board[(p->pc + two + 1) % MEM_SIZE] = ((char *)(&one))[2];
+	cw->board[(p->pc + two + 2) % MEM_SIZE] = ((char *)(&one))[1];
+	cw->board[(p->pc + two + 3) % MEM_SIZE] = ((char *)(&one))[0];
+	p->pc = p->pc + i % MEM_SIZE;
+}
+
 void	sti(t_cw *cw, t_process *p)
 {
 	int		one;
@@ -46,18 +66,19 @@ void	sti(t_cw *cw, t_process *p)
 	++i;
 	ocp_parse(cw, p, &i, ocp, &one, &two, &three);
 	sum = two + three;
-	one = (one < 0) ? 4294967295 + one + 1 : one;
-	cw->board[p->pc + sum] = ((unsigned char *)&one)[3];
-	cw->board[p->pc + sum + 1] = ((unsigned char *)&one)[2];
-	cw->board[p->pc + sum + 2] = ((unsigned char *)&one)[1];
-	cw->board[p->pc + sum + 3] = ((unsigned char *)&one)[0];
-	p->pc += i;
+	cw->board[(p->pc + sum + 0) % MEM_SIZE] = ((char *)(&one))[3];
+	cw->board[(p->pc + sum + 1) % MEM_SIZE] = ((char *)(&one))[2];
+	cw->board[(p->pc + sum + 2) % MEM_SIZE] = ((char *)(&one))[1];
+	cw->board[(p->pc + sum + 3) % MEM_SIZE] = ((char *)(&one))[0];
+	p->pc = (p->pc + i) % MEM_SIZE;
 }
 
 int	get_turn(unsigned char c)
 {
 	if (c == 1)
 		return (10);
+	else if (c == 3)
+		return (5);
 	else if (c == 9)
 		return (20);
 	else if (c == 11)

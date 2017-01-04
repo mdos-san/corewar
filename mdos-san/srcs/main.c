@@ -2,7 +2,7 @@
 
 static int	is_useless(unsigned char c)
 {
-	if (c == 1 || c == 9 || c == 12 || c == 11)
+	if (c == 1 || c == 3 || c == 9 || c == 12 || c == 11)
 		return (0);
 	else
 		return (1);

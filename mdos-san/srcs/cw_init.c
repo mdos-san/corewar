@@ -34,7 +34,8 @@ t_cw	cw_init(int ac, char **av)
 	*|	on gere deja 4 presque fonctions yeah!
 	*/
 	cw.fct_tab[1] = live;
-	cw.fct_tab[9] = zjmp;
+	cw.fct_tab[3] = st;
+ 	cw.fct_tab[9] = zjmp;
 	cw.fct_tab[11] = sti;
 	cw.fct_tab[12] = frk;
 	return (cw);
