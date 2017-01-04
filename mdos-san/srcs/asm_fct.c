@@ -3,6 +3,7 @@
 void	live(t_cw *cw, t_process *p)
 {
 	p->pc += 4 + 1;
+	p->nb_live += 1;
 	(void)cw;
 }
 

@@ -42,6 +42,7 @@ typedef struct		s_process
 	int				is_waiting;
 	int				waiting_turn;
 	int				r[REG_NUMBER];
+	int				nb_live;
 }					t_process;
 
 /*
@@ -68,6 +69,7 @@ typedef	struct		s_cw
 	long long		nb_process;
 	t_list			*process;
 	void			(*fct_tab[256])(struct s_cw*, t_process*);
+	int				cycle_to_die;
 }					t_cw;
 
 t_cw	cw_init(int ac, char **av);

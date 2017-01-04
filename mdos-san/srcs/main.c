@@ -14,9 +14,15 @@ int main(int ac, char **av)
 	t_list		*l;
 	t_process	*p;
 	long long	turn;
+	long long	check;
+	t_list	*prev;
+	long	nb_live;
+	int		max_check;
 
 	cw = cw_init(ac, av);
 	turn = 0;
+	check = 0;
+	max_check = 0;
 	initscr();
 	noecho();
 	curs_set(FALSE);
@@ -42,7 +48,43 @@ int main(int ac, char **av)
 	*/
 	while (cw.process)
 	{
-		mvprintw(0, 0, "TURN: %lld NB_PROCESS: %lld\n", turn, cw.nb_process);
+		/* Check pour diminuer cycle_to_die */
+		if (check == cw.cycle_to_die)
+		{
+			nb_live = 0;
+			l = cw.process;
+			prev = NULL;
+			while (l)
+			{
+				p = (t_process*)l->content;
+				if (p->nb_live > 0)
+				{
+					nb_live += p->nb_live;
+					prev = l;
+				}
+				else
+				{
+					if (prev != NULL)
+						prev->next = l->next;
+					else
+						cw.process = l->next;
+				}
+				p->nb_live = 0;
+				l = l->next;
+			}
+			if (nb_live >= NBR_LIVE || max_check == MAX_CHECKS)
+			{
+				cw.cycle_to_die -= CYCLE_DELTA;
+				if (cw.cycle_to_die < 0)
+					cw.cycle_to_die = 1;
+				max_check = 0;
+			}
+			else
+				max_check++;
+			check = 0;
+		}
+		/* END */
+		mvprintw(0, 0, "TURN: %lld NB_PROCESS: %lld, CYCLE_TO_DIE: %d, last_check_nb_live: %d, max_check: %d\n", turn, cw.nb_process, cw.cycle_to_die, nb_live, max_check);
 		board_print(cw);
 		l = cw.process;
 		while (l)
@@ -58,8 +100,10 @@ int main(int ac, char **av)
 		}
 		refresh();
 		++turn;
+		++check;
 	}
 	endwin();
+	ft_printf("Ended in turn %d\n", turn);
 	(cw.board) ? free(cw.board) : (void)0;
 	return (1);
 }

@@ -20,6 +20,7 @@ void	process_add(t_cw *cw, int champ, int pc)
 	new.nb_process = ++cw->nb_process;
 	new.is_waiting = 0;
 	new.waiting_turn = 0;
+	new.nb_live = 0;
 	ft_bzero(new.r, REG_NUMBER * REG_SIZE);
 	new.r[0] = champ;
 	if (cw->process == NULL)

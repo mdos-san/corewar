@@ -17,6 +17,7 @@ t_cw	cw_init(int ac, char **av)
 	cw.av = av;
 	cw.nb_process = 0;
 	cw.process = NULL;
+	cw.cycle_to_die = CYCLE_TO_DIE;
 	i = 0;
 	/*
 	**	Init par defaut toutes les fonctions de fct_tab a useless
