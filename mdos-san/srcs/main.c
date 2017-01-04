@@ -75,14 +75,14 @@ int main(int ac, char **av)
 			if (nb_live >= NBR_LIVE || max_check == MAX_CHECKS)
 			{
 				cw.cycle_to_die -= CYCLE_DELTA;
-				if (cw.cycle_to_die < 0)
-					cw.cycle_to_die = 1;
 				max_check = 0;
 			}
 			else
 				max_check++;
 			check = 0;
 		}
+		if (cw.cycle_to_die <= 0)
+			break ;
 		/* END */
 		mvprintw(0, 0, "TURN: %lld NB_PROCESS: %lld, CYCLE_TO_DIE: %d, last_check_nb_live: %d, max_check: %d\n", turn, cw.nb_process, cw.cycle_to_die, nb_live, max_check);
 		board_print(cw);
