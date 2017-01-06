@@ -59,39 +59,50 @@ t_ocp	ocp_get(unsigned char ocp)
 **	La fonction est juste faite pour sti, des amelioration sont a faire pour quelle soit utilisable dans toute les fonctions
 */
 
-void	ocp_parse(t_cw *cw, t_process *p, int *i, t_ocp ocp, int *one, int *two, int *three)
+void	ocp_parse(t_cw *cw, t_process *p, int *i, t_ocp ocp, int **one, int **two, int **three, int dir_two)
 {
-	*one = 0;
-	*two = 0;
-	*three = 0;
+	**one = 0;
+	**two = 0;
+	**three = 0;
 	if (ft_strcmp(ocp.one, "01") == 0)
 	{
-		*one = p->r[cw->board[p->pc + *i] - 1];
+		if (1 <= cw->board[p->pc + *i] && cw->board[p->pc + *i] <= 16)
+			*one = p->r + (cw->board[p->pc + *i]) - 1;
 		++*i;
 	}
-	else if (ft_strcmp(ocp.three, "10") == 0 || ft_strcmp(ocp.one, "11") == 0)
+	else if (ft_strcmp(ocp.one, "11") == 0 || dir_two == 1)// || ft_strcmp(ocp.one, "11") == 0)
 	{
-		((unsigned char *)one)[1] = cw->board[p->pc + *i];
-		((unsigned char *)one)[0] = cw->board[p->pc + *i + 1];
+/*		printw("REading %.2x 11\n", cw->board[p->pc + *i], cw->board[p->pc + *i]);
+		refresh();
+		sleep(1);
+*/		((unsigned char *)*one)[1] = cw->board[p->pc + *i];
+		((unsigned char *)*one)[0] = cw->board[p->pc + *i + 1];
 		*i += 2;
 	}
-/*	else if (ft_strcmp(ocp.one, "11") == 0)
+	else if (ft_strcmp(ocp.one, "10") == 0)
 	{
-		((unsigned char *)one)[3] = cw->board[p->pc + *i];
-		((unsigned char *)one)[2] = cw->board[p->pc + *i + 1];
-		((unsigned char *)one)[1] = cw->board[p->pc + *i + 2];
-		((unsigned char *)one)[0] = cw->board[p->pc + *i + 3];
+		((unsigned char *)*one)[3] = cw->board[p->pc + *i];
+		((unsigned char *)*one)[2] = cw->board[p->pc + *i + 1];
+		((unsigned char *)*one)[1] = cw->board[p->pc + *i + 2];
+		((unsigned char *)*one)[0] = cw->board[p->pc + *i + 3];
 		*i += 4;
 	}
-*/	if (ft_strcmp(ocp.two, "01") == 0)
+	if (ft_strcmp(ocp.two, "01") == 0)
 	{
-		*two = p->r[cw->board[p->pc + *i - 1]];
+/*		printw("REading %.2x GETTING REG%d ON SECOND OCP PARAMETER\n", cw->board[p->pc + *i], cw->board[p->pc + *i]);
+		refresh();
+		sleep(1);
+*/
+		if (1 <= cw->board[p->pc + *i] && cw->board[p->pc + *i] <= 16)
+		{
+			*two = p->r + (cw->board[p->pc + *i]) - 1;
+		}
 		++*i;
 	}
-	else if (ft_strcmp(ocp.three, "10") == 0 || ft_strcmp(ocp.two, "11") == 0)
+	else if (ft_strcmp(ocp.two, "10") == 0 || ft_strcmp(ocp.two, "11") == 0)
 	{
-		((unsigned char *)two)[1] = cw->board[p->pc + *i];
-		((unsigned char *)two)[0] = cw->board[p->pc + *i + 1];
+		((unsigned char *)*two)[1] = cw->board[p->pc + *i];
+		((unsigned char *)*two)[0] = cw->board[p->pc + *i + 1];
 		*i += 2;
 	}
 /*	else if (ft_strcmp(ocp.two, "11") == 0)
@@ -104,13 +115,16 @@ void	ocp_parse(t_cw *cw, t_process *p, int *i, t_ocp ocp, int *one, int *two, in
 	}
 */	if (ft_strcmp(ocp.three, "01") == 0)
 	{
-		*three = p->r[cw->board[p->pc + *i - 1] - 1];
+		if (1 <= cw->board[p->pc + *i] && cw->board[p->pc + *i] <= 16)
+		{
+			*three = p->r + cw->board[p->pc + *i] - 1;
+		}
 		++*i;
 	}
 	else if (ft_strcmp(ocp.three, "11") == 0 || ft_strcmp(ocp.three, "10") == 0)
 	{
-		((unsigned char *)three)[1] = cw->board[p->pc + *i];
-		((unsigned char *)three)[0] = cw->board[p->pc + *i + 1];
+		((unsigned char *)*three)[1] = cw->board[p->pc + *i];
+		((unsigned char *)*three)[0] = cw->board[p->pc + *i + 1];
 		*i += 2;
 	}
 /*	else if (ft_strcmp(ocp.three, "11") == 0)

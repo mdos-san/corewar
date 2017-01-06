@@ -2,7 +2,11 @@
 
 static int	is_useless(unsigned char c)
 {
-	if (c == 1 || c == 3 || c == 9 || c == 12 || c == 11)
+	if (c == 1 || c == 2 || c == 3 ||
+		c == 4 || c == 6 ||
+		c == 8 ||
+		c == 9 || c == 10 || c == 12 ||
+		c == 11)
 		return (0);
 	else
 		return (1);
@@ -48,6 +52,7 @@ int main(int ac, char **av)
 	*/
 	while (cw.process)
 	{
+		//usleep(100000);
 		/* Check pour diminuer cycle_to_die */
 		if (check == cw.cycle_to_die)
 		{
