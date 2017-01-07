@@ -25,7 +25,7 @@ void	board_print(t_cw cw)
 			}
 			l = l->next;
 		}
-		printw("%.2x", (int)cw.board[i]);
+		printw("%.2x ", (int)cw.board[i]);
 		if ((i + 1) % NB_COL  == 0)
 			printw("\n");
 		++i;

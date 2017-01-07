@@ -12,7 +12,7 @@
 # include "libftprintf.h"
 
 # define DEBUG 1
-# define NB_COL	80
+# define NB_COL	64
 
 typedef struct		s_ocp
 {
@@ -43,6 +43,7 @@ typedef struct		s_process
 	int				waiting_turn;
 	int				r[REG_NUMBER];
 	int				nb_live;
+	int				carry;
 }					t_process;
 
 /*
@@ -81,7 +82,7 @@ void	live(t_cw *cw, t_process *p);
 void	ld(t_cw *cw, t_process *p);
 void	st(t_cw *cw, t_process *p);
 void	add(t_cw *cw, t_process *p);
-void	and(t_cw *cw, t_process *p);
+void	cw_and(t_cw *cw, t_process *p);
 void	xor(t_cw *cw, t_process *p);
 void	zjmp(t_cw *cw, t_process *p);
 void	sti(t_cw *cw, t_process *p);

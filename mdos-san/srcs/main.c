@@ -52,7 +52,8 @@ int main(int ac, char **av)
 	*/
 	while (cw.process)
 	{
-		//usleep(100000);
+//		if (turn > 4700)
+//		usleep(100000);
 		/* Check pour diminuer cycle_to_die */
 		if (check == cw.cycle_to_die)
 		{

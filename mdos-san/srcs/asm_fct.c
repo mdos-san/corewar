@@ -50,6 +50,10 @@ void	ld(t_cw *cw, t_process *p)
 		++y;
 	}
 	p->pc = add_index_mod(p->pc, i);
+	if (*two == 0)
+		p->carry = 1;
+	else
+		p->carry = 0;
 }
 
 void	st(t_cw *cw, t_process *p)
@@ -105,17 +109,21 @@ void	add(t_cw *cw, t_process *p)
 //	refresh();
 //	sleep(3);
 	tmp = *one + *two;
-	if (p->nb_champ == -2)
+	if (p->nb_champ == -1)
 	{
-//		printw("\nADD one %d two %d result(three) %d\n", one[0], two[0], tmp);
-//		refresh();
-//		sleep(2);
+		printw("\nADD one %d two %d result(three) %d\n", one[0], two[0], tmp);
+		refresh();
+//		sleep(10);
 	}
 	*three = tmp;
 	p->pc = add_index_mod(p->pc, i);
+	if (*three == 0)
+		p->carry = 1;
+	else
+		p->carry = 0;
 }
 
-void	and(t_cw *cw, t_process *p)
+void	cw_and(t_cw *cw, t_process *p)
 {
 	int		*one;
 	int		*two;
@@ -130,9 +138,7 @@ void	and(t_cw *cw, t_process *p)
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
 	ocp_parse(cw, p, &i, ocp, (int **)&one, (int **)&two, (int **)&three, 1);
-//	printw("\none %d two %d\n", one[0], two[0]);
-//	refresh();
-//	sleep(3);
+	printw("\n\nAND ocp: |%S%S%S00| one %d two %d\n", ocp.one, ocp.two, ocp.three, one[0], two[0]);
 	if (p->nb_champ == -2)
 	{
 //		printw("\nAND one %d two %d result %d\n", one[0], two[0], three[0], *one & *two);
@@ -141,7 +147,10 @@ void	and(t_cw *cw, t_process *p)
 	}
 	*three = *one & *two;
 	p->pc = add_index_mod(p->pc, i);
-	p->pc = p->pc + i % MEM_SIZE;
+	if (*three == 0)
+		p->carry = 1;
+	else
+		p->carry = 0;
 }
 
 void	xor(t_cw *cw, t_process *p)
@@ -164,14 +173,18 @@ void	xor(t_cw *cw, t_process *p)
 //	sleep(3);
 //	*one = (one[0] < 0) ? 4294967295 + one[0] + 1 : one[0];
 //	*two = (*two < 0) ? 4294967295 + *two + 1 : *two;
-	if (p->nb_champ == -2)
+	if (p->nb_champ == -1)
 	{
 		printw("\nXOR one %d two %d result %d\n", one[0], two[0], *one ^ *two);
-		refresh();
-//		sleep(2);
+//		refresh();
+//		sleep(1);
 	}
 	*three = *one ^ *two;
 	p->pc = add_index_mod(p->pc, i);
+	if (*three == 0)
+		p->carry = 1;
+	else
+		p->carry = 0;
 }
 
 void	zjmp(t_cw *cw, t_process *p)
@@ -180,10 +193,15 @@ void	zjmp(t_cw *cw, t_process *p)
 
 	*(((char *)&j) + 1) = cw->board[p->pc + 1];
 	*(((char *)&j)) = cw->board[p->pc + 2];
-	if (j > 32768)
-		p->pc = add_index_mod(p->pc, j - 65535 - 1);
+	if (p->carry == 1)
+	{
+		if (j > 32768)
+			p->pc = add_index_mod(p->pc, j - 65535 - 1);
+		else
+			p->pc = add_index_mod(p->pc, j);
+	}
 	else
-		p->pc = add_index_mod(p->pc, j);
+		p->pc = add_index_mod(p->pc, 3);
 }
 
 void	ldi(t_cw *cw, t_process *p)
