@@ -1,0 +1,7 @@
+corewar
+includes/libft.h
+includes/libftprintf.h
+*.a
+*.o
+*.swp
+*DS_Store*
