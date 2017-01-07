@@ -15,18 +15,18 @@ le visualiseur est activé par **defaut (pas de -n)**, voici un example d'utilis
     
 La vm n'etant pas finie, le vainqueur de la partie n'est pas afficher a la fin.
 
-Les commandes asm gerée sont ( **opcode**. *commande*):
+Les commandes asm gerée sont (*opcode* **commande**):
 
-1. **live**
-2. **ld**
-3. **st**
-4. **add**
-6. **and**
-8. **xor**
-9. **zjmp**
-10. **ldi**
-11. **sti**
-12. **fork**
+* *1* **live**
+* *2* **ld**
+* *3* **st**
+* *4* **add**
+* *6* **and**
+* *8* **xor**
+* *9* **zjmp**
+* *10* **ldi**
+* *11* **sti**
+* *12* **fork**
 
 Quelque soucis sont encore présent avec le **carry**, des tests seront fait lors de la prochaine version pour s'assurer de son bon fonctionnement.
 
