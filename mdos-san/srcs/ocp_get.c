@@ -59,36 +59,41 @@ t_ocp	ocp_get(unsigned char ocp)
 **	La fonction est juste faite pour sti, des amelioration sont a faire pour quelle soit utilisable dans toute les fonctions
 */
 
-static	void	ocp_part(t_cw *cw, t_process *p, int *i,  int **one, char *str, int dir_two)
+static	void	ocp_part(t_cw *cw, t_process *p, int *i, int *v, int **pt, char *str, int dir_two)
 {
 	if (ft_strcmp(str, "01") == 0)
 	{
 		if (1 <= cw->board[p->pc + *i] && cw->board[p->pc + *i] <= 16)
-			*one = p->r + (cw->board[p->pc + *i]) - 1;
+		{
+			*pt = p->r + (cw->board[p->pc + *i]) - 1;
+		}
 		++*i;
 	}
-	else if (ft_strcmp(str, "11") == 0 || dir_two == 1)// || ft_strcmp(ocp.one, "11") == 0)
+	else if (ft_strcmp(str, "11") == 0 || dir_two == 1)
 	{
-		((unsigned char *)*one)[1] = cw->board[p->pc + *i];
-		((unsigned char *)*one)[0] = cw->board[p->pc + *i + 1];
+		((unsigned char *)v)[1] = cw->board[p->pc + *i];
+		((unsigned char *)v)[0] = cw->board[p->pc + *i + 1];
 		*i += 2;
 	}
 	else if (ft_strcmp(str, "10") == 0)
 	{
-		((unsigned char *)*one)[3] = cw->board[p->pc + *i];
-		((unsigned char *)*one)[2] = cw->board[p->pc + *i + 1];
-		((unsigned char *)*one)[1] = cw->board[p->pc + *i + 2];
-		((unsigned char *)*one)[0] = cw->board[p->pc + *i + 3];
+		((unsigned char *)v)[3] = cw->board[p->pc + *i];
+		((unsigned char *)v)[2] = cw->board[p->pc + *i + 1];
+		((unsigned char *)v)[1] = cw->board[p->pc + *i + 2];
+		((unsigned char *)v)[0] = cw->board[p->pc + *i + 3];
 		*i += 4;
 	}
 }
 
-void	ocp_parse(t_cw *cw, t_process *p, int *i, t_ocp ocp, int **one, int **two, int **three, int dir_two)
+void	ocp_parse(t_cw *cw, t_process *p, int *i, t_ocp ocp, int dir_two)
 {
-	**one = 0;
-	**two = 0;
-	**three = 0;
-	ocp_part(cw, p, i, one, ocp.one, dir_two);
-	ocp_part(cw, p, i, two, ocp.two, dir_two);
-	ocp_part(cw, p, i, three, ocp.three, dir_two);
+	p->p_one = &p->one;
+	p->p_two = &p->two;
+	p->p_three = &p->three;
+	p->one = 0;
+	p->two = 0;
+	p->three = 0;
+	ocp_part(cw, p, i, &p->one, &p->p_one, ocp.one, dir_two);
+	ocp_part(cw, p, i, &p->two, &p->p_two, ocp.two, dir_two);
+	ocp_part(cw, p, i, &p->three, &p->p_three, ocp.three, dir_two);
 }

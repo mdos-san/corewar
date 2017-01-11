@@ -3,7 +3,7 @@
 void	useless(t_cw *cw, t_process *process)
 {
 	(void)cw;
-	(void)process;
+	++process->pc;
 }
 
 t_cw	cw_init(int ac, char **av)

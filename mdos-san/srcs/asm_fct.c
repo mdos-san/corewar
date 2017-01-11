@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   asm_fct.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/01/11 18:44:45 by mdos-san          #+#    #+#             */
+/*   Updated: 2017/01/11 18:44:47 by mdos-san         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 int		add_index_mod(int a, int b)
@@ -17,33 +29,26 @@ void	live(t_cw *cw, t_process *p)
 
 void	ld(t_cw *cw, t_process *p)
 {
-	int	*one;
-	int	*two;
-	int	*three;
 	int	i;
+	int y;
 	t_ocp ocp;
 
-	one = (int *)malloc(4);
-	two = (int *)malloc(4);
-	three = (int *)malloc(4);
+	y = 0;
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, (int **)&one, (int **)&two, (int **)&three, 0);
-	int y;
-
-	y = 0;
+	ocp_parse(cw, p, &i, ocp, 0);
 	while (y < 16)
 	{
-		if (p->r + y == two)
+		if (p->r + y == p->p_two)
 		{
-			*two = *one;
+			*p->p_two = *p->p_one;
 			break ;
 		}
 		++y;
 	}
 	p->pc = add_index_mod(p->pc, i);
-	if (*two == 0)
+	if (*p->p_two == 0)
 		p->carry = 1;
 	else
 		p->carry = 0;
@@ -51,48 +56,36 @@ void	ld(t_cw *cw, t_process *p)
 
 void	st(t_cw *cw, t_process *p)
 {
-	int		*one;
-	int		*two;
-	int		*three;
 	int		i;
 	int		tmp;
 	t_ocp	ocp;
 
-	one = (int *)malloc(4);
-	two = (int *)malloc(4);
-	three = (int *)malloc(4);
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, (int **)&one, (int **)&two, (int **)&three, 0);
-	tmp = (one[0] < 0) ? 4294967295 + one[0] + 1 : one[0];
-	cw->board[add_index_mod(p->pc, two[0] + 0)] = ((char *)(&tmp))[3];
-	cw->board[add_index_mod(p->pc, two[0] + 1)] = ((char *)(&tmp))[2];
-	cw->board[add_index_mod(p->pc, two[0] + 2)] = ((char *)(&tmp))[1];
-	cw->board[add_index_mod(p->pc, two[0] + 3)] = ((char *)(&tmp))[0];
+	ocp_parse(cw, p, &i, ocp, 0);
+	tmp = (p->p_one[0] < 0) ? 4294967295 + p->p_one[0] + 1 : p->p_one[0];
+	cw->board[add_index_mod(p->pc, p->p_two[0] + 0)] = ((char *)(&tmp))[3];
+	cw->board[add_index_mod(p->pc, p->p_two[0] + 1)] = ((char *)(&tmp))[2];
+	cw->board[add_index_mod(p->pc, p->p_two[0] + 2)] = ((char *)(&tmp))[1];
+	cw->board[add_index_mod(p->pc, p->p_two[0] + 3)] = ((char *)(&tmp))[0];
 	p->pc = add_index_mod(p->pc, i);
 }
 
 void	add(t_cw *cw, t_process *p)
 {
-	int		*one;
-	int		*two;
-	int		*three;
 	int		tmp;
 	int		i;
 	t_ocp	ocp;
 
-	one = (int *)malloc(4);
-	two = (int *)malloc(4);
-	three = (int *)malloc(4);
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, (int **)&one, (int **)&two, (int **)&three, 1);
-	tmp = *one + *two;
-	*three = tmp;
+	ocp_parse(cw, p, &i, ocp, 1);
+	tmp = *p->p_one + *p->p_two;
+	*p->p_three = tmp;
 	p->pc = add_index_mod(p->pc, i);
-	if (*three == 0)
+	if (*p->p_three == 0)
 		p->carry = 1;
 	else
 		p->carry = 0;
@@ -100,22 +93,16 @@ void	add(t_cw *cw, t_process *p)
 
 void	cw_and(t_cw *cw, t_process *p)
 {
-	int		*one;
-	int		*two;
-	int		*three;
 	int		i;
 	t_ocp	ocp;
 
-	one = (int *)malloc(4);
-	two = (int *)malloc(4);
-	three = (int *)malloc(4);
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, (int **)&one, (int **)&two, (int **)&three, 0);
-	*three = *one & *two;
+	ocp_parse(cw, p, &i, ocp, 0);
+	*p->p_three = *p->p_one & *p->p_two;
 	p->pc = add_index_mod(p->pc, i);
-	if (*three == 0)
+	if (*p->p_three == 0)
 		p->carry = 1;
 	else
 		p->carry = 0;
@@ -123,22 +110,16 @@ void	cw_and(t_cw *cw, t_process *p)
 
 void	xor(t_cw *cw, t_process *p)
 {
-	int		*one;
-	int		*two;
-	int		*three;
 	int		i;
 	t_ocp	ocp;
 
-	one = (int *)malloc(4);
-	two = (int *)malloc(4);
-	three = (int *)malloc(4);
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, (int **)&one, (int **)&two, (int **)&three, 0);
-	*three = *one ^ *two;
+	ocp_parse(cw, p, &i, ocp, 0);
+	*p->p_three = *p->p_one ^ *p->p_two;
 	p->pc = add_index_mod(p->pc, i);
-	if (*three == 0)
+	if (*p->p_three == 0)
 		p->carry = 1;
 	else
 		p->carry = 0;
@@ -163,25 +144,19 @@ void	zjmp(t_cw *cw, t_process *p)
 
 void	ldi(t_cw *cw, t_process *p)
 {
-	int	*one;
-	int	*two;
-	int	*three;
 	int	i;
 	int	new_addr;
 	t_ocp ocp;
 
-	one = (int *)malloc(4);
-	two = (int *)malloc(4);
-	three = (int *)malloc(4);
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, (int **)&one, (int **)&two, (int **)&three, 1);
-	new_addr = add_index_mod(*one, *two);
-	((char *)three)[3] = *(cw->board + add_index_mod(p->pc, new_addr));
-	((char *)three)[2] = *(cw->board + add_index_mod(p->pc, new_addr) + 1);
-	((char *)three)[1] = *(cw->board + add_index_mod(p->pc, new_addr) + 2);
-	((char *)three)[0] = *(cw->board + add_index_mod(p->pc, new_addr) + 3);
+	ocp_parse(cw, p, &i, ocp, 1);
+	new_addr = add_index_mod(*p->p_one, *p->p_two);
+	((char *)p->p_three)[3] = *(cw->board + add_index_mod(p->pc, new_addr));
+	((char *)p->p_three)[2] = *(cw->board + add_index_mod(p->pc, new_addr) + 1);
+	((char *)p->p_three)[1] = *(cw->board + add_index_mod(p->pc, new_addr) + 2);
+	((char *)p->p_three)[0] = *(cw->board + add_index_mod(p->pc, new_addr) + 3);
 	p->pc = (p->pc + i) % MEM_SIZE;
 }
 
@@ -189,6 +164,7 @@ void	frk(t_cw *cw, t_process *p)
 {
 	unsigned short	j;
 
+	j = 0;
 	*(((char *)&j) + 1) = cw->board[p->pc + 1];
 	*(((char *)&j)) = cw->board[p->pc + 2];
 	if (j > 32768)
@@ -198,29 +174,22 @@ void	frk(t_cw *cw, t_process *p)
 	p->pc = add_index_mod(p->pc, 3);
 }
 
-
 void	sti(t_cw *cw, t_process *p)
 {
-	int		*one;
-	int		*two;
-	int		*three;
 	int		sum;
 	int		i;
 	t_ocp	ocp;
 
-	one = (int *)malloc(4);
-	two = (int *)malloc(4);
-	three = (int *)malloc(4);
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, (int **)&one, (int **)&two, (int **)&three, 1);
-	*one = (one[0] < 0) ? 4294967295 + one[0] + 1 : one[0];
-	sum = *two + *three;
-	cw->board[add_index_mod(p->pc, sum + 0)] = ((char *)(one))[3];
-	cw->board[add_index_mod(p->pc, sum + 1)] = ((char *)(one))[2];
-	cw->board[add_index_mod(p->pc, sum + 2)] = ((char *)(one))[1];
-	cw->board[add_index_mod(p->pc, sum + 3)] = ((char *)(one))[0];
+	ocp_parse(cw, p, &i, ocp, 1);
+	*p->p_one = (p->p_one[0] < 0) ? 4294967295 + p->p_one[0] + 1 : p->p_one[0];
+	sum = *p->p_two + *p->p_three;
+	cw->board[add_index_mod(p->pc, sum + 0)] = ((char *)(p->p_one))[3];
+	cw->board[add_index_mod(p->pc, sum + 1)] = ((char *)(p->p_one))[2];
+	cw->board[add_index_mod(p->pc, sum + 2)] = ((char *)(p->p_one))[1];
+	cw->board[add_index_mod(p->pc, sum + 3)] = ((char *)(p->p_one))[0];
 	p->pc = add_index_mod(p->pc, i);
 }
 
@@ -238,7 +207,7 @@ int	get_turn(unsigned char c)
 		return (25);
 	else if (c == 12)
 		return (800);
-	return (1);
+	return (0);
 }
 
 /*
@@ -256,13 +225,10 @@ void	exec(t_cw *cw, t_process *p, void (*fct)(t_cw *, t_process *))
 		p->is_waiting = 1;
 		p->waiting_turn = get_turn(cw->board[p->pc]);
 	}
-	else
+	if (p->waiting_turn == 0)
 	{
-		if (p->waiting_turn == 0)
-		{
-			fct(cw, p);
-			p->is_waiting = 0;
-		}
-		--p->waiting_turn;
+		fct(cw, p);
+		p->is_waiting = 0;
 	}
+	--p->waiting_turn;
 }

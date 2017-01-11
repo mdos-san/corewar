@@ -1,17 +1,5 @@
 #include "corewar.h"
 
-static int	is_useless(unsigned char c)
-{
-	if (c == 1 || c == 2 || c == 3 ||
-		c == 4 || c == 6 ||
-		c == 8 ||
-		c == 9 || c == 10 || c == 12 ||
-		c == 11)
-		return (0);
-	else
-		return (1);
-}
-
 int main(int ac, char **av)
 {
 	t_cw		cw;
@@ -90,16 +78,14 @@ int main(int ac, char **av)
 		if (cw.cycle_to_die <= 0)
 			break ;
 		/* END */
+		attron(COLOR_PAIR(1));
 		mvprintw(0, 0, "TURN: %lld NB_PROCESS: %lld, CYCLE_TO_DIE: %d, last_check_nb_live: %d, max_check: %d\n", turn, cw.nb_process, cw.cycle_to_die, nb_live, max_check);
 		board_print(cw);
 		l = cw.process;
 		while (l)
 		{
 			p = (t_process*)l->content;
-			if (is_useless(cw.board[p->pc]))
-				p->pc++;
-			else
-				exec(&cw, p, cw.fct_tab[cw.board[p->pc]]);
+			exec(&cw, p, cw.fct_tab[cw.board[p->pc]]);
 			if (p->pc == MEM_SIZE)
 				p->pc = 0;
 			l = l->next;

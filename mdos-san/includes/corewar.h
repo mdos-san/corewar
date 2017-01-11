@@ -44,6 +44,12 @@ typedef struct		s_process
 	int				r[REG_NUMBER];
 	int				nb_live;
 	int				carry;
+	int				*p_one;
+	int				*p_two;
+	int				*p_three;
+	int				one;
+	int				two;
+	int				three;
 }					t_process;
 
 /*
@@ -89,6 +95,6 @@ void	sti(t_cw *cw, t_process *p);
 void	ldi(t_cw *cw, t_process *p);
 void	frk(t_cw *cw, t_process *p);
 t_ocp	ocp_get(unsigned char ocp);
-void	ocp_parse(t_cw *cw, t_process *p, int *i, t_ocp ocp, int **one, int **two, int **three, int dir_two);
+void	ocp_parse(t_cw *cw, t_process *p, int *i, t_ocp ocp, int dir_two);
 
 #endif
