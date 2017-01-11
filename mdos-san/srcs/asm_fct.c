@@ -29,12 +29,7 @@ void	ld(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	printw("ocp one %s %s %s\n", ocp.one, ocp.two, ocp.three);
-	printw("i + 2 %.2x\n", cw->board[p->pc + i + 2]);
-	refresh();
-//	sleep(1);
 	ocp_parse(cw, p, &i, ocp, (int **)&one, (int **)&two, (int **)&three, 0);
-//	one[0] = (one[0] < 0) ? 4294967295 + one[0] + 1 : one[0];
 	int y;
 
 	y = 0;
@@ -43,9 +38,7 @@ void	ld(t_cw *cw, t_process *p)
 		if (p->r + y == two)
 		{
 			*two = *one;
-			printw("ASSIGN %d TO %p THAT IS REG%d reg now EQUAL %d\n", one[0], two, y, *two);
-			refresh();
-	//		sleep(2);
+			break ;
 		}
 		++y;
 	}
@@ -71,17 +64,8 @@ void	st(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, (int **)&one, (int **)&two, (int **)&three, 1);
+	ocp_parse(cw, p, &i, ocp, (int **)&one, (int **)&two, (int **)&three, 0);
 	tmp = (one[0] < 0) ? 4294967295 + one[0] + 1 : one[0];
-	if (p->nb_champ == -2)
-	{
-		printw("\nSTI one %d two %d three %d\n", one[0], two[0], three[0]);
-		refresh();
-	//	sleep(1);
-	}
-//	printw("\none %d two %d\n", one[0], two[0]);
-//	refresh();
-//	sleep(3);
 	cw->board[add_index_mod(p->pc, two[0] + 0)] = ((char *)(&tmp))[3];
 	cw->board[add_index_mod(p->pc, two[0] + 1)] = ((char *)(&tmp))[2];
 	cw->board[add_index_mod(p->pc, two[0] + 2)] = ((char *)(&tmp))[1];
@@ -105,16 +89,7 @@ void	add(t_cw *cw, t_process *p)
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
 	ocp_parse(cw, p, &i, ocp, (int **)&one, (int **)&two, (int **)&three, 1);
-//	printw("\none %d two %d\n", one[0], two[0]);
-//	refresh();
-//	sleep(3);
 	tmp = *one + *two;
-	if (p->nb_champ == -1)
-	{
-		printw("\nADD one %d two %d result(three) %d\n", one[0], two[0], tmp);
-		refresh();
-//		sleep(10);
-	}
 	*three = tmp;
 	p->pc = add_index_mod(p->pc, i);
 	if (*three == 0)
@@ -137,14 +112,7 @@ void	cw_and(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, (int **)&one, (int **)&two, (int **)&three, 1);
-	printw("\n\nAND ocp: |%S%S%S00| one %d two %d\n", ocp.one, ocp.two, ocp.three, one[0], two[0]);
-	if (p->nb_champ == -2)
-	{
-//		printw("\nAND one %d two %d result %d\n", one[0], two[0], three[0], *one & *two);
-//		refresh();
-//		sleep(2);
-	}
+	ocp_parse(cw, p, &i, ocp, (int **)&one, (int **)&two, (int **)&three, 0);
 	*three = *one & *two;
 	p->pc = add_index_mod(p->pc, i);
 	if (*three == 0)
@@ -167,18 +135,7 @@ void	xor(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, (int **)&one, (int **)&two, (int **)&three, 1);
-//	printw("\none %d two %d\n", one[0], two[0]);
-//	refresh();
-//	sleep(3);
-//	*one = (one[0] < 0) ? 4294967295 + one[0] + 1 : one[0];
-//	*two = (*two < 0) ? 4294967295 + *two + 1 : *two;
-	if (p->nb_champ == -1)
-	{
-		printw("\nXOR one %d two %d result %d\n", one[0], two[0], *one ^ *two);
-//		refresh();
-//		sleep(1);
-	}
+	ocp_parse(cw, p, &i, ocp, (int **)&one, (int **)&two, (int **)&three, 0);
 	*three = *one ^ *two;
 	p->pc = add_index_mod(p->pc, i);
 	if (*three == 0)
@@ -220,9 +177,6 @@ void	ldi(t_cw *cw, t_process *p)
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
 	ocp_parse(cw, p, &i, ocp, (int **)&one, (int **)&two, (int **)&three, 1);
-	printw("\none %d two %d three %d\n", *one, *two, *three);
-	refresh();
-	//sleep(2);
 	new_addr = add_index_mod(*one, *two);
 	((char *)three)[3] = *(cw->board + add_index_mod(p->pc, new_addr));
 	((char *)three)[2] = *(cw->board + add_index_mod(p->pc, new_addr) + 1);
@@ -263,12 +217,6 @@ void	sti(t_cw *cw, t_process *p)
 	ocp_parse(cw, p, &i, ocp, (int **)&one, (int **)&two, (int **)&three, 1);
 	*one = (one[0] < 0) ? 4294967295 + one[0] + 1 : one[0];
 	sum = *two + *three;
-	if (p->nb_champ == -2 && *one != -2)
-	{
-		printw("\none %d two %d three %d\n", one[0], two[0], three[0]);
-		refresh();
-	//	sleep(1);
-	}
 	cw->board[add_index_mod(p->pc, sum + 0)] = ((char *)(one))[3];
 	cw->board[add_index_mod(p->pc, sum + 1)] = ((char *)(one))[2];
 	cw->board[add_index_mod(p->pc, sum + 2)] = ((char *)(one))[1];
