@@ -97,4 +97,5 @@ void	frk(t_cw *cw, t_process *p);
 t_ocp	ocp_get(unsigned char ocp);
 void	ocp_parse(t_cw *cw, t_process *p, int *i, t_ocp ocp, int dir_two);
 
+void	cw_parse(t_cw *cw);
 #endif

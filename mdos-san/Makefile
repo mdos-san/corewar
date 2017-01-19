@@ -8,7 +8,8 @@ SRC_O	=		main.o\
 				bytecode_read.o\
 				board_print.o\
 				process_add.o\
-				ocp_get.o
+				ocp_get.o\
+				parse.o
 
 all:    corewar
 
