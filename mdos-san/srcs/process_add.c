@@ -11,7 +11,7 @@
 **|	
 */
 
-void	process_add(t_cw *cw, int champ, int pc)
+void	process_add(t_cw *cw, int champ, int pc, int color_nb)
 {
 	t_process	new;
 
@@ -28,6 +28,7 @@ void	process_add(t_cw *cw, int champ, int pc)
 	new.one = 0;
 	new.two = 0;
 	new.three = 0;
+	new.color_nb = color_nb;
 	ft_bzero(new.r, REG_NUMBER * REG_SIZE);
 	new.r[0] = champ;
 	if (cw->process == NULL)

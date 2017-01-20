@@ -19,10 +19,16 @@ int main(int ac, char **av)
 	noecho();
 	curs_set(FALSE);
 	start_color();
-	init_pair(1, COLOR_WHITE, COLOR_BLACK);
-	init_pair(2, COLOR_WHITE, COLOR_BLUE);
-	init_pair(3, COLOR_GREEN, COLOR_BLACK);
-	init_pair(4, COLOR_GREEN, COLOR_BLUE);
+	init_pair(42, COLOR_WHITE, COLOR_BLACK);
+	init_pair(1, COLOR_GREEN, COLOR_BLACK);
+	init_pair(2, COLOR_BLUE, COLOR_BLACK);
+	init_pair(3, COLOR_RED, COLOR_BLACK);
+	init_pair(4, COLOR_YELLOW, COLOR_BLACK);
+	init_pair(1 + 4, COLOR_GREEN, COLOR_CYAN);
+	init_pair(2 + 4, COLOR_BLUE, COLOR_CYAN);
+	init_pair(3 + 4, COLOR_RED, COLOR_CYAN);
+	init_pair(4 + 4, COLOR_YELLOW, COLOR_CYAN);
+	init_pair(42 + 4, COLOR_WHITE, COLOR_CYAN);
 	/*
 	**	TODO
 	**

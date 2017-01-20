@@ -6,7 +6,7 @@
 **|	fonction qui permet de lire le bytecode d'un fichier passé par cw->av
 */
 
-int	bytecode_read(t_cw *cw, char *file, int	index)
+int	bytecode_read(t_cw *cw, char *file, int	index, int color_nb)
 {
 	int				fd;
 	unsigned char	buf[1];
@@ -27,6 +27,7 @@ int	bytecode_read(t_cw *cw, char *file, int	index)
 			if (i >= 4 + 128 + 8 + 2048 + 4)
 			{
 				cw->board[j + index] = buf[0];
+				cw->board_color[j + index] = color_nb;
 				++j;
 			}
 			++i;

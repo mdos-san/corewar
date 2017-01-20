@@ -50,6 +50,7 @@ typedef struct		s_process
 	int				one;
 	int				two;
 	int				three;
+	char			color_nb;
 }					t_process;
 
 /*
@@ -73,6 +74,7 @@ typedef	struct		s_cw
 	int				ac;
 	char			**av;
 	unsigned char	*board;
+	char			*board_color;
 	long long		nb_process;
 	t_list			*process;
 	void			(*fct_tab[256])(struct s_cw*, t_process*);
@@ -81,8 +83,8 @@ typedef	struct		s_cw
 
 t_cw	cw_init(int ac, char **av);
 void	board_print(t_cw cw);
-int		bytecode_read(t_cw *cw, char *file, int	index);
-void	process_add(t_cw *cw, int champ, int pc);
+int		bytecode_read(t_cw *cw, char *file, int	index, int color_nb);
+void	process_add(t_cw *cw, int champ, int pc, int color_nb);
 void	exec(t_cw *cw, t_process *p, void (*fct)(t_cw *, t_process *));
 void	live(t_cw *cw, t_process *p);
 void	ld(t_cw *cw, t_process *p);

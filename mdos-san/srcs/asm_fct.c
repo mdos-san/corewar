@@ -69,6 +69,10 @@ void	st(t_cw *cw, t_process *p)
 	cw->board[add_index_mod(p->pc, p->p_two[0] + 1)] = ((char *)(&tmp))[2];
 	cw->board[add_index_mod(p->pc, p->p_two[0] + 2)] = ((char *)(&tmp))[1];
 	cw->board[add_index_mod(p->pc, p->p_two[0] + 3)] = ((char *)(&tmp))[0];
+	cw->board_color[add_index_mod(p->pc, p->p_two[0] + 0)] = p->color_nb;
+	cw->board_color[add_index_mod(p->pc, p->p_two[0] + 1)] = p->color_nb;
+	cw->board_color[add_index_mod(p->pc, p->p_two[0] + 2)] = p->color_nb;
+	cw->board_color[add_index_mod(p->pc, p->p_two[0] + 3)] = p->color_nb;
 	p->pc = add_index_mod(p->pc, i);
 }
 
@@ -168,9 +172,9 @@ void	frk(t_cw *cw, t_process *p)
 	*(((char *)&j) + 1) = cw->board[p->pc + 1];
 	*(((char *)&j)) = cw->board[p->pc + 2];
 	if (j > 32768)
-		process_add(cw, p->nb_champ, p->pc + (j - 65535 - 1));
+		process_add(cw, p->nb_champ, p->pc + (j - 65535 - 1), p->color_nb);
 	else
-		process_add(cw, p->nb_champ, p->pc + j);
+		process_add(cw, p->nb_champ, p->pc + j, p->color_nb);
 	p->pc = add_index_mod(p->pc, 3);
 }
 
@@ -190,6 +194,10 @@ void	sti(t_cw *cw, t_process *p)
 	cw->board[add_index_mod(p->pc, sum + 1)] = ((char *)(p->p_one))[2];
 	cw->board[add_index_mod(p->pc, sum + 2)] = ((char *)(p->p_one))[1];
 	cw->board[add_index_mod(p->pc, sum + 3)] = ((char *)(p->p_one))[0];
+	cw->board_color[add_index_mod(p->pc, sum + 0)] = p->color_nb;
+	cw->board_color[add_index_mod(p->pc, sum + 1)] = p->color_nb;
+	cw->board_color[add_index_mod(p->pc, sum + 2)] = p->color_nb;
+	cw->board_color[add_index_mod(p->pc, sum + 3)] = p->color_nb;
 	p->pc = add_index_mod(p->pc, i);
 }
 

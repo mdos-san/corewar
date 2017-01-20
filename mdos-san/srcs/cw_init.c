@@ -13,6 +13,7 @@ t_cw	cw_init(int ac, char **av)
 
 	cw.debug = DEBUG;
 	cw.board = (unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE);
+	cw.board_color = ft_strnew(MEM_SIZE);
 	cw.ac = ac;
 	cw.av = av;
 	cw.nb_process = 0;

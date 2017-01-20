@@ -63,8 +63,8 @@ void	cw_parse(t_cw *cw)
 	{
 		if (str_match_end(cw->av[j], ".cor"))
 		{
-			bytecode_read(cw, cw->av[j], (MEM_SIZE / nb_player) * i);
-			process_add(cw, - (i + 1), (MEM_SIZE / nb_player) * i);
+			bytecode_read(cw, cw->av[j], (MEM_SIZE / nb_player) * i, i + 1);
+			process_add(cw, - (i + 1), (MEM_SIZE / nb_player) * i, i + 1);
 			++i;
 		}
 		++j;	
