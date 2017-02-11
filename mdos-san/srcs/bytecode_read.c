@@ -51,7 +51,11 @@ int	bytecode_read(t_cw *cw, char *file, int	index, int color_nb)
 	comment = ft_strnew(COMMENT_LENGTH);
 	fd = open(file, O_RDONLY);	
 	if (fd == -1)
+	{
+		ft_printf("\nERROR: Can't read source file %s\n", file);
+		exit(0);
 		return (-1);
+	}
 	else
 	{
 		while (read(fd, buf, 1) > 0)

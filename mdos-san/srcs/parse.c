@@ -1,5 +1,18 @@
 #include "corewar.h"
 
+int	str_is_digit(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		++i;
+	}
+	return (1);
+}
 
 int	str_match_end(char *str, char *template)
 {
@@ -24,13 +37,16 @@ int	str_match_end(char *str, char *template)
 	return (1);
 }
 
-static int	parse_error(char *s)
+static int	parse_error(t_cw *cw, char *s)
 {
+	if (cw->f_v)
+		endwin();
 	ft_printf("ERROR: %s", s);
+	ft_putchar('\n');
 	exit(0);
 }
 
-static int	parse_get_number_player(t_cw *cw)
+static int	parse_get_number_player(t_cw *cw, int *nb)
 {
 	char	**av;
 	int		i;
@@ -41,17 +57,28 @@ static int	parse_get_number_player(t_cw *cw)
 	nb_player = 0;
 	while (i < cw->ac)
 	{
-		ft_printf("%s ", av[i]);
 		if (ft_strcmp(av[i], "-dump") == 0)
 		{
-			if (i + 1 < cw->ac)
+			if (i + 1 < cw->ac && str_is_digit(av[i + 1]))
 				cw->f_dump = ft_atoi(av[i + 1]);
 			else
-				parse_error("Dump arg is missing.");
+				parse_error(cw, "-dump value is missing.");
 			++i;
 		}
-		else if (str_match_end(av[i], ".cor"))
+		else if (ft_strcmp(av[i], "-n") == 0)
+		{
+			if (i + 1 < cw->ac && str_is_digit(av[i + 1]) && nb_player < 4)
+				nb[nb_player] = ft_atoi(av[i + 1]);
+			else
+				parse_error(cw, "-n value is missing.");
+			++i;
+		}
+		else
+		{
+			if (nb_player < 4)
+				cw->champs[nb_player].path = ft_strdup(av[i]);
 			++nb_player;
+		}
 		++i;
 	}
 	return (nb_player);
@@ -59,26 +86,27 @@ static int	parse_get_number_player(t_cw *cw)
 
 void	cw_parse(t_cw *cw)
 {
-	int	nb_player;
-	int	i;
-	int	j;
+	int		nb_player;
+	int		i;
+	int		j;
+	int		nb[4];
 
-	nb_player = parse_get_number_player(cw);
+	nb[0] = 1;
+	nb[1] = 2;
+	nb[2] = 3;
+	nb[3] = 4;
+	nb_player = parse_get_number_player(cw, nb);
 	if (nb_player > 4 || nb_player < 1)
-		parse_error("Bad number of player.");
+		parse_error(cw, "Bad number of player.");
 	i = 0;
 	j = 0;
 	ft_printf("Introducing contestants...\n");
-	while (i < nb_player && cw->av[j])
+	while (i < nb_player)
 	{
-		if (str_match_end(cw->av[j], ".cor"))
-		{
-			ft_printf("* Player %d, ", i + 1);
-			bytecode_read(cw, cw->av[j], (MEM_SIZE / nb_player) * i, i + 1);
-			process_add(cw, - (i + 1), (MEM_SIZE / nb_player) * i, i + 1);
-			ft_printf("\n");
-			++i;
-		}
-		++j;	
+		ft_printf("* Player %d, ", nb[i]);
+		bytecode_read(cw, cw->champs[i].path, (MEM_SIZE / nb_player) * i, i + 1);
+		process_add(cw, nb[i], (MEM_SIZE / nb_player) * i, i + 1);
+		ft_printf("\n");
+		++i;
 	}
 }

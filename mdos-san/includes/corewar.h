@@ -53,6 +53,12 @@ typedef struct		s_process
 	char			color_nb;
 }					t_process;
 
+typedef struct		s_champ
+{
+	char			*path;
+	header_t		h;
+}					t_champ;
+
 /*
 **|	struct	s_cw
 **|
@@ -81,6 +87,7 @@ typedef	struct		s_cw
 	int				cycle_to_die;
 	int				f_v;
 	int				f_dump;
+	t_champ			champs[4];
 }					t_cw;
 
 t_cw	cw_init(int ac, char **av);
