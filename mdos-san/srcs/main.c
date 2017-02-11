@@ -1,5 +1,21 @@
 #include "corewar.h"
 
+void	dump(t_cw *cw)
+{
+	int	i;
+
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		if (i % 32 == 0)
+			ft_printf("0x%.4x: ", i);
+		ft_printf("%.2x ", cw->board[i]);
+		if ((i + 1) % 32 == 0)	
+			ft_putchar('\n');
+		++i;
+	}
+}
+
 int main(int ac, char **av)
 {
 	t_cw		cw;
@@ -27,6 +43,8 @@ int main(int ac, char **av)
 	*/
 	while (cw.process)
 	{
+		if (cw.f_dump != -1 && turn == cw.f_dump - 1)
+			break ;
 //		usleep(100000);
 		/* Check pour diminuer cycle_to_die */
 		if (check == cw.cycle_to_die)
@@ -85,6 +103,8 @@ int main(int ac, char **av)
 	}
 	if (cw.f_v == 1)
 		endwin();
+	if (cw.f_dump != -1)
+		dump(&cw);
 	ft_printf("Ended in turn %d\n", turn);
 	(cw.board) ? free(cw.board) : (void)0;
 	return (1);

@@ -45,6 +45,7 @@ t_cw	cw_init(int ac, char **av)
 	cw.board = (unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE);
 	cw.board_color = ft_strnew(MEM_SIZE);
 	cw.f_v = visu_init(ac, av);
+	cw.f_dump = -1;
 	cw.ac = ac;
 	cw.av = av;
 	cw.nb_process = 0;

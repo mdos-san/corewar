@@ -80,6 +80,7 @@ typedef	struct		s_cw
 	void			(*fct_tab[256])(struct s_cw*, t_process*);
 	int				cycle_to_die;
 	int				f_v;
+	int				f_dump;
 }					t_cw;
 
 t_cw	cw_init(int ac, char **av);

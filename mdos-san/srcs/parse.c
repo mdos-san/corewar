@@ -37,11 +37,20 @@ static int	parse_get_number_player(t_cw *cw)
 	int		nb_player;
 
 	av = cw->av;
-	i = 0;
+	i = 1;
 	nb_player = 0;
-	while (av[i])
+	while (i < cw->ac)
 	{
-		if (str_match_end(av[i], ".cor"))
+		ft_printf("%s ", av[i]);
+		if (ft_strcmp(av[i], "-dump") == 0)
+		{
+			if (i + 1 < cw->ac)
+				cw->f_dump = ft_atoi(av[i + 1]);
+			else
+				parse_error("Dump arg is missing.");
+			++i;
+		}
+		else if (str_match_end(av[i], ".cor"))
 			++nb_player;
 		++i;
 	}
