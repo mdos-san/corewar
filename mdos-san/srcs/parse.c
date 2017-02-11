@@ -24,9 +24,9 @@ int	str_match_end(char *str, char *template)
 	return (1);
 }
 
-static int	parse_error()
+static int	parse_error(char *s)
 {
-	ft_printf("ERROR: Parsing.");
+	ft_printf("ERROR: %s", s);
 	exit(0);
 }
 
@@ -56,26 +56,20 @@ void	cw_parse(t_cw *cw)
 
 	nb_player = parse_get_number_player(cw);
 	if (nb_player > 4 || nb_player < 1)
-		parse_error();
+		parse_error("Bad number of player.");
 	i = 0;
 	j = 0;
+	ft_printf("Introducing contestants...\n");
 	while (i < nb_player && cw->av[j])
 	{
 		if (str_match_end(cw->av[j], ".cor"))
 		{
+			ft_printf("* Player %d, ", i + 1);
 			bytecode_read(cw, cw->av[j], (MEM_SIZE / nb_player) * i, i + 1);
 			process_add(cw, - (i + 1), (MEM_SIZE / nb_player) * i, i + 1);
+			ft_printf("\n");
 			++i;
 		}
 		++j;	
 	}
 }
-
-/*
-	bytecode_read(&cw, av[1], 0);
-	process_add(&cw, -1, 0);
-	bytecode_read(&cw, av[2], MEM_SIZE / 3);
-	process_add(&cw, -2, MEM_SIZE / 3);
-	bytecode_read(&cw, av[3], (MEM_SIZE / 3) * 2);
-	process_add(&cw, -3, (MEM_SIZE / 3) * 2);
-*/
