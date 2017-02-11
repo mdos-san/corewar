@@ -88,6 +88,11 @@ typedef	struct		s_cw
 	int				f_v;
 	int				f_dump;
 	t_champ			champs[4];
+
+	//var for asm fct
+	int				asm_i;
+	int				asm_tmp;
+	t_ocp			asm_ocp;
 }					t_cw;
 
 t_cw	cw_init(int ac, char **av);
@@ -99,7 +104,7 @@ void	live(t_cw *cw, t_process *p);
 void	ld(t_cw *cw, t_process *p);
 void	st(t_cw *cw, t_process *p);
 void	add(t_cw *cw, t_process *p);
-void	cw_and(t_cw *cw, t_process *p);
+void	and(t_cw *cw, t_process *p);
 void	xor(t_cw *cw, t_process *p);
 void	zjmp(t_cw *cw, t_process *p);
 void	sti(t_cw *cw, t_process *p);

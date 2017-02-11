@@ -95,7 +95,7 @@ void	add(t_cw *cw, t_process *p)
 		p->carry = 0;
 }
 
-void	cw_and(t_cw *cw, t_process *p)
+void	and(t_cw *cw, t_process *p)
 {
 	int		i;
 	t_ocp	ocp;
@@ -207,7 +207,7 @@ int	get_turn(unsigned char c)
 		return (10);
 	else if (c == 2 || c == 3 || c == 4)
 		return (5);
-	else if (c == 6 || c == 7)
+	else if (c == 6 || c == 8)
 		return (6);
 	else if (c == 9)
 		return (20);
@@ -228,12 +228,12 @@ int	get_turn(unsigned char c)
 
 void	exec(t_cw *cw, t_process *p, void (*fct)(t_cw *, t_process *))
 {
-	if (!p->is_waiting)
+	if (p->is_waiting == 0)
 	{
 		p->is_waiting = 1;
 		p->waiting_turn = get_turn(cw->board[p->pc]);
 	}
-	if (p->waiting_turn == 0)
+	else if (p->waiting_turn == 0)
 	{
 		fct(cw, p);
 		p->is_waiting = 0;

@@ -74,6 +74,8 @@ static int	parse_get_number_player(t_cw *cw, int *nb)
 				parse_error(cw, (nb_player < 4) ? "-n value is missing." : "too many -n args");
 			++i;
 		}
+		else if (ft_strcmp(av[i], "-v") == 0)
+		{}
 		else
 		{
 			if (nb_player < 4)
