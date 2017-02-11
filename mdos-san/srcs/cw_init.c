@@ -6,6 +6,36 @@ void	useless(t_cw *cw, t_process *process)
 	++process->pc;
 }
 
+int		visu_init(int ac, char **av)
+{
+	int	i;
+
+	i = 1;
+	while (i < ac)
+	{
+		if (ft_strcmp(av[i], "-v") == 0)
+		{
+			initscr();
+			noecho();
+			curs_set(FALSE);
+			start_color();
+			init_pair(42, COLOR_WHITE, COLOR_BLACK);
+			init_pair(1, COLOR_GREEN, COLOR_BLACK);
+			init_pair(2, COLOR_BLUE, COLOR_BLACK);
+			init_pair(3, COLOR_RED, COLOR_BLACK);
+			init_pair(4, COLOR_YELLOW, COLOR_BLACK);
+			init_pair(1 + 4, COLOR_GREEN, COLOR_CYAN);
+			init_pair(2 + 4, COLOR_BLUE, COLOR_CYAN);
+			init_pair(3 + 4, COLOR_RED, COLOR_CYAN);
+			init_pair(4 + 4, COLOR_YELLOW, COLOR_CYAN);
+			init_pair(42 + 4, COLOR_WHITE, COLOR_CYAN);
+			return (1);
+		}
+		++i;
+	}
+	return (0);
+}
+
 t_cw	cw_init(int ac, char **av)
 {
 	int		i;
@@ -14,6 +44,7 @@ t_cw	cw_init(int ac, char **av)
 	cw.debug = DEBUG;
 	cw.board = (unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE);
 	cw.board_color = ft_strnew(MEM_SIZE);
+	cw.f_v = visu_init(ac, av);
 	cw.ac = ac;
 	cw.av = av;
 	cw.nb_process = 0;
