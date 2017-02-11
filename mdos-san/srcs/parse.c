@@ -51,6 +51,7 @@ static int	parse_get_number_player(t_cw *cw, int *nb)
 	char	**av;
 	int		i;
 	int		nb_player;
+	int		fd_test;
 
 	av = cw->av;
 	i = 1;
@@ -70,13 +71,19 @@ static int	parse_get_number_player(t_cw *cw, int *nb)
 			if (i + 1 < cw->ac && str_is_digit(av[i + 1]) && nb_player < 4)
 				nb[nb_player] = ft_atoi(av[i + 1]);
 			else
-				parse_error(cw, "-n value is missing.");
+				parse_error(cw, (nb_player < 4) ? "-n value is missing." : "too many -n args");
 			++i;
 		}
 		else
 		{
 			if (nb_player < 4)
+			{
 				cw->champs[nb_player].path = ft_strdup(av[i]);
+				fd_test = open(av[i], O_RDONLY);
+				if (fd_test == -1)
+					parse_error(cw, av[i]);
+				close(fd_test);	
+			}
 			++nb_player;
 		}
 		++i;
