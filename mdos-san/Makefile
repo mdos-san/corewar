@@ -1,4 +1,4 @@
-FLAG	=		-Wextra -Werror -Wall -O3
+FLAG	=		-Wextra -Werror -Wall -O3 -g
 I		=		-I./includes
 L		=		-L./libs -lftprintf -lncurses
 
@@ -7,8 +7,8 @@ SRC_O	=		main.o\
 				asm_fct.o\
 				bytecode_read.o\
 				board_print.o\
-				process_add.o\
 				ocp_get.o\
+				linked_list_process.o\
 				parse.o
 
 all:    corewar

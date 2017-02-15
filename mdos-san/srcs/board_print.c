@@ -3,7 +3,7 @@
 void	board_print(t_cw cw)
 {
 	int		i;
-	t_list	*l;
+	t_process	*l;
 	int		is_readed;
 
 	i = 0;
@@ -17,7 +17,7 @@ void	board_print(t_cw cw)
 			attron(COLOR_PAIR((int)cw.board_color[i]));
 		while (l)
 		{
-			if (((t_process*)(l->content))->pc == i)
+			if (l->pc == i)
 			{
 				is_readed = 1;
 				break ;

@@ -7,6 +7,7 @@
 # include <sys/uio.h>
 # include <unistd.h>
 # include <ncurses.h>
+#include "mcheck.h"
 
 # include "op.h"
 # include "libftprintf.h"
@@ -34,24 +35,25 @@ typedef struct		s_ocp
 **|	
 */
 
-typedef struct		s_process
+typedef struct			s_process
 {
-	int				nb_champ;
-	int				pc;
-	long long		nb_process;
-	int				is_waiting;
-	int				waiting_turn;
-	int				r[REG_NUMBER];
-	int				nb_live;
-	int				carry;
-	int				*p_one;
-	int				*p_two;
-	int				*p_three;
-	int				one;
-	int				two;
-	int				three;
-	char			color_nb;
-}					t_process;
+	int					nb_champ;
+	int					pc;
+	long long			nb_process;
+	int					is_waiting;
+	int					waiting_turn;
+	int					r[REG_NUMBER];
+	int					nb_live;
+	int					carry;
+	int					*p_one;
+	int					*p_two;
+	int					*p_three;
+	int					one;
+	int					two;
+	int					three;
+	char				color_nb;
+	struct s_process	*next;
+}						t_process;
 
 typedef struct		s_champ
 {
@@ -82,17 +84,15 @@ typedef	struct		s_cw
 	unsigned char	*board;
 	char			*board_color;
 	long long		nb_process;
-	t_list			*process;
-	void			(*fct_tab[256])(struct s_cw*, t_process*);
+	t_process		*process;
 	int				cycle_to_die;
 	int				f_v;
 	int				f_dump;
-	t_champ			champs[4];
-
-	//var for asm fct
 	int				asm_i;
 	int				asm_tmp;
 	t_ocp			asm_ocp;
+	void			(*fct_tab[256])(struct s_cw*, t_process*);
+	t_champ			champs[4];
 }					t_cw;
 
 t_cw	cw_init(int ac, char **av);
@@ -114,4 +114,6 @@ t_ocp	ocp_get(unsigned char ocp);
 void	ocp_parse(t_cw *cw, t_process *p, int *i, t_ocp ocp, int dir_two);
 
 void	cw_parse(t_cw *cw);
+void process_new(t_process **act, int champ, int pc, int color_nb);
+int	get_turn(unsigned char c);
 #endif

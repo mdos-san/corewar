@@ -97,7 +97,6 @@ void	cw_parse(t_cw *cw)
 {
 	int		nb_player;
 	int		i;
-	int		j;
 	int		nb[4];
 
 	nb[0] = 1;
@@ -108,13 +107,12 @@ void	cw_parse(t_cw *cw)
 	if (nb_player > 4 || nb_player < 1)
 		parse_error(cw, "Bad number of player.");
 	i = 0;
-	j = 0;
 	ft_printf("Introducing contestants...\n");
 	while (i < nb_player)
 	{
 		ft_printf("* Player %d, ", nb[i]);
 		bytecode_read(cw, cw->champs[i].path, (MEM_SIZE / nb_player) * i, i + 1);
-		process_add(cw, nb[i], (MEM_SIZE / nb_player) * i, i + 1);
+		process_new(&cw->process, nb[i], (MEM_SIZE / nb_player) * i, i + 1);
 		ft_printf("\n");
 		++i;
 	}

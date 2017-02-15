@@ -22,7 +22,7 @@ int		add_index_mod(int a, int b)
 
 void	live(t_cw *cw, t_process *p)
 {
-	p->pc += 4 + 1;
+	p->pc += 5;
 	p->nb_live += 1;
 	(void)cw;
 }
@@ -172,9 +172,9 @@ void	frk(t_cw *cw, t_process *p)
 	*(((char *)&j) + 1) = cw->board[p->pc + 1];
 	*(((char *)&j)) = cw->board[p->pc + 2];
 	if (j > 32768)
-		process_add(cw, p->nb_champ, p->pc + (j - 65535 - 1), p->color_nb);
+		process_new(&cw->process, p->nb_champ, p->pc + (j - 65535 - 1), p->color_nb);
 	else
-		process_add(cw, p->nb_champ, p->pc + j, p->color_nb);
+		process_new(&cw->process, p->nb_champ, p->pc + j, p->color_nb);
 	p->pc = add_index_mod(p->pc, 3);
 }
 

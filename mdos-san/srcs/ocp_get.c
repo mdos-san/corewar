@@ -1,16 +1,13 @@
 #include "corewar.h"
 
-char	*get_bin(long long nbr, unsigned int base)
+void get_bin(char *buf, long long nbr, unsigned int base)
 {
 	int			i;
 	long long	mod;
 	long long	neg;
-	char		buf[9];
 
 	i = 0;
 	ft_bzero(buf, 9);
-	if (nbr == 0)
-		return (ft_strdup("0"));
 	neg = (nbr < 0) ? -1 : 1;
 	while (nbr != 0)
 	{
@@ -30,16 +27,14 @@ char	*get_bin(long long nbr, unsigned int base)
 		buf[7 - i] = '0';
 		++i;
 	}
-	(neg == -1) ? buf[7 - i] = '-' : 0;
-	return (ft_strdup(buf + 7 - i + 1 - ((neg == -1) ? 1 : 0)));
 }
 
 t_ocp	ocp_get(unsigned char ocp)
 {
-	char	*str;
+	char	str[9];
 	t_ocp	st;
 
-	str = get_bin(ocp, 2);
+	get_bin(str, ocp, 2);
 	st.one[0] = str[0];
 	st.one[1] = str[1];
 	st.one[2] = 0;
@@ -49,7 +44,6 @@ t_ocp	ocp_get(unsigned char ocp)
 	st.three[0] = str[4];
 	st.three[1] = str[5];
 	st.three[2] = 0;
-	free(str);
 	return (st);
 }
 
