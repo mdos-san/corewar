@@ -1,6 +1,6 @@
 #include "corewar.h"
 
-void process_new(t_process **act, int champ, int pc, int color_nb)
+t_process *process_new(t_process **act, int champ, int pc, int color_nb)
 {
 	t_process	*new;
 
@@ -20,12 +20,27 @@ void process_new(t_process **act, int champ, int pc, int color_nb)
 	new->three = 0;
 	new->color_nb = color_nb;
 	ft_bzero(new->r, REG_NUMBER * REG_SIZE);
-	if (act == NULL)
+	new->next = NULL;
+	if (*act == NULL)
 		*act = new;
 	else
 	{
 		new->next = *act;
 		*act = new;
 	}
+	return (new);
 }
 
+
+int	process_count(t_process *l)
+{
+	int	i;
+
+	i = 0;
+	while (l)
+	{
+		++i;
+		l = l->next;
+	}
+	return (i);
+}

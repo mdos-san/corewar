@@ -1,4 +1,3 @@
-/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   asm_fct.c                                          :+:      :+:    :+:   */
@@ -167,14 +166,22 @@ void	ldi(t_cw *cw, t_process *p)
 void	frk(t_cw *cw, t_process *p)
 {
 	unsigned short	j;
+	t_process		*child;
+	int				i;
 
+	i = 0;
 	j = 0;
 	*(((char *)&j) + 1) = cw->board[p->pc + 1];
 	*(((char *)&j)) = cw->board[p->pc + 2];
 	if (j > 32768)
-		process_new(&cw->process, p->nb_champ, p->pc + (j - 65535 - 1), p->color_nb);
+		child = process_new(&cw->process, p->nb_champ, p->pc + (j - 65535 - 1), p->color_nb);
 	else
-		process_new(&cw->process, p->nb_champ, p->pc + j, p->color_nb);
+		child = process_new(&cw->process, p->nb_champ, p->pc + j, p->color_nb);
+	while (i < 16)
+	{
+		child->r[i] = p->r[i];
+		++i;
+	}	
 	p->pc = add_index_mod(p->pc, 3);
 }
 

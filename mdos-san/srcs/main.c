@@ -26,6 +26,7 @@ int main(int ac, char **av)
 	t_process	*prev;
 	long		nb_live;
 	int			max_check;
+	int			t_c;
 
 	cw = cw_init(ac, av);
 	turn = 0;
@@ -33,6 +34,7 @@ int main(int ac, char **av)
 	max_check = 0;
 	cw_parse(&cw);
 	nb_live = 0;
+	t_c = 0;
 	while (cw.process)
 	{
 		if (cw.f_dump != -1 && turn == cw.f_dump - 1)
@@ -42,7 +44,6 @@ int main(int ac, char **av)
 			l = cw.process;
 			nb_live = 0;
 			prev = NULL;
-			ft_printf("turn: %d\n", turn);
 			while (l)
 			{
 				if (l->nb_live > 0)
@@ -74,12 +75,12 @@ int main(int ac, char **av)
 		if (cw.f_v == 1)
 		{
 			attron(COLOR_PAIR(1));
-			mvprintw(0, 0, "TURN: %lld NB_PROCESS: %lld, CYCLE_TO_DIE: %d, last_check_nb_live: %d, max_check: %d\n", turn, cw.nb_process, cw.cycle_to_die, nb_live, max_check);
+			mvprintw(0, 0, "TURN: %lld NB_PROCESS: %lld, tc: %d, CYCLE_TO_DIE: %d, last_check_nb_live: %d, max_check: %d\n", turn, process_count(cw.process), t_c, cw.cycle_to_die, nb_live, max_check);
 			board_print(cw);
 			refresh();
 		}
+		t_c = 0;
 		l = cw.process;
-		ft_printf("start: %d\n", turn);
 		while (l)
 		{
 			if (l->is_waiting == 0)
@@ -92,9 +93,10 @@ int main(int ac, char **av)
 				cw.fct_tab[cw.board[l->pc]](&cw, l);
 				l->is_waiting = 0;
 			}
+			++t_c;
 			l = l->next;
 		}
-		ft_printf("end\n");
+//		ft_printf("tc: %.8d | pc %d | turn: %lld | cy: %d\n", t_c, process_count(cw.process), turn, cw.cycle_to_die);
 		++turn;
 		++check;
 	}
@@ -107,6 +109,7 @@ int main(int ac, char **av)
 	muntrace();
 	return (1);
 }
+
 /*
 int main()
 {

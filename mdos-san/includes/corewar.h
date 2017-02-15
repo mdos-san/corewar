@@ -114,6 +114,7 @@ t_ocp	ocp_get(unsigned char ocp);
 void	ocp_parse(t_cw *cw, t_process *p, int *i, t_ocp ocp, int dir_two);
 
 void	cw_parse(t_cw *cw);
-void process_new(t_process **act, int champ, int pc, int color_nb);
+t_process *process_new(t_process **act, int champ, int pc, int color_nb);
+int	process_count(t_process *l);
 int	get_turn(unsigned char c);
 #endif
