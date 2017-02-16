@@ -20,12 +20,11 @@ int main(int ac, char **av)
 {
 	t_cw		cw;
 	t_process	*l;
-	long long	turn;
+	int			turn;
 	long long	check;
 	t_process	*prev;
 	long		nb_live;
 	int			max_check;
-	int			t_c;
 
 	cw = cw_init(ac, av);
 	turn = 0;
@@ -33,7 +32,6 @@ int main(int ac, char **av)
 	max_check = 0;
 	cw_parse(&cw);
 	nb_live = 0;
-	t_c = 0;
 	while (cw.process)
 	{
 		if (cw.f_dump != -1 && turn == cw.f_dump - 1)
@@ -82,11 +80,10 @@ int main(int ac, char **av)
 		if (cw.f_v == 1)
 		{
 			attron(COLOR_PAIR(1));
-			mvprintw(0, 0, "TURN: %lld NB_PROCESS: %lld, tc: %d, CYCLE_TO_DIE: %d, last_check_nb_live: %d, max_check: %d\n", turn, process_count(cw.process), t_c, cw.cycle_to_die, nb_live, max_check);
+			mvprintw(0, 0, "TURN: %lld NB_PROCESS: %lld, CYCLE_TO_DIE: %d, last_check_nb_live: %d, max_check: %d\n", turn, process_count(cw.process), cw.cycle_to_die, nb_live, max_check);
 			board_print(cw);
 			refresh();
 		}
-		t_c = 0;
 		l = cw.process;
 		while (l)
 		{
@@ -100,10 +97,8 @@ int main(int ac, char **av)
 				cw.fct_tab[cw.board[l->pc]](&cw, l);
 				l->is_waiting = 0;
 			}
-			++t_c;
 			l = l->next;
 		}
-//		ft_printf("tc: %.8d | pc %d | turn: %lld | cy: %d\n", t_c, process_count(cw.process), turn, cw.cycle_to_die);
 		++turn;
 		++check;
 	}
@@ -115,31 +110,3 @@ int main(int ac, char **av)
 	(cw.board) ? free(cw.board) : (void)0;
 	return (1);
 }
-
-/*
-int main()
-{
-	t_process *p;
-	t_process *l;
-	int			i = 0;
-
-	p = NULL;
-	while (i < 21000)
-	{
-		process_new(&p, 0, 0, 0);
-		++i;
-	}
-	i = 0;
-	while (i < 21000)	
-	{
-		l = p;
-		while (l)
-		{
-			if (l->waiting_turn >= 0)
-			l->waiting_turn++;
-			l = l->next;
-		}
-		++i;
-	}
-	return (0);
-}*/

@@ -64,14 +64,14 @@ void	st(t_cw *cw, t_process *p)
 	++i;
 	ocp_parse(cw, p, &i, ocp, 0);
 	tmp = (p->p_one[0] < 0) ? 4294967295 + p->p_one[0] + 1 : p->p_one[0];
-	cw->board[add_index_mod(p->pc, p->p_two[0] + 0)] = ((char *)(&tmp))[3];
-	cw->board[add_index_mod(p->pc, p->p_two[0] + 1)] = ((char *)(&tmp))[2];
-	cw->board[add_index_mod(p->pc, p->p_two[0] + 2)] = ((char *)(&tmp))[1];
-	cw->board[add_index_mod(p->pc, p->p_two[0] + 3)] = ((char *)(&tmp))[0];
-	cw->board_color[add_index_mod(p->pc, p->p_two[0] + 0)] = p->color_nb;
-	cw->board_color[add_index_mod(p->pc, p->p_two[0] + 1)] = p->color_nb;
-	cw->board_color[add_index_mod(p->pc, p->p_two[0] + 2)] = p->color_nb;
-	cw->board_color[add_index_mod(p->pc, p->p_two[0] + 3)] = p->color_nb;
+	cw->board[add_index_mod(p->pc, p->p_two[0] + 0)] = ((unsigned char *)(&tmp))[3];
+	cw->board[add_index_mod(p->pc, p->p_two[0] + 1)] = ((unsigned char *)(&tmp))[2];
+	cw->board[add_index_mod(p->pc, p->p_two[0] + 2)] = ((unsigned char *)(&tmp))[1];
+	cw->board[add_index_mod(p->pc, p->p_two[0] + 3)] = ((unsigned char *)(&tmp))[0];
+	cw->board_color[add_index_mod(p->pc, p->p_two[0] + 0)] = (unsigned char)p->color_nb;
+	cw->board_color[add_index_mod(p->pc, p->p_two[0] + 1)] = (unsigned char)p->color_nb;
+	cw->board_color[add_index_mod(p->pc, p->p_two[0] + 2)] = (unsigned char)p->color_nb;
+	cw->board_color[add_index_mod(p->pc, p->p_two[0] + 3)] = (unsigned char)p->color_nb;
 	p->pc = add_index_mod(p->pc, i);
 }
 
@@ -132,8 +132,8 @@ void	zjmp(t_cw *cw, t_process *p)
 {
 	unsigned short	j;
 
-	*(((char *)&j) + 1) = cw->board[p->pc + 1];
-	*(((char *)&j)) = cw->board[p->pc + 2];
+	*(((unsigned char *)&j) + 1) = cw->board[p->pc + 1];
+	*(((unsigned char *)&j)) = cw->board[p->pc + 2];
 	if (p->carry == 1)
 	{
 		if (j > 32768)
@@ -156,10 +156,10 @@ void	ldi(t_cw *cw, t_process *p)
 	++i;
 	ocp_parse(cw, p, &i, ocp, 1);
 	new_addr = add_index_mod(*p->p_one, *p->p_two);
-	((char *)p->p_three)[3] = *(cw->board + add_index_mod(p->pc, new_addr));
-	((char *)p->p_three)[2] = *(cw->board + add_index_mod(p->pc, new_addr) + 1);
-	((char *)p->p_three)[1] = *(cw->board + add_index_mod(p->pc, new_addr) + 2);
-	((char *)p->p_three)[0] = *(cw->board + add_index_mod(p->pc, new_addr) + 3);
+	((unsigned char *)p->p_three)[3] = *(cw->board + add_index_mod(p->pc, new_addr));
+	((unsigned char *)p->p_three)[2] = *(cw->board + add_index_mod(p->pc, new_addr) + 1);
+	((unsigned char *)p->p_three)[1] = *(cw->board + add_index_mod(p->pc, new_addr) + 2);
+	((unsigned char *)p->p_three)[0] = *(cw->board + add_index_mod(p->pc, new_addr) + 3);
 	p->pc = (p->pc + i) % MEM_SIZE;
 }
 
@@ -171,8 +171,8 @@ void	frk(t_cw *cw, t_process *p)
 
 	i = 0;
 	j = 0;
-	*(((char *)&j) + 1) = cw->board[p->pc + 1];
-	*(((char *)&j)) = cw->board[p->pc + 2];
+	*(((unsigned char *)&j) + 1) = cw->board[p->pc + 1];
+	*(((unsigned char *)&j)) = cw->board[p->pc + 2];
 	if (j > 32768)
 		child = process_new(&cw->process, p->nb_champ, p->pc + (j - 65535 - 1), p->color_nb);
 	else
@@ -197,14 +197,14 @@ void	sti(t_cw *cw, t_process *p)
 	ocp_parse(cw, p, &i, ocp, 1);
 	*p->p_one = (p->p_one[0] < 0) ? 4294967295 + p->p_one[0] + 1 : p->p_one[0];
 	sum = *p->p_two + *p->p_three;
-	cw->board[add_index_mod(p->pc, sum + 0)] = ((char *)(p->p_one))[3];
-	cw->board[add_index_mod(p->pc, sum + 1)] = ((char *)(p->p_one))[2];
-	cw->board[add_index_mod(p->pc, sum + 2)] = ((char *)(p->p_one))[1];
-	cw->board[add_index_mod(p->pc, sum + 3)] = ((char *)(p->p_one))[0];
-	cw->board_color[add_index_mod(p->pc, sum + 0)] = p->color_nb;
-	cw->board_color[add_index_mod(p->pc, sum + 1)] = p->color_nb;
-	cw->board_color[add_index_mod(p->pc, sum + 2)] = p->color_nb;
-	cw->board_color[add_index_mod(p->pc, sum + 3)] = p->color_nb;
+	cw->board[add_index_mod(p->pc, sum + 0)] = ((unsigned char *)(p->p_one))[3];
+	cw->board[add_index_mod(p->pc, sum + 1)] = ((unsigned char *)(p->p_one))[2];
+	cw->board[add_index_mod(p->pc, sum + 2)] = ((unsigned char *)(p->p_one))[1];
+	cw->board[add_index_mod(p->pc, sum + 3)] = ((unsigned char *)(p->p_one))[0];
+	cw->board_color[add_index_mod(p->pc, sum + 0)] = (unsigned char)p->color_nb;
+	cw->board_color[add_index_mod(p->pc, sum + 1)] = (unsigned char)p->color_nb;
+	cw->board_color[add_index_mod(p->pc, sum + 2)] = (unsigned char)p->color_nb;
+	cw->board_color[add_index_mod(p->pc, sum + 3)] = (unsigned char)p->color_nb;
 	p->pc = add_index_mod(p->pc, i);
 }
 

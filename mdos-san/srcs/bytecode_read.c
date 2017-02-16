@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 11:27:43 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/10 11:29:46 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/02/16 14:36:22 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static long swap_long(long i)
 int	bytecode_read(t_cw *cw, char *file, int	index, int color_nb)
 {
 	int				fd;
-	unsigned char	buf[1];
+	char			buf[1];
 	int				i;
 	int				j;
 	long			len;
@@ -68,8 +68,8 @@ int	bytecode_read(t_cw *cw, char *file, int	index, int color_nb)
 				comment[i - (4 + PROG_NAME_LENGTH + 8)] = buf[0];
 			else if (i >= 4 + PROG_NAME_LENGTH + 8 + COMMENT_LENGTH + 4)
 			{
-				cw->board[j + index] = buf[0];
-				cw->board_color[j + index] = color_nb;
+				cw->board[j + index] = (unsigned char)buf[0];
+				cw->board_color[j + index] = (unsigned char)color_nb;
 				++j;
 			}
 			++i;

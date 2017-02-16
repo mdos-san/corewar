@@ -36,9 +36,10 @@ typedef struct		s_ocp
 
 typedef struct			s_process
 {
+	struct s_process	*next;
+	long long			nb_process;
 	int					nb_champ;
 	int					pc;
-	long long			nb_process;
 	int					is_waiting;
 	int					waiting_turn;
 	int					r[REG_NUMBER];
@@ -50,14 +51,14 @@ typedef struct			s_process
 	int					one;
 	int					two;
 	int					three;
-	char				color_nb;
-	struct s_process	*next;
+	int					color_nb;
 }						t_process;
 
 typedef struct		s_champ
 {
 	char			*path;
 	header_t		h;
+	int				padding;
 }					t_champ;
 
 /*
@@ -77,21 +78,22 @@ typedef struct		s_champ
 
 typedef	struct		s_cw
 {
-	char			debug;
-	int				ac;
 	char			**av;
 	unsigned char	*board;
-	char			*board_color;
-	long long		nb_process;
+	unsigned char	*board_color;
 	t_process		*process;
+	void			(*fct_tab[256])(struct s_cw*, t_process*);
+	t_champ			champs[4];
+	int				nb_process;
+	int				ac;
 	int				cycle_to_die;
 	int				f_v;
 	int				f_dump;
 	int				asm_i;
 	int				asm_tmp;
 	t_ocp			asm_ocp;
-	void			(*fct_tab[256])(struct s_cw*, t_process*);
-	t_champ			champs[4];
+	char			debug;
+	short			padding;
 }					t_cw;
 
 t_cw	cw_init(int ac, char **av);
@@ -117,4 +119,5 @@ t_process *process_new(t_process **act, int champ, int pc, int color_nb);
 int	process_count(t_process *l);
 int	get_turn(unsigned char c);
 int		add_index_mod(int a, int b);
+void	dump(t_cw *cw);
 #endif

@@ -1,10 +1,10 @@
 #include "corewar.h"
 
-void get_bin(char *buf, long long nbr, unsigned int base)
+static void	get_bin(char *buf, int nbr, int base)
 {
-	int			i;
-	long long	mod;
-	long long	neg;
+	int	i;
+	int	mod;
+	int	neg;
 
 	i = 0;
 	ft_bzero(buf, 9);
@@ -13,11 +13,11 @@ void get_bin(char *buf, long long nbr, unsigned int base)
 	{
 		mod = nbr % base;
 		if (mod <= 9)
-			buf[7 - i] = mod * neg + 48;
+			buf[7 - i] = (char)(mod * neg + 48);
 		else
 		{
 			mod -= 10;
-			buf[7 - i] = mod * neg + 97;
+			buf[7 - i] = (char)(mod * neg + 97);
 		}
 		nbr /= base;
 		++i;

@@ -1,6 +1,6 @@
 #include "corewar.h"
 
-int	str_is_digit(char *str)
+static int	str_is_digit(char *str)
 {
 	int	i;
 
@@ -10,29 +10,6 @@ int	str_is_digit(char *str)
 		if (!ft_isdigit(str[i]))
 			return (0);
 		++i;
-	}
-	return (1);
-}
-
-int	str_match_end(char *str, char *template)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	i = 0;
-	while (template[j])
-		++j;
-	while (str[i])
-		++i;
-	if (j > i)
-		return (0);
-	while (j >= 0)
-	{
-		if (template[j] != str[i])
-			return (0);
-		--j;
-		--i;
 	}
 	return (1);
 }

@@ -1,12 +1,12 @@
 #include "corewar.h"
 
-void	useless(t_cw *cw, t_process *process)
+static void	useless(t_cw *cw, t_process *process)
 {
 	(void)cw;
 	++process->pc;
 }
 
-int		visu_init(int ac, char **av)
+static int	visu_init(int ac, char **av)
 {
 	int	i;
 
@@ -43,7 +43,7 @@ t_cw	cw_init(int ac, char **av)
 
 	cw.debug = DEBUG;
 	cw.board = (unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE);
-	cw.board_color = ft_strnew(MEM_SIZE);
+	cw.board_color = (unsigned char *)ft_strnew(MEM_SIZE);
 	cw.f_v = visu_init(ac, av);
 	cw.f_dump = -1;
 	cw.ac = ac;
