@@ -18,7 +18,6 @@ void	dump(t_cw *cw)
 
 int main(int ac, char **av)
 {
-	mtrace();
 	t_cw		cw;
 	t_process	*l;
 	long long	turn;
@@ -106,7 +105,6 @@ int main(int ac, char **av)
 		dump(&cw);
 	ft_printf("Ended in turn %d\n", turn);
 	(cw.board) ? free(cw.board) : (void)0;
-	muntrace();
 	return (1);
 }
 

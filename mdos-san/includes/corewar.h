@@ -7,7 +7,6 @@
 # include <sys/uio.h>
 # include <unistd.h>
 # include <ncurses.h>
-#include "mcheck.h"
 
 # include "op.h"
 # include "libftprintf.h"
