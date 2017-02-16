@@ -45,13 +45,14 @@ typedef struct			s_process
 	int					r[REG_NUMBER];
 	int					nb_live;
 	int					carry;
-	int					*p_one;
-	int					*p_two;
-	int					*p_three;
-	int					one;
-	int					two;
+	unsigned char		*p_one[4];
+	unsigned char		*p_two[4];
+	unsigned char		*p_three[4];
+	unsigned char		*null[1];
 	int					three;
 	int					color_nb;
+	unsigned char		c;
+	char				pad[7];
 }						t_process;
 
 typedef struct		s_champ

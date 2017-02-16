@@ -45,7 +45,7 @@ static int	parse_get_number_player(t_cw *cw, int *nb)
 		}
 		else if (ft_strcmp(av[i], "-n") == 0)
 		{
-			if (i + 1 < cw->ac && str_is_digit(av[i + 1]) && nb_player < 4)
+			if (i + 1 < cw->ac && nb_player < 4)
 				nb[nb_player] = ft_atoi(av[i + 1]);
 			else
 				parse_error(cw, (nb_player < 4) ? "-n value is missing." : "too many -n args");

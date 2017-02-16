@@ -61,6 +61,8 @@ int main(int ac, char **av)
 						cw.process = l->next;
 						free(l);
 						l = cw.process;
+						if (l == NULL)
+							break ;
 					}
 				}
 				l->nb_live = 0;
@@ -74,6 +76,8 @@ int main(int ac, char **av)
 			else
 				max_check++;
 			check = 0;
+			if (process_count(cw.process) == 0)
+				break ;
 		}
 		if (cw.cycle_to_die <= 0)
 			break ;

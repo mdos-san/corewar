@@ -12,14 +12,12 @@ t_process *process_new(t_process **act, int champ, int pc, int color_nb)
 	new->waiting_turn = 0;
 	new->nb_live = 0;
 	new->carry = 0;
-	new->p_one = &new->one;
-	new->p_two = &new->two;
-	new->p_three = &new->three;
-	new->one = 0;
-	new->two = 0;
+	new->c = 0;
+	new->null[0] = &new->c;
 	new->three = 0;
 	new->color_nb = color_nb;
 	ft_bzero(new->r, REG_NUMBER * REG_SIZE);
+	new->r[0] = champ;
 	new->next = NULL;
 	if (*act == NULL)
 		*act = new;

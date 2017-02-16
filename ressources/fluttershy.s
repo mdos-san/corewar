@@ -1,15 +1,12 @@
-#by zaz, it's not very good, but what did you expect, rainbowdash is way better
-#2013
-
 .name		"fluttershy"
 .comment	"oh, my, what a scary project"
 
 entry:
 	fork	%:coregeni
-	st		r1, 6
+	st		r1, %6
 	live	%42
 	fork	%:torpgeni
-	st		r1, 6
+	st		r1, %6
 	live	%42
 	fork	%:avdefgeni
 
@@ -24,7 +21,7 @@ ardefgen:
 
 ardefinit:
 	sti		r1, %:ardefl1, %1
-	st		r1, 6
+	st		r1, %6
 	live	%43123
 	sti		r1, %:ardefchk, %1
 	ld		%-6, r2
@@ -49,7 +46,7 @@ ardefloop:
 
 
 coregeni:
-	st		r1, 6
+	st		r1, %6
 
 coregen:
 	live	%123012
@@ -62,9 +59,9 @@ coreinit:
 	st		r1, 58
 	st		r1, 58
 	st		r1, 58
-	st		r1, 58
-	st		r1, 58
-	st		r1, 58
+	st		r1, %58
+	st		r1, %58
+	st		r1, %58
 	st		r1, 58
 	ld		%0, r16
 
