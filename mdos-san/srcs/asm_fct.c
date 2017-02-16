@@ -16,7 +16,7 @@ int		add_index_mod(int a, int b)
 	int	i;
 
 	i = (a + b) % MEM_SIZE;
-	return ((i > 0) ? i : MEM_SIZE + i);
+	return ((i >= 0) ? i : MEM_SIZE + i);
 }
 
 void	live(t_cw *cw, t_process *p)

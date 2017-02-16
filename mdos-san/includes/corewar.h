@@ -116,4 +116,5 @@ void	cw_parse(t_cw *cw);
 t_process *process_new(t_process **act, int champ, int pc, int color_nb);
 int	process_count(t_process *l);
 int	get_turn(unsigned char c);
+int		add_index_mod(int a, int b);
 #endif

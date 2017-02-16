@@ -53,9 +53,17 @@ int main(int ac, char **av)
 				else
 				{
 					if (prev != NULL)
+					{
 						prev->next = l->next;
+						free(l);
+						l = prev;
+					}
 					else
+					{
 						cw.process = l->next;
+						free(l);
+						l = cw.process;
+					}
 				}
 				l->nb_live = 0;
 				l = l->next;

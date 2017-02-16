@@ -58,21 +58,21 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *i, int *v, int **pt, char *str
 	if (ft_strcmp(str, "01") == 0)
 	{
 		if (1 <= cw->board[p->pc + *i] && cw->board[p->pc + *i] <= 16)
-			*pt = p->r + (cw->board[p->pc + *i]) - 1;
+			*pt = p->r + (cw->board[add_index_mod(p->pc, *i)]) - 1;
 		++*i;
 	}
 	else if (ft_strcmp(str, "11") == 0 || dir_two == 1)
 	{
-		((unsigned char *)v)[1] = cw->board[p->pc + *i];
-		((unsigned char *)v)[0] = cw->board[p->pc + *i + 1];
+		((unsigned char *)v)[1] = cw->board[add_index_mod(p->pc, *i)];
+		((unsigned char *)v)[0] = cw->board[add_index_mod(p->pc, *i + 1)];
 		*i += 2;
 	}
 	else if (ft_strcmp(str, "10") == 0)
 	{
-		((unsigned char *)v)[3] = cw->board[p->pc + *i];
-		((unsigned char *)v)[2] = cw->board[p->pc + *i + 1];
-		((unsigned char *)v)[1] = cw->board[p->pc + *i + 2];
-		((unsigned char *)v)[0] = cw->board[p->pc + *i + 3];
+		((unsigned char *)v)[3] = cw->board[add_index_mod(p->pc, *i)];
+		((unsigned char *)v)[2] = cw->board[add_index_mod(p->pc, *i + 1)];
+		((unsigned char *)v)[1] = cw->board[add_index_mod(p->pc, *i + 2)];
+		((unsigned char *)v)[0] = cw->board[add_index_mod(p->pc, *i + 3)];
 		*i += 4;
 	}
 }
