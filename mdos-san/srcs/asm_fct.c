@@ -22,18 +22,18 @@ int		add_index_mod(int a, int b)
 void	live(t_cw *cw, t_process *p)
 {
 	ft_printf("01 ");
-	p->pc += 5;
-	p->nb_live += 1;
 	ft_printf("%.2x ", cw->board[add_index_mod(p->pc, 1)]);
 	ft_printf("%.2x ", cw->board[add_index_mod(p->pc, 2)]);
 	ft_printf("%.2x ", cw->board[add_index_mod(p->pc, 3)]);
 	ft_printf("%.2x ", cw->board[add_index_mod(p->pc, 4)]);
+	p->nb_live += 1;
+	p->pc += 5;
 	ft_printf("\n");
 }
 
 void	ld(t_cw *cw, t_process *p)
 {
-	ft_printf("ld");
+	ft_printf("02 ");
 	int	i;
 	int y;
 	t_ocp ocp;
@@ -150,7 +150,7 @@ void	and(t_cw *cw, t_process *p)
 
 void	xor(t_cw *cw, t_process *p)
 {
-	ft_printf("xor\n");
+	ft_printf("08 ");
 	int		one;
 	int		two;
 	int		i;
@@ -177,11 +177,13 @@ void	xor(t_cw *cw, t_process *p)
 
 void	zjmp(t_cw *cw, t_process *p)
 {
-	ft_printf("zjmp\n");
+	ft_printf("09 ");
 	unsigned short	j;
 
 	*(((unsigned char *)&j) + 1) = cw->board[p->pc + 1];
+	ft_printf("%.2x ", cw->board[p->pc + 1]);
 	*(((unsigned char *)&j)) = cw->board[p->pc + 2];
+	ft_printf("%.2x ", cw->board[p->pc + 2]);
 	if (p->carry == 1)
 	{
 		if (j > 32768)

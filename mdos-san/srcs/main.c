@@ -98,6 +98,7 @@ int main(int ac, char **av)
 			} 
 			else if (l->waiting_turn == turn)
 			{
+				ft_printf("0x%.4x ", l->pc);
 				cw.fct_tab[cw.board[l->pc]](&cw, l);
 				l->is_waiting = 0;
 			}

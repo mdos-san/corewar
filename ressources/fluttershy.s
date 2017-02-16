@@ -3,10 +3,10 @@
 
 entry:
 	fork	%:coregeni
-	st		r1, %6
+	st		r1, 6
 	live	%42
 	fork	%:torpgeni
-	st		r1, %6
+	st		r1, 6
 	live	%42
 	fork	%:avdefgeni
 
@@ -21,7 +21,7 @@ ardefgen:
 
 ardefinit:
 	sti		r1, %:ardefl1, %1
-	st		r1, %6
+	st		r1, 6
 	live	%43123
 	sti		r1, %:ardefchk, %1
 	ld		%-6, r2
