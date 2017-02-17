@@ -65,10 +65,15 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *i, unsigned char **v, char *st
 		if (1 <= cw->board[p->pc + *i] && cw->board[p->pc + *i] <= 16)
 		{
 			reg_v = p->r + (cw->board[add_index_mod(p->pc, *i)] - 1);
-			v[0] = ((unsigned char *)(reg_v)) + 3;
-			v[1] = ((unsigned char *)(reg_v)) + 2;
-			v[2] = ((unsigned char *)(reg_v)) + 1;
-			v[3] = ((unsigned char *)(reg_v)) + 0;
+			v[0] = ((unsigned char *)(reg_v)) + 0;
+			v[1] = ((unsigned char *)(reg_v)) + 1;
+			v[2] = ((unsigned char *)(reg_v)) + 2;
+			v[3] = ((unsigned char *)(reg_v)) + 3;
+			((unsigned char *)(&ind))[0] = *v[3];
+			((unsigned char *)(&ind))[1] = *v[2];
+			((unsigned char *)(&ind))[2] = *v[1];
+			((unsigned char *)(&ind))[3] = *v[0];
+//			ft_printf("REG%d = %d \n", cw->board[p->pc + *i], ind);
 		}
 		else
 			v[0] = NULL;
