@@ -1,0 +1,33 @@
+#!/bin/sh
+
+touch out
+touch target
+
+test() {
+	echo "Testing $1: \c"
+	`./corewar ./tests/$1 > out` 2> error
+	`./corewar ./tests/$1 > target`
+	DIFF=`diff out target`
+	ERROR=`cat error`
+	if [ "$DIFF" = "" ]
+	then
+		echo "\033[32m[OK]\033[0m"
+	elif [ "$ERROR" != "" ]
+	then
+		echo "\033[31m[KO: `cat error`]\033[0m"
+	else
+		echo "\033[31m[KO]\033[0m"
+	fi
+}
+
+make re
+clear
+test st_1.cor
+test st_2.cor
+test st_3.cor
+test st_4.cor
+test st_5.cor
+test ld_st_1.cor
+test ld_st_2.cor
+test ld_st_3.cor
+test ld_st_4.cor
