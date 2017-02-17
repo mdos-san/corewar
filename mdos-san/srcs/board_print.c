@@ -15,7 +15,7 @@ void	board_print(t_cw cw)
 			attron(COLOR_PAIR(42));
 		else
 			attron(COLOR_PAIR((int)cw.board_color[i]));
-		while (l)
+/*		while (l)
 		{
 			if (l->pc == i)
 			{
@@ -24,7 +24,7 @@ void	board_print(t_cw cw)
 			}
 			l = l->next;
 		}
-		if (cw.board_color[i] != 0)
+*/		if (cw.board_color[i] != 0)
 			attron(COLOR_PAIR((int)cw.board_color[i] + ((is_readed) ? 4 : 0)));
 		else if (is_readed)
 			attron(COLOR_PAIR(46));
