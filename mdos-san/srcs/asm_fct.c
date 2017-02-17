@@ -38,7 +38,7 @@ void	live(t_cw *cw, t_process *p)
 	(cw->debug) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, 3)]) : 0;
 	(cw->debug) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, 4)]) : 0;
 	p->nb_live += 1;
-	p->pc += 5;
+	p->pc = add_index_mod(p->pc, 5);
 }
 
 void	ld(t_cw *cw, t_process *p)
