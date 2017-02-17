@@ -99,10 +99,10 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *i, unsigned char **v, char *st
 			(cw->debug) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, *i + 1)]) : 0;
 			(cw->debug) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, *i + 2)]) : 0;
 			(cw->debug) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, *i + 3)]) : 0;
-			v[3] = &cw->board[add_index_mod(p->pc, *i + 3)];
-			v[2] = &cw->board[add_index_mod(p->pc, *i + 2)];
-			v[1] = &cw->board[add_index_mod(p->pc, *i + 1)];
-			v[0] = &cw->board[add_index_mod(p->pc, *i + 0)];
+			v[3] = &cw->board[add_index_mod(p->pc, *i + 0)];
+			v[2] = &cw->board[add_index_mod(p->pc, *i + 1)];
+			v[1] = &cw->board[add_index_mod(p->pc, *i + 2)];
+			v[0] = &cw->board[add_index_mod(p->pc, *i + 3)];
 			*i += 4;
 		}
 		else
