@@ -1,4 +1,4 @@
-FLAG	=		-Wextra -Werror -Wall -Weverything
+FLAG	=		-Wextra -Werror -Wall #-Weverything
 I		=		-I./includes
 L		=		-L./libs -lftprintf -lncurses
 
