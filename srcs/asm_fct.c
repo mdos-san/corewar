@@ -1,3 +1,4 @@
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   asm_fct.c                                          :+:      :+:    :+:   */
@@ -94,6 +95,25 @@ void	add(t_cw *cw, t_process *p)
 		p->carry = 0;
 }
 
+void	sub(t_cw *cw, t_process *p)
+{
+	int		tmp;
+	int		i;
+	t_ocp	ocp;
+
+	i = 1;
+	ocp = ocp_get(cw->board[p->pc + i]);
+	++i;
+	ocp_parse(cw, p, &i, ocp, 1);
+	tmp = *p->p_one - *p->p_two;
+	*p->p_three = tmp;
+	p->pc = add_index_mod(p->pc, i);
+	if (*p->p_three == 0)
+		p->carry = 1;
+	else
+		p->carry = 0;
+}
+
 void	and(t_cw *cw, t_process *p)
 {
 	int		i;
@@ -104,6 +124,23 @@ void	and(t_cw *cw, t_process *p)
 	++i;
 	ocp_parse(cw, p, &i, ocp, 0);
 	*p->p_three = *p->p_one & *p->p_two;
+	p->pc = add_index_mod(p->pc, i);
+	if (*p->p_three == 0)
+		p->carry = 1;
+	else
+		p->carry = 0;
+}
+
+void	or(t_cw *cw, t_process *p)
+{
+	int		i;
+	t_ocp	ocp;
+
+	i = 1;
+	ocp = ocp_get(cw->board[p->pc + i]);
+	++i;
+	ocp_parse(cw, p, &i, ocp, 0);
+	*p->p_three = *p->p_one | *p->p_two;
 	p->pc = add_index_mod(p->pc, i);
 	if (*p->p_three == 0)
 		p->carry = 1;
@@ -212,9 +249,9 @@ int	get_turn(unsigned char c)
 {
 	if (c == 1)
 		return (10);
-	else if (c == 2 || c == 3 || c == 4)
+	else if (c == 2 || c == 3 || c == 4 || c == 5)
 		return (5);
-	else if (c == 6 || c == 8)
+	else if (c == 6 || c == 7 || c == 8)
 		return (6);
 	else if (c == 9)
 		return (20);

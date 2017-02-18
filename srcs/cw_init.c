@@ -61,7 +61,9 @@ t_cw	cw_init(int ac, char **av)
 	cw.fct_tab[2] = ld;
 	cw.fct_tab[3] = st;
 	cw.fct_tab[4] = add;
+	cw.fct_tab[5] = sub;
 	cw.fct_tab[6] = and;
+	cw.fct_tab[6] = or;
 	cw.fct_tab[8] = xor;
  	cw.fct_tab[9] = zjmp;
 	cw.fct_tab[10] = ldi;

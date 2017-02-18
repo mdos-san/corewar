@@ -105,7 +105,9 @@ void	live(t_cw *cw, t_process *p);
 void	ld(t_cw *cw, t_process *p);
 void	st(t_cw *cw, t_process *p);
 void	add(t_cw *cw, t_process *p);
+void	sub(t_cw *cw, t_process *p);
 void	and(t_cw *cw, t_process *p);
+void	or(t_cw *cw, t_process *p);
 void	xor(t_cw *cw, t_process *p);
 void	zjmp(t_cw *cw, t_process *p);
 void	sti(t_cw *cw, t_process *p);
@@ -113,7 +115,6 @@ void	ldi(t_cw *cw, t_process *p);
 void	frk(t_cw *cw, t_process *p);
 t_ocp	ocp_get(unsigned char ocp);
 void	ocp_parse(t_cw *cw, t_process *p, int *i, t_ocp ocp, int dir_two);
-
 void	cw_parse(t_cw *cw);
 t_process *process_new(t_process **act, int champ, int pc, int color_nb);
 int	process_count(t_process *l);
