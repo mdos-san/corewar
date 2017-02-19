@@ -43,6 +43,14 @@ static int	parse_get_number_player(t_cw *cw, int *nb)
 				parse_error(cw, "-dump value is missing.");
 			++i;
 		}
+		else if (ft_strcmp(av[i], "-d") == 0)
+		{
+			if (i + 1 < cw->ac && str_is_digit(av[i + 1]))
+				cw->f_d = ft_atoi(av[i + 1]);
+			else
+				parse_error(cw, "-d value is missing.");
+			++i;
+		}
 		else if (ft_strcmp(av[i], "-n") == 0)
 		{
 			if (i + 1 < cw->ac && nb_player < 4)

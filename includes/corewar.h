@@ -89,6 +89,7 @@ typedef	struct		s_cw
 	int				cycle_to_die;
 	int				f_v;
 	int				f_dump;
+	int				f_d;
 	int				asm_i;
 	int				asm_tmp;
 	t_ocp			asm_ocp;

@@ -46,6 +46,7 @@ t_cw	cw_init(int ac, char **av)
 	cw.board_color = (unsigned char *)ft_strnew(MEM_SIZE);
 	cw.f_v = visu_init(ac, av);
 	cw.f_dump = -1;
+	cw.f_d = -1;
 	cw.ac = ac;
 	cw.av = av;
 	cw.nb_process = 0;
@@ -63,7 +64,7 @@ t_cw	cw_init(int ac, char **av)
 	cw.fct_tab[4] = add;
 	cw.fct_tab[5] = sub;
 	cw.fct_tab[6] = and;
-	cw.fct_tab[6] = or;
+	cw.fct_tab[7] = or;
 	cw.fct_tab[8] = xor;
  	cw.fct_tab[9] = zjmp;
 	cw.fct_tab[10] = ldi;
