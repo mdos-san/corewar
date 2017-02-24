@@ -245,9 +245,81 @@ void	sti(t_cw *cw, t_process *p)
 	p->pc = add_index_mod(p->pc, i);
 }
 
+void	lld(t_cw *cw, t_process *p)
+{
+	int	i;
+	int y;
+	t_ocp ocp;
+
+	y = 0;
+	i = 1;
+	ocp = ocp_get(cw->board[p->pc + i]);
+	++i;
+	ocp_parse(cw, p, &i, ocp, 0);
+	while (y < 16)
+	{
+		if (p->r + y == p->p_two)
+		{
+			*p->p_two = *p->p_one;
+			break ;
+		}
+		++y;
+	}
+	p->pc = add_index_mod(p->pc, i);
+	if (*p->p_two == 0)
+		p->carry = 1;
+	else
+		p->carry = 0;
+}
+
+void	lldi(t_cw *cw, t_process *p)
+{
+	int	i;
+	int	new_addr;
+	t_ocp ocp;
+
+	i = 1;
+	ocp = ocp_get(cw->board[p->pc + i]);
+	++i;
+	ocp_parse(cw, p, &i, ocp, 1);
+	new_addr = add_index_mod(*p->p_one, *p->p_two);
+	((unsigned char *)p->p_three)[3] = *(cw->board + add_index_mod(p->pc, new_addr));
+	((unsigned char *)p->p_three)[2] = *(cw->board + add_index_mod(p->pc, new_addr) + 1);
+	((unsigned char *)p->p_three)[1] = *(cw->board + add_index_mod(p->pc, new_addr) + 2);
+	((unsigned char *)p->p_three)[0] = *(cw->board + add_index_mod(p->pc, new_addr) + 3);
+	p->pc = (p->pc + i) % MEM_SIZE;
+}
+
+void	lfrk(t_cw *cw, t_process *p)
+{
+	unsigned short	j;
+	t_process		*child;
+	int				i;
+
+	i = 0;
+	j = 0;
+	*(((unsigned char *)&j) + 1) = cw->board[p->pc + 1];
+	*(((unsigned char *)&j)) = cw->board[p->pc + 2];
+	if (j > 32768)
+		child = process_new(&cw->process, p->nb_champ, p->pc + (j - 65535 - 1), p->color_nb);
+	else
+		child = process_new(&cw->process, p->nb_champ, p->pc + j, p->color_nb);
+	while (i < 16)
+	{
+		child->r[i] = p->r[i];
+		++i;
+	}	
+	p->pc = add_index_mod(p->pc, 3);
+}
+
+void	aff(t_cw *cw, t_process *p)
+{
+	ft_putchar(cw->board[p->pc]);
+}
+
 int	get_turn(unsigned char c)
 {
-	if (c == 1)
+	if (c == 1 || c == 13)
 		return (10);
 	else if (c == 2 || c == 3 || c == 4 || c == 5)
 		return (5);
@@ -257,8 +329,14 @@ int	get_turn(unsigned char c)
 		return (20);
 	else if (c == 10 || c == 11)
 		return (25);
+	else if (c == 14)
+		return (50);
 	else if (c == 12)
 		return (800);
+	else if (c == 15)
+		return (1000);
+	else if (c == 16)
+		return (2);
 	return (0);
 }
 

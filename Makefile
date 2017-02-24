@@ -1,6 +1,6 @@
 FLAG	=		-Wextra -Werror -Wall #-Weverything
 I		=		-I./includes
-L		=		-L./libs -lftprintf -lncurses
+L		=		-L./libs ./libs/libftprintf.a -lncurses
 
 SRC_O	=		main.o\
 				cw_init.o\

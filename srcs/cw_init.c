@@ -16,7 +16,6 @@ static int	visu_init(int ac, char **av)
 		if (ft_strcmp(av[i], "-v") == 0)
 		{
 			initscr();
-			noecho();
 			curs_set(FALSE);
 			start_color();
 			init_pair(42, COLOR_WHITE, COLOR_BLACK);
@@ -36,9 +35,36 @@ static int	visu_init(int ac, char **av)
 	return (0);
 }
 
+static void	init_tab(t_cw *cw)
+{
+	int	i;
+
+	i = 0;
+	while (i < 256)
+	{
+		cw->fct_tab[i] = useless;	
+		++i;
+	}
+	cw->fct_tab[1] = live;
+	cw->fct_tab[2] = ld;
+	cw->fct_tab[3] = st;
+	cw->fct_tab[4] = add;
+	cw->fct_tab[5] = sub;
+	cw->fct_tab[6] = and;
+	cw->fct_tab[7] = or;
+	cw->fct_tab[8] = xor;
+ 	cw->fct_tab[9] = zjmp;
+	cw->fct_tab[10] = ldi;
+	cw->fct_tab[11] = sti;
+	cw->fct_tab[12] = frk;
+	cw->fct_tab[13] = lld;
+	cw->fct_tab[14] = lldi;
+	cw->fct_tab[15] = lfrk;
+	cw->fct_tab[16] = aff;
+}
+
 t_cw	cw_init(int ac, char **av)
 {
-	int		i;
 	t_cw	cw;
 
 	cw.debug = DEBUG;
@@ -52,23 +78,6 @@ t_cw	cw_init(int ac, char **av)
 	cw.nb_process = 0;
 	cw.process = NULL;
 	cw.cycle_to_die = CYCLE_TO_DIE;
-	i = 0;
-	while (i < 256)
-	{
-		cw.fct_tab[i] = useless;	
-		++i;
-	}
-	cw.fct_tab[1] = live;
-	cw.fct_tab[2] = ld;
-	cw.fct_tab[3] = st;
-	cw.fct_tab[4] = add;
-	cw.fct_tab[5] = sub;
-	cw.fct_tab[6] = and;
-	cw.fct_tab[7] = or;
-	cw.fct_tab[8] = xor;
- 	cw.fct_tab[9] = zjmp;
-	cw.fct_tab[10] = ldi;
-	cw.fct_tab[11] = sti;
-	cw.fct_tab[12] = frk;
+	init_tab(&cw);
 	return (cw);
 }

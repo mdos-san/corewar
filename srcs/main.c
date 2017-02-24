@@ -120,7 +120,7 @@ int main(int ac, char **av)
 		if (cw.f_v == 1)
 		{
 			attron(COLOR_PAIR(1));
-			mvprintw(0, 0, "");
+			mvprintw(0, 0, "Turn: %d, Process: %d\n", turn, process_count(cw.process));
 			board_print(cw);
 			refresh();
 		}
