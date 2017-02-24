@@ -69,7 +69,7 @@ static int	parse_get_number_player(t_cw *cw, int *nb)
 				fd_test = open(av[i], O_RDONLY);
 				if (fd_test == -1)
 					parse_error(cw, av[i]);
-				close(fd_test);	
+			close(fd_test);	
 			}
 			++nb_player;
 		}

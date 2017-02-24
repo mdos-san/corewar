@@ -25,14 +25,14 @@ int	bytecode_read(t_cw *cw, char *file, int	index, int color_nb)
 	int				i;
 	int				j;
 	int				len_offset;
-	long			len;
+	int				len;
 	char			*name;
 	char			*comment;
 
 	i = 0;
 	j = 0;
 	len = 0;
-	len_offset = 0;
+	len_offset = 3;
 	name = ft_strnew(PROG_NAME_LENGTH);
 	comment = ft_strnew(COMMENT_LENGTH);
 	fd = open(file, O_RDONLY);	
@@ -42,14 +42,12 @@ int	bytecode_read(t_cw *cw, char *file, int	index, int color_nb)
 	{
 		while (read(fd, buf, 1) > 0)
 		{
-			//Condition to read only champ processus of the file
-			//Processus is written in board directly
 			if (i >= 4 && i < 4 + PROG_NAME_LENGTH)
 				name[i - 4] = buf[0];
-			else if (i >= 4 + PROG_NAME_LENGTH && i < 4 + PROG_NAME_LENGTH + 8)
+			else if (i >= 4 + PROG_NAME_LENGTH + 4 && i < 4 + PROG_NAME_LENGTH + 8)
 			{
-				((char *)(&len))[len_offset] = buf[0];
-				len_offset += 1;
+				((unsigned char *)(&len))[len_offset] = buf[0];
+				len_offset -= 1;
 			}
 			else if (i >= 4 + PROG_NAME_LENGTH + 8 && i < 4 + PROG_NAME_LENGTH + 8 + COMMENT_LENGTH)
 				comment[i - (4 + PROG_NAME_LENGTH + 8)] = buf[0];
@@ -58,9 +56,13 @@ int	bytecode_read(t_cw *cw, char *file, int	index, int color_nb)
 				cw->board[j + index] = (unsigned char)buf[0];
 				cw->board_color[j + index] = (unsigned char)color_nb;
 				++j;
+				if (j > len)
+					exit(0);
 			}
 			++i;
 		}
+		if (j != len)
+			exit(0);
 		ft_printf("weighing %ld bytes, \"%s\" (\"%s\")", len, name, comment);
 		return (1);
 	}

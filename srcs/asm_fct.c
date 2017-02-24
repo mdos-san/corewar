@@ -339,26 +339,3 @@ int	get_turn(unsigned char c)
 		return (2);
 	return (0);
 }
-
-/*
-**	exec
-**
-**	Fonction "pattern" qui init les valeur du processus pour le faire attendre un certain nombre de tour
-**	quand le precessus a attendu le nombre de tour, exec lance la fonction fct pour executer l action a faire par le processus.
-**
-*/
-
-void	exec(t_cw *cw, t_process *p, void (*fct)(t_cw *, t_process *))
-{
-	if (p->is_waiting == 0)
-	{
-		p->is_waiting = 1;
-		p->waiting_turn = get_turn(cw->board[p->pc]);
-	}
-	else if (p->waiting_turn == 0)
-	{
-		fct(cw, p);
-		p->is_waiting = 0;
-	}
-	--p->waiting_turn;
-}
