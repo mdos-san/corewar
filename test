@@ -5,8 +5,8 @@ touch target
 
 test() {
 	echo "Testing $1: \c"
-	`./corewar ./tests/$1 > out` 2> error
-	`./corewar ./tests/$1 > target`
+	`./corewar -d $2 ./tests/$1 > out` 2> error
+	`./corewar -d $2 ./tests/$1 > target`
 	DIFF=`diff out target`
 	ERROR=`cat error`
 	if [ "$DIFF" = "" ]
@@ -22,29 +22,38 @@ test() {
 
 make re
 clear
-test st_1.cor
-test st_2.cor
-test st_3.cor
-test st_4.cor
-test st_5.cor
-test st_6.cor
-test st_7.cor
-test ld_st_1.cor
-test ld_st_2.cor
-test ld_st_3.cor
-test ld_st_4.cor
-test ld_st_5.cor
-test ld_st_6.cor
-test add_st_1.cor
-test add_st_2.cor
-test sub_st_1.cor
-test sub_st_2.cor
-test and_st_1.cor
-test and_st_2.cor
-test and_st_3.cor
-test or_st_1.cor
-test or_st_2.cor
-test or_st_3.cor
-test xor_st_1.cor
-test xor_st_2.cor
-test xor_st_3.cor
+test st_1.cor 5
+test st_2.cor 5 
+test st_3.cor 5
+test st_4.cor 5
+test st_5.cor 5
+test st_6.cor 5
+#test st_7.cor 5
+#test st_8.cor 5
+#test st_9.cor 5
+test ld_st_1.cor 10
+test ld_st_2.cor 10
+test ld_st_3.cor 10
+test ld_st_4.cor 10
+#test ld_st_5.cor 10
+#test ld_st_6.cor 10
+test add_st_1.cor 15
+test add_st_2.cor 15
+test sub_st_1.cor 15
+test sub_st_2.cor 15
+test and_st_1.cor 11
+test and_st_2.cor 11
+test and_st_3.cor 11
+test or_st_1.cor 11
+test or_st_2.cor 11
+test or_st_3.cor 11
+test xor_st_1.cor 11
+test xor_st_2.cor 11
+test xor_st_3.cor 11
+test sti_1.cor 25
+test sti_2.cor 25
+test sti_3.cor 25
+test sti_4.cor 25
+test sti_5.cor 25
+
+make fclean > /dev/null
