@@ -61,6 +61,8 @@ static void	die(t_cw *cw, int *check)
 			{
 				cw->process = l->next;
 				free(l);
+				if (process_count(cw->process) == 0)
+					exit (0);
 				l = cw->process;
 			}
 		}
@@ -75,7 +77,6 @@ static void	die(t_cw *cw, int *check)
 	else
 		max_check++;
 	*check = 0;
-
 }
 
 static void	exec_turn(t_cw *cw, int *turn)
