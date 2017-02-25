@@ -78,6 +78,13 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *i, int *v, int **pt, char *str
 		{
 			((unsigned char *)&ind)[1] = cw->board[add_index_mod(p->pc, *i)];
 			((unsigned char *)&ind)[0] = cw->board[add_index_mod(p->pc, *i + 1)];
+			if (cw->idx == 1)
+			{
+				if (ind > 32768)
+					ind = ind % IDX_MOD - IDX_MOD;
+				else
+					ind = ind % IDX_MOD;
+			}
 //			ft_printf("readed %.2x %.2x ind: %d\n", cw->board[add_index_mod(p->pc, *i)], cw->board[add_index_mod(p->pc, *i + 1)], ind);
 			((unsigned char *)v)[3] = cw->board[p->pc + ind];
 			((unsigned char *)v)[2] = cw->board[p->pc + ind + 1];
@@ -116,4 +123,5 @@ void	ocp_parse(t_cw *cw, t_process *p, int *i, t_ocp ocp, int dir_two, int get_i
 	ocp_part(cw, p, i, &p->one, &p->p_one, ocp.one, dir_two, get_index);
 	ocp_part(cw, p, i, &p->two, &p->p_two, ocp.two, dir_two, get_index);
 	ocp_part(cw, p, i, &p->three, &p->p_three, ocp.three, dir_two, get_index);
+	cw->idx = 0;
 }

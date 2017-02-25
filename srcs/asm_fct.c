@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 18:44:45 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/25 08:55:33 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/02/25 10:26:59 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ld(t_cw *cw, t_process *p)
 	ocp_parse(cw, p, &i, ocp, 0, 1);
 	if (ft_strcmp(ocp.one, "11") == 0)
 	{
-		if (p->p_one[0] > 61440)
+		if (p->p_one[0] > 32768)
 			p->p_one[0] = (p->p_one[0] % IDX_MOD) - IDX_MOD;
 		else
 			p->p_one[0] = (p->p_one[0] % IDX_MOD);
@@ -83,7 +83,7 @@ void	st(t_cw *cw, t_process *p)
 		p->p_two[0] = p->p_one[0];
 	else
 	{
-		if (p->p_two[0] > 61440)
+		if (p->p_two[0] > 32768)
 			p->p_two[0] = (p->p_two[0] % IDX_MOD) - IDX_MOD;
 		else
 			p->p_two[0] = (p->p_two[0] % IDX_MOD);
@@ -145,6 +145,7 @@ void	and(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
+	cw->idx = 1;
 	ocp_parse(cw, p, &i, ocp, 0, 0);
 	*p->p_three = *p->p_one & *p->p_two;
 	p->pc = add_index_mod(p->pc, i);
@@ -162,6 +163,7 @@ void	or(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
+	cw->idx = 1;
 	ocp_parse(cw, p, &i, ocp, 0, 0);
 	*p->p_three = *p->p_one | *p->p_two;
 	p->pc = add_index_mod(p->pc, i);
@@ -179,6 +181,7 @@ void	xor(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
+	cw->idx = 1;
 	ocp_parse(cw, p, &i, ocp, 0, 0);
 	*p->p_three = *p->p_one ^ *p->p_two;
 	p->pc = add_index_mod(p->pc, i);
@@ -194,13 +197,12 @@ void	zjmp(t_cw *cw, t_process *p)
 
 	*(((unsigned char *)&j) + 1) = cw->board[p->pc + 1];
 	*(((unsigned char *)&j)) = cw->board[p->pc + 2];
+	if (j > 32768)
+		j = j % IDX_MOD - IDX_MOD;
+	else
+		j = j % IDX_MOD;
 	if (p->carry == 1)
-	{
-		if (j > 32768)
-			p->pc = add_index_mod(p->pc, j - 65535 - 1);
-		else
-			p->pc = add_index_mod(p->pc, j);
-	}
+		p->pc = add_index_mod(p->pc, j);
 	else
 		p->pc = add_index_mod(p->pc, 3);
 }
@@ -234,9 +236,10 @@ void	frk(t_cw *cw, t_process *p)
 	*(((unsigned char *)&j) + 1) = cw->board[p->pc + 1];
 	*(((unsigned char *)&j)) = cw->board[p->pc + 2];
 	if (j > 32768)
-		child = process_new(&cw->process, p->nb_champ, p->pc + (j - 65535 - 1), p->color_nb);
+		j = j % IDX_MOD - IDX_MOD;
 	else
-		child = process_new(&cw->process, p->nb_champ, p->pc + j, p->color_nb);
+		j = j % IDX_MOD;
+	child = process_new(&cw->process, p->nb_champ, add_index_mod(p->pc, j), p->color_nb);
 	while (i < 16)
 	{
 		child->r[i] = p->r[i];
@@ -254,6 +257,7 @@ void	sti(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
+	cw->idx = 1;
 	ocp_parse(cw, p, &i, ocp, 1, 0);
 	*p->p_one = (p->p_one[0] < 0) ? 4294967295 + p->p_one[0] + 1 : p->p_one[0];
 	sum = *p->p_two + *p->p_three;

@@ -95,6 +95,7 @@ typedef	struct		s_cw
 	t_ocp			asm_ocp;
 	char			debug;
 	short			padding;
+	int				idx;
 }					t_cw;
 
 t_cw		cw_init(int ac, char **av);

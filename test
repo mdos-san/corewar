@@ -33,6 +33,9 @@ test st_6.cor 5
 test st_7.cor 5
 test st_8.cor 5
 test st_9.cor 5
+test st_st_1.cor 10
+test st_st_2.cor 10
+test st_st_3.cor 10
 test ld_st_1.cor 10
 test ld_st_2.cor 10
 test ld_st_3.cor 10
@@ -46,6 +49,7 @@ test sub_st_2.cor 15
 test and_st_1.cor 11
 test and_st_2.cor 11
 test and_st_3.cor 11
+test and_st_4.cor 11
 test or_st_1.cor 11
 test or_st_2.cor 11
 test or_st_3.cor 11
@@ -57,5 +61,5 @@ test sti_2.cor 25
 test sti_3.cor 25
 test sti_4.cor 25
 test sti_5.cor 25
-
-make fclean > /dev/null
+test fluttershy.cor 24000
+#test helltrain.cor 8950

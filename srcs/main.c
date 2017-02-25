@@ -134,7 +134,7 @@ int main(int ac, char **av)
 		d(&cw);
 	else if (cw.f_dump != -1)
 		dump(&cw);
-	//ft_printf("Ended in turn %d\n", turn);
+//	ft_printf("Ended in turn %d\n", turn);
 	(cw.board) ? free(cw.board) : (void)0;
 	return (1);
 }

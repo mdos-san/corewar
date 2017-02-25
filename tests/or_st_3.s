@@ -1,5 +1,5 @@
 .name  "test"
 .comment "Testing champ"
 
-or 0, 1, r1
+or 513, -513, r1
 st r1, 42
