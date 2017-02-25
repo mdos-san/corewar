@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 18:44:45 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/25 07:54:01 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/02/25 08:55:33 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,37 @@ void	ld(t_cw *cw, t_process *p)
 {
 	int	i;
 	int y;
+	int	value;
 	t_ocp ocp;
 
 	y = 0;
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, 0, 0);
+	ocp_parse(cw, p, &i, ocp, 0, 1);
+	if (ft_strcmp(ocp.one, "11") == 0)
+	{
+		if (p->p_one[0] > 61440)
+			p->p_one[0] = (p->p_one[0] % IDX_MOD) - IDX_MOD;
+		else
+			p->p_one[0] = (p->p_one[0] % IDX_MOD);
+		((unsigned char*)&value)[3] = cw->board[add_index_mod(p->pc, p->p_one[0] + 0)];
+		((unsigned char*)&value)[2] = cw->board[add_index_mod(p->pc, p->p_one[0] + 1)];
+		((unsigned char*)&value)[1] = cw->board[add_index_mod(p->pc, p->p_one[0] + 2)];
+		((unsigned char*)&value)[0] = cw->board[add_index_mod(p->pc, p->p_one[0] + 3)];
+	}
+	else
+		value = *p->p_one;
 	while (y < 16)
 	{
 		if (p->r + y == p->p_two)
 		{
-			*p->p_two = *p->p_one;
+			*p->p_two = value;
 			break ;
 		}
 		++y;
 	}
-	p->pc = add_index_mod(p->pc, i % IDX_MOD);
+	p->pc = add_index_mod(p->pc, i);
 	if (*p->p_two == 0)
 		p->carry = 1;
 	else
@@ -69,6 +83,10 @@ void	st(t_cw *cw, t_process *p)
 		p->p_two[0] = p->p_one[0];
 	else
 	{
+		if (p->p_two[0] > 61440)
+			p->p_two[0] = (p->p_two[0] % IDX_MOD) - IDX_MOD;
+		else
+			p->p_two[0] = (p->p_two[0] % IDX_MOD);
 		cw->board[add_index_mod(p->pc, (p->p_two[0] + 0))] = ((unsigned char *)(&tmp))[3];
 		cw->board[add_index_mod(p->pc, (p->p_two[0] + 1))] = ((unsigned char *)(&tmp))[2];
 		cw->board[add_index_mod(p->pc, (p->p_two[0] + 2))] = ((unsigned char *)(&tmp))[1];

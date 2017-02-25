@@ -1,4 +1,4 @@
 .name  "test"
 .comment "Testing champ"
 
-st r17, r17
+st r1, -513

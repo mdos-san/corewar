@@ -1,5 +1,5 @@
 .name  "Test"
 .comment "Testing champ"
 
-ld %42, r17
-st r17, r7
+ld 513, r2
+st r2, 21
