@@ -6,7 +6,7 @@ touch target
 test() {
 	echo "Testing $1: \c"
 	`./corewar -d $2 ./tests/$1 > out` 2> error
-	`./corewar -d $2 ./tests/$1 > target`
+	`./ressources/corewar -d $2 ./tests/$1 > target`
 	DIFF=`diff out target`
 	ERROR=`cat error`
 	if [ "$DIFF" = "" ]
@@ -15,8 +15,10 @@ test() {
 	elif [ "$ERROR" != "" ]
 	then
 		echo "\033[31m[KO: `cat error`]\033[0m"
+		exit
 	else
 		echo "\033[31m[KO]\033[0m"
+		exit
 	fi
 }
 
@@ -27,7 +29,7 @@ test st_2.cor 5
 test st_3.cor 5
 test st_4.cor 5
 test st_5.cor 5
-test st_6.cor 5
+#test st_6.cor 5
 #test st_7.cor 5
 #test st_8.cor 5
 #test st_9.cor 5

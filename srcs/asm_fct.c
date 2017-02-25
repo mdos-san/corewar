@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 18:44:45 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/01/11 18:44:47 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/02/25 07:54:01 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ld(t_cw *cw, t_process *p)
 		}
 		++y;
 	}
-	p->pc = add_index_mod(p->pc, i);
+	p->pc = add_index_mod(p->pc, i % IDX_MOD);
 	if (*p->p_two == 0)
 		p->carry = 1;
 	else
@@ -65,14 +65,19 @@ void	st(t_cw *cw, t_process *p)
 	++i;
 	ocp_parse(cw, p, &i, ocp, 0, 1);
 	tmp = (p->p_one[0] < 0) ? 4294967295 + p->p_one[0] + 1 : p->p_one[0];
-	cw->board[add_index_mod(p->pc, p->p_two[0] + 0)] = ((unsigned char *)(&tmp))[3];
-	cw->board[add_index_mod(p->pc, p->p_two[0] + 1)] = ((unsigned char *)(&tmp))[2];
-	cw->board[add_index_mod(p->pc, p->p_two[0] + 2)] = ((unsigned char *)(&tmp))[1];
-	cw->board[add_index_mod(p->pc, p->p_two[0] + 3)] = ((unsigned char *)(&tmp))[0];
-	cw->board_color[add_index_mod(p->pc, p->p_two[0] + 0)] = (unsigned char)p->color_nb;
-	cw->board_color[add_index_mod(p->pc, p->p_two[0] + 1)] = (unsigned char)p->color_nb;
-	cw->board_color[add_index_mod(p->pc, p->p_two[0] + 2)] = (unsigned char)p->color_nb;
-	cw->board_color[add_index_mod(p->pc, p->p_two[0] + 3)] = (unsigned char)p->color_nb;
+	if (ft_strcmp(ocp.two, "01") == 0)
+		p->p_two[0] = p->p_one[0];
+	else
+	{
+		cw->board[add_index_mod(p->pc, (p->p_two[0] + 0))] = ((unsigned char *)(&tmp))[3];
+		cw->board[add_index_mod(p->pc, (p->p_two[0] + 1))] = ((unsigned char *)(&tmp))[2];
+		cw->board[add_index_mod(p->pc, (p->p_two[0] + 2))] = ((unsigned char *)(&tmp))[1];
+		cw->board[add_index_mod(p->pc, (p->p_two[0] + 3))] = ((unsigned char *)(&tmp))[0];
+		cw->board_color[add_index_mod(p->pc, (p->p_two[0] + 0))] = (unsigned char)p->color_nb;
+		cw->board_color[add_index_mod(p->pc, (p->p_two[0] + 1))] = (unsigned char)p->color_nb;
+		cw->board_color[add_index_mod(p->pc, (p->p_two[0] + 2))] = (unsigned char)p->color_nb;
+		cw->board_color[add_index_mod(p->pc, (p->p_two[0] + 3))] = (unsigned char)p->color_nb;
+	}
 	p->pc = add_index_mod(p->pc, i);
 }
 

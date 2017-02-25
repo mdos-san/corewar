@@ -23,10 +23,10 @@ void	d(t_cw *cw)
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		if (i % 32 == 0)
-			ft_printf("0x%.4x: ", i);
+		if (i % 64 == 0)
+			ft_printf("0x%.4x : ", i);
 		ft_printf("%.2x ", cw->board[i]);
-		if ((i + 1) % 32 == 0)	
+		if ((i + 1) % 64 == 0)	
 			ft_putchar('\n');
 		++i;
 	}
@@ -88,7 +88,7 @@ static void	exec_turn(t_cw *cw, int *turn)
 		if (l->is_waiting == 0)
 		{
 			l->is_waiting = 1;
-			l->waiting_turn = *turn + get_turn(cw->board[l->pc]);
+			l->waiting_turn = *turn + get_turn(cw->board[l->pc]) - 1;
 		} 
 		else if (l->waiting_turn == *turn)
 		{

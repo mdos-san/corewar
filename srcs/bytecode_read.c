@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 11:27:43 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/16 14:36:22 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/02/25 06:53:03 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	bytecode_read(t_cw *cw, char *file, int	index, int color_nb)
 		}
 		if (j != len)
 			exit(0);
-		ft_printf("weighing %ld bytes, \"%s\" (\"%s\")", len, name, comment);
+		ft_printf("weighing %ld bytes, \"%s\" (\"%s\") !", len, name, comment);
 		return (1);
 	}
 }
