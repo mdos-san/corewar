@@ -37,7 +37,7 @@ void	ld(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, 0);
+	ocp_parse(cw, p, &i, ocp, 0, 0);
 	while (y < 16)
 	{
 		if (p->r + y == p->p_two)
@@ -63,7 +63,7 @@ void	st(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, 0);
+	ocp_parse(cw, p, &i, ocp, 0, 1);
 	tmp = (p->p_one[0] < 0) ? 4294967295 + p->p_one[0] + 1 : p->p_one[0];
 	cw->board[add_index_mod(p->pc, p->p_two[0] + 0)] = ((unsigned char *)(&tmp))[3];
 	cw->board[add_index_mod(p->pc, p->p_two[0] + 1)] = ((unsigned char *)(&tmp))[2];
@@ -85,7 +85,7 @@ void	add(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, 1);
+	ocp_parse(cw, p, &i, ocp, 1, 0);
 	tmp = *p->p_one + *p->p_two;
 	*p->p_three = tmp;
 	p->pc = add_index_mod(p->pc, i);
@@ -104,7 +104,7 @@ void	sub(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, 1);
+	ocp_parse(cw, p, &i, ocp, 1, 0);
 	tmp = *p->p_one - *p->p_two;
 	*p->p_three = tmp;
 	p->pc = add_index_mod(p->pc, i);
@@ -122,7 +122,7 @@ void	and(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, 0);
+	ocp_parse(cw, p, &i, ocp, 0, 0);
 	*p->p_three = *p->p_one & *p->p_two;
 	p->pc = add_index_mod(p->pc, i);
 	if (*p->p_three == 0)
@@ -139,7 +139,7 @@ void	or(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, 0);
+	ocp_parse(cw, p, &i, ocp, 0, 0);
 	*p->p_three = *p->p_one | *p->p_two;
 	p->pc = add_index_mod(p->pc, i);
 	if (*p->p_three == 0)
@@ -156,7 +156,7 @@ void	xor(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, 0);
+	ocp_parse(cw, p, &i, ocp, 0, 0);
 	*p->p_three = *p->p_one ^ *p->p_two;
 	p->pc = add_index_mod(p->pc, i);
 	if (*p->p_three == 0)
@@ -191,7 +191,7 @@ void	ldi(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, 1);
+	ocp_parse(cw, p, &i, ocp, 1, 0);
 	new_addr = add_index_mod(*p->p_one, *p->p_two);
 	((unsigned char *)p->p_three)[3] = *(cw->board + add_index_mod(p->pc, new_addr));
 	((unsigned char *)p->p_three)[2] = *(cw->board + add_index_mod(p->pc, new_addr) + 1);
@@ -231,7 +231,7 @@ void	sti(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, 1);
+	ocp_parse(cw, p, &i, ocp, 1, 0);
 	*p->p_one = (p->p_one[0] < 0) ? 4294967295 + p->p_one[0] + 1 : p->p_one[0];
 	sum = *p->p_two + *p->p_three;
 	cw->board[add_index_mod(p->pc, sum + 0)] = ((unsigned char *)(p->p_one))[3];
@@ -255,7 +255,7 @@ void	lld(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, 0);
+	ocp_parse(cw, p, &i, ocp, 0, 0);
 	while (y < 16)
 	{
 		if (p->r + y == p->p_two)
@@ -281,7 +281,7 @@ void	lldi(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, 1);
+	ocp_parse(cw, p, &i, ocp, 1, 0);
 	new_addr = add_index_mod(*p->p_one, *p->p_two);
 	((unsigned char *)p->p_three)[3] = *(cw->board + add_index_mod(p->pc, new_addr));
 	((unsigned char *)p->p_three)[2] = *(cw->board + add_index_mod(p->pc, new_addr) + 1);

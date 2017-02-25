@@ -120,7 +120,7 @@ void		lldi(t_cw *cw, t_process *p);
 void		lfrk(t_cw *cw, t_process *p);
 void		aff(t_cw *cw, t_process *p);
 t_ocp		ocp_get(unsigned char ocp);
-void		ocp_parse(t_cw *cw, t_process *p, int *i, t_ocp ocp, int dir_two);
+void		ocp_parse(t_cw *cw, t_process *p, int *i, t_ocp ocp, int dir_two, int get_index);
 t_process	*process_new(t_process **act, int champ, int pc, int color_nb);
 int			process_count(t_process *l);
 int			get_turn(unsigned char c);
