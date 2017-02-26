@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 18:44:45 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/26 10:35:06 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/02/26 11:37:21 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -367,9 +367,9 @@ void	aff(t_cw *cw, t_process *p)
 
 int	get_turn(unsigned char c)
 {
-	if (c == 1 || c == 13)
+	if (c == 1  || c == 4 || c == 5 || c == 13)
 		return (10);
-	else if (c == 2 || c == 3 || c == 4 || c == 5)
+	else if (c == 2 || c == 3)
 		return (5);
 	else if (c == 6 || c == 7 || c == 8)
 		return (6);
