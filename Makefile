@@ -36,5 +36,6 @@ fclean:	clean
 	rm -rf corewar
 	rm -rf includes/libft.h includes/libftprintf.h
 	rm -rf libs/libftprintf.a
+	rm -rf _out
 
 re:	fclean all

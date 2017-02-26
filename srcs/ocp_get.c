@@ -61,9 +61,7 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *i, int *v, int **pt, char *str
 	if (ft_strcmp(str, "01") == 0)
 	{
 		if (1 <= cw->board[p->pc + *i] && cw->board[p->pc + *i] <= 16)
-		{
 			*pt = p->r + (cw->board[add_index_mod(p->pc, *i)]) - 1;
-		}
 		++*i;
 	}
 	else if (ft_strcmp(str, "11") == 0)
@@ -85,7 +83,6 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *i, int *v, int **pt, char *str
 				else
 					ind = ind % IDX_MOD;
 			}
-//			ft_printf("readed %.2x %.2x ind: %d\n", cw->board[add_index_mod(p->pc, *i)], cw->board[add_index_mod(p->pc, *i + 1)], ind);
 			((unsigned char *)v)[3] = cw->board[p->pc + ind];
 			((unsigned char *)v)[2] = cw->board[p->pc + ind + 1];
 			((unsigned char *)v)[1] = cw->board[p->pc + ind + 2];
