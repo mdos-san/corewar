@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 18:44:45 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/25 10:26:59 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/02/26 09:21:47 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,7 +260,28 @@ void	sti(t_cw *cw, t_process *p)
 	cw->idx = 1;
 	ocp_parse(cw, p, &i, ocp, 1, 0);
 	*p->p_one = (p->p_one[0] < 0) ? 4294967295 + p->p_one[0] + 1 : p->p_one[0];
+
+	if (ft_strcmp(ocp.two, "10") == 0)
+	{
+		if (*p->p_two > 32768)
+			*p->p_two = *p->p_two % IDX_MOD - IDX_MOD;
+		else
+			*p->p_two = *p->p_two % IDX_MOD;
+	}
+	if (ft_strcmp(ocp.three, "10") == 0)
+	{
+		if (*p->p_three > 32768)
+			*p->p_three = *p->p_three % IDX_MOD - IDX_MOD;
+		else
+			*p->p_three = *p->p_three % IDX_MOD;
+	}
 	sum = *p->p_two + *p->p_three;
+//	ft_printf("sum a: %d %d %d\n", sum, *p->p_two, *p->p_three);
+//	if (sum < 0)
+//		sum = sum % IDX_MOD - IDX_MOD;
+//	else
+	sum = sum % IDX_MOD;
+//	ft_printf("sum b: %d %d %d\n", sum, *p->p_two, *p->p_three);
 	cw->board[add_index_mod(p->pc, sum + 0)] = ((unsigned char *)(p->p_one))[3];
 	cw->board[add_index_mod(p->pc, sum + 1)] = ((unsigned char *)(p->p_one))[2];
 	cw->board[add_index_mod(p->pc, sum + 2)] = ((unsigned char *)(p->p_one))[1];

@@ -112,6 +112,8 @@ int main(int ac, char **av)
 	cw_parse(&cw);
 	while (cw.process)
 	{
+		if (turn == 15000)
+			sleep(100);
 		if (turn == cw.f_dump || turn == cw.f_d)
 			break ;
 		if (check == cw.cycle_to_die)
