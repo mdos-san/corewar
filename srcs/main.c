@@ -112,8 +112,6 @@ int main(int ac, char **av)
 	cw_parse(&cw);
 	while (cw.process)
 	{
-		if (turn == 15000)
-			sleep(100);
 		if (turn == cw.f_dump || turn == cw.f_d)
 			break ;
 		if (check == cw.cycle_to_die)
@@ -124,7 +122,7 @@ int main(int ac, char **av)
 		{
 			attron(COLOR_PAIR(1));
 			mvprintw(0, 0, "Turn: %d, Process: %d\n", turn, process_count(cw.process));
-			board_print(cw);
+			board_print(&cw);
 			refresh();
 		}
 		exec_turn(&cw, &turn);

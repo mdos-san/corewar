@@ -81,6 +81,7 @@ typedef	struct		s_cw
 	char			**av;
 	unsigned char	*board;
 	unsigned char	*board_color;
+	unsigned char	*board_ptr;
 	t_process		*process;
 	void			(*fct_tab[256])(struct s_cw*, t_process*);
 	t_champ			champs[4];
@@ -100,7 +101,7 @@ typedef	struct		s_cw
 
 t_cw		cw_init(int ac, char **av);
 void		cw_parse(t_cw *cw);
-void		board_print(t_cw cw);
+void		board_print(t_cw *cw);
 int			bytecode_read(t_cw *cw, char *file, int	index, int color_nb);
 void		process_add(t_cw *cw, int champ, int pc, int color_nb);
 void		exec(t_cw *cw, t_process *p, void (*fct)(t_cw *, t_process *));
