@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 18:44:45 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/26 11:37:21 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/02/26 12:24:05 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,6 +245,7 @@ void	frk(t_cw *cw, t_process *p)
 		child->r[i] = p->r[i];
 		++i;
 	}	
+	child->carry = p->carry;
 	p->pc = add_index_mod(p->pc, 3);
 }
 
