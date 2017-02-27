@@ -151,8 +151,8 @@ int main(int ac, char **av)
 			refresh();
 		}
 		exec_turn(&cw, &turn);
-		if (cw.ins >= 76374)
-			sleep(3000);
+//		if (cw.ins >= 76374)
+//			sleep(3000);
 		++turn;
 		++check;
 	}
