@@ -1,19 +1,20 @@
 #!/bin/bash
 
+exec 2> error
 
 fct() {
-	printf "Testing $1: "
-	`./corewar -d $2 ./_cor/$1 > ./_out/$1` 2> error
+	echo -e "Testing $1: \c"
+	./corewar -d $2 ./_cor/$1 > ./_out/$1
 	DIFF=`diff ./_out/$1 ./_zaz_output/$1`
 	ERROR=`cat error`
 	if [ "$DIFF" = "" ]
 	then
-		printf "\033[0;32m[OK]\033[0;0m\n"
+		echo -e "\033[0;32m[OK]\033[0;0m"
 	elif [ "$ERROR" != "" ]
 	then
-		printf "\033[0;31m[KO: `cat error`]\033[0;0m\n"
+		echo -e "\033[0;31m[KO: `cat error`]\033[0;0m"
 	else
-		printf "\033[0;31m[KO]\033[0;0m\n"
+		echo -e "\033[0;31m[KO]\033[0;0m"
 	fi
 }
 
