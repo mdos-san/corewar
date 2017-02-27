@@ -91,21 +91,33 @@ static void	exec_turn(t_cw *cw, int *turn)
 	while (l)
 	{
 		cw->param_error = 0;
+		cw->normal = 1;
 		if (l->is_waiting == 0)
 		{
 			l->is_waiting = 1;
 			l->waiting_turn = *turn + get_turn(cw->board[l->pc]) - 1;
 			l->fct = cw->board[l->pc];
-			if (cw->board[l->pc] == 1)
-				l->nb_live++;
+//			if (cw->board[l->pc] == 1)
+//				l->nb_live++;
 		} 
 //		if (l->is_waiting == -1)
 //			l->is_waiting = 0;
 		if (l->waiting_turn == *turn)
 		{
-			if (cw->board[l->pc] < 1 || 16 > cw->board[l->pc])
+			if (cw->board[l->pc] < 1 || 16 < cw->board[l->pc])
 				cw->param_error = 1;
-			cw->fct_tab[l->fct](cw, l);
+			if (cw->f_verbose && cw->board[l->pc] != 9 && 1 <= cw->board[l->pc] && cw->board[l->pc] <= 16)
+			{
+				++cw->ins;
+				ft_printf("%.2x ", cw->board[l->pc]);
+				cw->fct_tab[l->fct](cw, l);
+				ft_putchar('\n');
+			}
+			else
+			{
+				cw->normal = 0;
+				cw->fct_tab[l->fct](cw, l);
+			}
 			l->is_waiting = 0;
 		}
 		l = l->next;
@@ -133,19 +145,20 @@ int main(int ac, char **av)
 		if (cw.f_v == 1)
 		{
 			attron(COLOR_PAIR(1));
-			mvprintw(0, 0, "Turn: %d, Process: %d\n", turn, process_count(cw.process));
+			clear();
+			mvprintw(0, 0, "Turn: %d, Process: %d, Cycle to die: %d, Instruction executed: %lld\n", turn, process_count(cw.process), cw.cycle_to_die, cw.ins);
 			board_print(&cw);
 			refresh();
 		}
 		exec_turn(&cw, &turn);
-		if (turn >= 9717)
-			sleep(1000);
+		if (cw.ins >= 76374)
+			sleep(3000);
 		++turn;
 		++check;
 	}
 	if (cw.f_v == 1)
 		endwin();
-	if (cw.f_d != -1)
+	else if (cw.f_d != -1)
 		d(&cw);
 	else if (cw.f_dump != -1)
 		dump(&cw);

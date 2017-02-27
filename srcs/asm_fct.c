@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 18:44:45 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/27 09:43:17 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/02/27 14:23:53 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,19 @@ int		add_index_mod(int a, int b)
 
 void	live(t_cw *cw, t_process *p)
 {
+	if (cw->normal == 0)
+	{
+		++cw->ins;
+		(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, 0)])  : 0;
+	}
+	(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, 1)])  : 0;
+	(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, 2)])  : 0;
+	(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, 3)])  : 0;
+	(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, 4)])  : 0;
+  	if (cw->normal == 0)
+		(cw->f_verbose) ? ft_printf("\n")  : 0;
 	p->pc += 5;
-	//	p->nb_live += 1;
+ 	p->nb_live += 1;
 	(void)cw;
 }
 
@@ -207,7 +218,14 @@ void	zjmp(t_cw *cw, t_process *p)
 	if (p->carry == 1)
 		p->pc = add_index_mod(p->pc, j);
 	else
+	{
+		++cw->ins;
+		(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, 0)])  : 0;
+		(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, 1)])  : 0;
+		(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, 2)])  : 0;
+		(cw->f_verbose) ? ft_putchar('\n')  : 0;
 		p->pc = add_index_mod(p->pc, 3);
+	}
 }
 
 void	ldi(t_cw *cw, t_process *p)
@@ -238,6 +256,9 @@ void	frk(t_cw *cw, t_process *p)
 	j = 0;
 	*(((unsigned char *)&j) + 1) = cw->board[p->pc + 1];
 	*(((unsigned char *)&j)) = cw->board[p->pc + 2];
+	++cw->ins;
+	(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, 1)])  : 0;
+	(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, 2)])  : 0;
 	if (j > 32768)
 		j = j % IDX_MOD - IDX_MOD;
 	else
@@ -249,6 +270,7 @@ void	frk(t_cw *cw, t_process *p)
 		++i;
 	}	
 	child->carry = p->carry;
+	child->nb_live = 1;
 	p->pc = add_index_mod(p->pc, 3);
 }
 

@@ -37,5 +37,7 @@ fclean:	clean
 	rm -rf includes/libft.h includes/libftprintf.h
 	rm -rf libs/libftprintf.a
 	rm -rf _out
+	rm -rf _verbose_out
+	rm -rf error
 
 re:	fclean all

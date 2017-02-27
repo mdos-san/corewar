@@ -90,6 +90,7 @@ typedef	struct		s_cw
 	int				ac;
 	int				cycle_to_die;
 	int				f_v;
+	int				f_verbose;
 	int				f_dump;
 	int				f_d;
 	int				asm_i;
@@ -99,6 +100,8 @@ typedef	struct		s_cw
 	short			padding;
 	int				idx;
 	int				param_error;
+	int				normal;
+	long long		ins;
 }					t_cw;
 
 t_cw		cw_init(int ac, char **av);

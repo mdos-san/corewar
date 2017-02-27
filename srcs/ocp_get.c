@@ -61,9 +61,12 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *i, int *v, int **pt, char *str
 	if (ft_strcmp(str, "01") == 0)
 	{
 		if (1 <= cw->board[p->pc + *i] && cw->board[p->pc + *i] <= 16)
+		{
 			*pt = p->r + (cw->board[add_index_mod(p->pc, *i)]) - 1;
+		}
 		else
 			cw->param_error = 1;
+		(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, *i)])  : 0;
 		++*i;
 	}
 	else if (ft_strcmp(str, "11") == 0)
@@ -72,6 +75,8 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *i, int *v, int **pt, char *str
 		{
 			((unsigned char *)v)[1] = cw->board[add_index_mod(p->pc, *i)];
 			((unsigned char *)v)[0] = cw->board[add_index_mod(p->pc, *i + 1)];
+			(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, *i)])  : 0;
+			(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, *i + 1)])  : 0;
 			*i += 2;
 		}
 		else
@@ -89,6 +94,10 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *i, int *v, int **pt, char *str
 			((unsigned char *)v)[2] = cw->board[add_index_mod(p->pc, ind + 1)];
 			((unsigned char *)v)[1] = cw->board[add_index_mod(p->pc, ind + 2)];
 			((unsigned char *)v)[0] = cw->board[add_index_mod(p->pc, ind + 3)];
+			(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, *i)])  : 0;
+			(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, *i + 1)])  : 0;
+			(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, *i + 2)])  : 0;
+			(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, *i + 3)])  : 0;
 			*i += 2;
 		}
 	}
@@ -98,6 +107,8 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *i, int *v, int **pt, char *str
 		{
 			((unsigned char *)v)[1] = cw->board[add_index_mod(p->pc, *i)];
 			((unsigned char *)v)[0] = cw->board[add_index_mod(p->pc, *i + 1)];
+			(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, *i)])  : 0;
+			(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, *i + 1)])  : 0;
 			*i += 2;
 		}
 		else
@@ -106,6 +117,10 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *i, int *v, int **pt, char *str
 			((unsigned char *)v)[2] = cw->board[add_index_mod(p->pc, *i + 1)];
 			((unsigned char *)v)[1] = cw->board[add_index_mod(p->pc, *i + 2)];
 			((unsigned char *)v)[0] = cw->board[add_index_mod(p->pc, *i + 3)];
+			(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, *i)])  : 0;
+			(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, *i + 1)])  : 0;
+			(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, *i + 2)])  : 0;
+			(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, *i + 3)])  : 0;
 			*i += 4;
 		}
 	}
@@ -120,6 +135,7 @@ void	ocp_parse(t_cw *cw, t_process *p, int *i, t_ocp ocp, int dir_two, int get_i
 	p->two = 0;
 	p->three = 0;
 	cw->param_error = 0;
+	(cw->f_verbose) ? ft_printf("%.2x ", cw->board[add_index_mod(p->pc, *i - 1)])  : 0;
 	ocp_part(cw, p, i, &p->one, &p->p_one, ocp.one, dir_two, get_index);
 	ocp_part(cw, p, i, &p->two, &p->p_two, ocp.two, dir_two, get_index);
 	ocp_part(cw, p, i, &p->three, &p->p_three, ocp.three, dir_two, get_index);

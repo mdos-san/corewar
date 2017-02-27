@@ -74,8 +74,10 @@ t_cw	cw_init(int ac, char **av)
 	cw.f_v = visu_init(ac, av);
 	cw.f_dump = -1;
 	cw.f_d = -1;
+	cw.f_verbose = 0;
 	cw.ac = ac;
 	cw.av = av;
+	cw.ins = 0;
 	cw.nb_process = 0;
 	cw.process = NULL;
 	cw.cycle_to_die = CYCLE_TO_DIE;

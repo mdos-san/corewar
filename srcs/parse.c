@@ -61,6 +61,10 @@ static int	parse_get_number_player(t_cw *cw, int *nb)
 		}
 		else if (ft_strcmp(av[i], "-v") == 0)
 		{}
+		else if (ft_strcmp(av[i], "-verbose") == 0)
+		{
+			cw->f_verbose = 1;
+		}
 		else
 		{
 			if (nb_player < 4)

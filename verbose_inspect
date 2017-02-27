@@ -1,0 +1,26 @@
+#!/bin/bash
+
+exec 2> error
+
+fct() {
+	echo -e "Testing $1: \c"
+	./corewar -verbose ./_cor/$1 | tail -n +3 > ./_verbose_out/$1
+	DIFF=`diff ./_verbose_out/$1 ./_verbose/$1`
+	ERROR=`cat error`
+	if [ "$DIFF" = "" ]
+	then
+		echo -e "\033[0;32m[OK]\033[0;0m"
+	elif [ "$ERROR" != "" ]
+	then
+		echo -e "\033[0;31m[KO: `cat error`]\033[0;0m"
+	else
+		echo -e "\033[0;31m[KO]\033[0;0m"
+	fi
+}
+
+make re
+mkdir _verbose_out 2> /dev/null
+clear
+source ./verbose_tests
+echo "If you got errors, your outputs is in the folder _verbose_out and zaz's outputs is in _verbose folder."
+rm error
