@@ -261,7 +261,6 @@ void	sti(t_cw *cw, t_process *p)
 	cw->idx = 1;
 	ocp_parse(cw, p, &i, ocp, 1, 0);
 	*p->p_one = (p->p_one[0] < 0) ? 4294967295 + p->p_one[0] + 1 : p->p_one[0];
-
 	if (ft_strcmp(ocp.two, "10") == 0)
 	{
 		if (*p->p_two > 32768)

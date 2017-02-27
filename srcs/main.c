@@ -128,6 +128,7 @@ int main(int ac, char **av)
 		exec_turn(&cw, &turn);
 		++turn;
 		++check;
+	//	sleep(1);
 	}
 	if (cw.f_v == 1)
 		endwin();

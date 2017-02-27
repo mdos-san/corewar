@@ -83,10 +83,10 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *i, int *v, int **pt, char *str
 				else
 					ind = ind % IDX_MOD;
 			}
-			((unsigned char *)v)[3] = cw->board[p->pc + ind];
-			((unsigned char *)v)[2] = cw->board[p->pc + ind + 1];
-			((unsigned char *)v)[1] = cw->board[p->pc + ind + 2];
-			((unsigned char *)v)[0] = cw->board[p->pc + ind + 3];
+			((unsigned char *)v)[3] = cw->board[add_index_mod(p->pc, ind)];
+			((unsigned char *)v)[2] = cw->board[add_index_mod(p->pc, ind + 1)];
+			((unsigned char *)v)[1] = cw->board[add_index_mod(p->pc, ind + 2)];
+			((unsigned char *)v)[0] = cw->board[add_index_mod(p->pc, ind + 3)];
 			*i += 2;
 		}
 	}
