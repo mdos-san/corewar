@@ -1,6 +1,7 @@
 *.o
 *.swp
-out
-target
-error
 corewar
+_out/
+includes/libft.h
+includes/libftprintf.h
+libs/libftprintf.a
