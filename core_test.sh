@@ -7,6 +7,8 @@ fct st_6.cor 5
 fct st_7.cor 5
 fct st_8.cor 5
 fct st_9.cor 5
+fct st_10.cor 5
+fct st_11.cor 5
 fct st_st_1.cor 10
 fct st_st_2.cor 10
 fct st_st_3.cor 10
@@ -42,9 +44,11 @@ fct ld_sti_3.cor 30
 fct and_and_st_zjmp_st_1.cor 42
 fct and_and_st_zjmp_st_2.cor 42
 fct and_and_st_zjmp_st_3.cor 42
-fct zork.cor 15000
-fct turtle.cor 15000
-fct bee_gees.cor 15000
-fct bigzork.cor 15000
-fct helltrain.cor 15000
-fct fluttershy.cor 15000
+fct fork_st_st.cor 810
+fct errasing_waiting_process.cor 1000
+fct zork.cor 20000
+fct turtle.cor 20000
+fct bee_gees.cor 20000
+fct bigzork.cor 20000
+fct helltrain.cor 20000
+fct fluttershy.cor 20000

@@ -1,7 +1,6 @@
 #!/bin/sh
 
-i="0"
-mkdir $1 2> /dev/null
+i=$3
 while [ $i -lt 15000 ]
 do
 	`./ressources/corewar -d $i ./_cor/$1 > _ins_zaz`
@@ -12,6 +11,6 @@ do
 		echo $i
 		exit
 	fi
-	i=$[$i+1]
+	i=$[$i+$2]
 done
-echo "$i"
+echo "No error, GG :)!"

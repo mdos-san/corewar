@@ -12,6 +12,20 @@ static void	reg_init(int *r)
 	}
 }
 
+/*static void	push_back(t_process *b, t_process *e)
+{
+	if (b->next != NULL)
+		push_back(b->next, e);
+	else
+		b->next = e;
+}*/
+
+static void	push_front(t_process **b, t_process *e)
+{
+	e->next = *b;
+	*b = e;
+}
+
 t_process *process_new(t_process **act, int champ, int pc, int color_nb)
 {
 	t_process	*new;
@@ -36,10 +50,7 @@ t_process *process_new(t_process **act, int champ, int pc, int color_nb)
 	if (*act == NULL)
 		*act = new;
 	else
-	{
-		new->next = *act;
-		*act = new;
-	}
+		push_front(act, new);
 	return (new);
 }
 

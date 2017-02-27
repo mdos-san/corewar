@@ -52,6 +52,7 @@ typedef struct			s_process
 	int					two;
 	int					three;
 	int					color_nb;
+	int					fct;
 }						t_process;
 
 typedef struct		s_champ
@@ -97,6 +98,7 @@ typedef	struct		s_cw
 	char			debug;
 	short			padding;
 	int				idx;
+	int				param_error;
 }					t_cw;
 
 t_cw		cw_init(int ac, char **av);

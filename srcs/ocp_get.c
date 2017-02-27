@@ -62,6 +62,8 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *i, int *v, int **pt, char *str
 	{
 		if (1 <= cw->board[p->pc + *i] && cw->board[p->pc + *i] <= 16)
 			*pt = p->r + (cw->board[add_index_mod(p->pc, *i)]) - 1;
+		else
+			cw->param_error = 1;
 		++*i;
 	}
 	else if (ft_strcmp(str, "11") == 0)
@@ -117,6 +119,7 @@ void	ocp_parse(t_cw *cw, t_process *p, int *i, t_ocp ocp, int dir_two, int get_i
 	p->one = 0;
 	p->two = 0;
 	p->three = 0;
+	cw->param_error = 0;
 	ocp_part(cw, p, i, &p->one, &p->p_one, ocp.one, dir_two, get_index);
 	ocp_part(cw, p, i, &p->two, &p->p_two, ocp.two, dir_two, get_index);
 	ocp_part(cw, p, i, &p->three, &p->p_three, ocp.three, dir_two, get_index);

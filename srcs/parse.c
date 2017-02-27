@@ -78,6 +78,15 @@ static int	parse_get_number_player(t_cw *cw, int *nb)
 	return (nb_player);
 }
 
+static void	wait_init(t_process *p)
+{
+	if (p != NULL)
+	{
+		p->is_waiting = 0;
+		wait_init(p->next);
+	}
+}
+
 void	cw_parse(t_cw *cw)
 {
 	int		nb_player;
@@ -101,4 +110,5 @@ void	cw_parse(t_cw *cw)
 		ft_printf("\n");
 		++i;
 	}
+	wait_init(cw->process);
 }

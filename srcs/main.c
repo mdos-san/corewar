@@ -62,7 +62,11 @@ static void	die(t_cw *cw, int *check)
 				cw->process = l->next;
 				free(l);
 				if (process_count(cw->process) == 0)
+				{
+					if (cw->f_v == 1)
+						endwin();
 					exit (0);
+				}
 				l = cw->process;
 			}
 		}
@@ -86,14 +90,22 @@ static void	exec_turn(t_cw *cw, int *turn)
 	l = cw->process;
 	while (l)
 	{
+		cw->param_error = 0;
 		if (l->is_waiting == 0)
 		{
 			l->is_waiting = 1;
 			l->waiting_turn = *turn + get_turn(cw->board[l->pc]) - 1;
+			l->fct = cw->board[l->pc];
+			if (cw->board[l->pc] == 1)
+				l->nb_live++;
 		} 
-		else if (l->waiting_turn == *turn)
+//		if (l->is_waiting == -1)
+//			l->is_waiting = 0;
+		if (l->waiting_turn == *turn)
 		{
-			cw->fct_tab[cw->board[l->pc]](cw, l);
+			if (cw->board[l->pc] < 1 || 16 > cw->board[l->pc])
+				cw->param_error = 1;
+			cw->fct_tab[l->fct](cw, l);
 			l->is_waiting = 0;
 		}
 		l = l->next;
@@ -126,9 +138,10 @@ int main(int ac, char **av)
 			refresh();
 		}
 		exec_turn(&cw, &turn);
+		if (turn >= 9717)
+			sleep(1000);
 		++turn;
 		++check;
-	//	sleep(1);
 	}
 	if (cw.f_v == 1)
 		endwin();

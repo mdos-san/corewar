@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 18:44:45 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/26 12:24:05 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/02/27 09:43:17 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		add_index_mod(int a, int b)
 void	live(t_cw *cw, t_process *p)
 {
 	p->pc += 5;
-	p->nb_live += 1;
+	//	p->nb_live += 1;
 	(void)cw;
 }
 
@@ -78,23 +78,26 @@ void	st(t_cw *cw, t_process *p)
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
 	ocp_parse(cw, p, &i, ocp, 0, 1);
-	tmp = (p->p_one[0] < 0) ? 4294967295 + p->p_one[0] + 1 : p->p_one[0];
-	if (ft_strcmp(ocp.two, "01") == 0)
-		p->p_two[0] = p->p_one[0];
-	else
+	if (!cw->param_error)
 	{
-		if (p->p_two[0] > 32768)
-			p->p_two[0] = (p->p_two[0] % IDX_MOD) - IDX_MOD;
+		tmp = (p->p_one[0] < 0) ? 4294967295 + p->p_one[0] + 1 : p->p_one[0];
+		if (ft_strcmp(ocp.two, "01") == 0)
+			p->p_two[0] = p->p_one[0];
 		else
-			p->p_two[0] = (p->p_two[0] % IDX_MOD);
-		cw->board[add_index_mod(p->pc, (p->p_two[0] + 0))] = ((unsigned char *)(&tmp))[3];
-		cw->board[add_index_mod(p->pc, (p->p_two[0] + 1))] = ((unsigned char *)(&tmp))[2];
-		cw->board[add_index_mod(p->pc, (p->p_two[0] + 2))] = ((unsigned char *)(&tmp))[1];
-		cw->board[add_index_mod(p->pc, (p->p_two[0] + 3))] = ((unsigned char *)(&tmp))[0];
-		cw->board_color[add_index_mod(p->pc, (p->p_two[0] + 0))] = (unsigned char)p->color_nb;
-		cw->board_color[add_index_mod(p->pc, (p->p_two[0] + 1))] = (unsigned char)p->color_nb;
-		cw->board_color[add_index_mod(p->pc, (p->p_two[0] + 2))] = (unsigned char)p->color_nb;
-		cw->board_color[add_index_mod(p->pc, (p->p_two[0] + 3))] = (unsigned char)p->color_nb;
+		{
+			if (p->p_two[0] > 32768)
+				p->p_two[0] = (p->p_two[0] % IDX_MOD) - IDX_MOD;
+			else
+				p->p_two[0] = (p->p_two[0] % IDX_MOD);
+			cw->board[add_index_mod(p->pc, (p->p_two[0] + 0))] = ((unsigned char *)(&tmp))[3];
+			cw->board[add_index_mod(p->pc, (p->p_two[0] + 1))] = ((unsigned char *)(&tmp))[2];
+			cw->board[add_index_mod(p->pc, (p->p_two[0] + 2))] = ((unsigned char *)(&tmp))[1];
+			cw->board[add_index_mod(p->pc, (p->p_two[0] + 3))] = ((unsigned char *)(&tmp))[0];
+			cw->board_color[add_index_mod(p->pc, (p->p_two[0] + 0))] = (unsigned char)p->color_nb;
+			cw->board_color[add_index_mod(p->pc, (p->p_two[0] + 1))] = (unsigned char)p->color_nb;
+			cw->board_color[add_index_mod(p->pc, (p->p_two[0] + 2))] = (unsigned char)p->color_nb;
+			cw->board_color[add_index_mod(p->pc, (p->p_two[0] + 3))] = (unsigned char)p->color_nb;
+		}
 	}
 	p->pc = add_index_mod(p->pc, i);
 }
@@ -276,12 +279,12 @@ void	sti(t_cw *cw, t_process *p)
 			*p->p_three = *p->p_three % IDX_MOD;
 	}
 	sum = *p->p_two + *p->p_three;
-//	ft_printf("sum a: %d %d %d\n", sum, *p->p_two, *p->p_three);
-//	if (sum < 0)
-//		sum = sum % IDX_MOD - IDX_MOD;
-//	else
+	//	ft_printf("sum a: %d %d %d\n", sum, *p->p_two, *p->p_three);
+	//	if (sum < 0)
+	//		sum = sum % IDX_MOD - IDX_MOD;
+	//	else
 	sum = sum % IDX_MOD;
-//	ft_printf("sum b: %d %d %d\n", sum, *p->p_two, *p->p_three);
+	//	ft_printf("sum b: %d %d %d\n", sum, *p->p_two, *p->p_three);
 	cw->board[add_index_mod(p->pc, sum + 0)] = ((unsigned char *)(p->p_one))[3];
 	cw->board[add_index_mod(p->pc, sum + 1)] = ((unsigned char *)(p->p_one))[2];
 	cw->board[add_index_mod(p->pc, sum + 2)] = ((unsigned char *)(p->p_one))[1];
@@ -385,5 +388,5 @@ int	get_turn(unsigned char c)
 		return (1000);
 	else if (c == 16)
 		return (2);
-	return (0);
+	return (1);
 }
