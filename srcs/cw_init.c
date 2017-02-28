@@ -14,8 +14,9 @@
 
 static void	useless(t_cw *cw, t_process *process)
 {
-	(void)cw;
 	++process->pc;
+	process->pc %= MEM_SIZE;
+	(void)cw;
 }
 
 static int	visu_init(int ac, char **av)
@@ -85,6 +86,7 @@ t_cw		cw_init(int ac, char **av)
 	cw.board_ptr = (unsigned char *)ft_strnew(MEM_SIZE);
 	cw.f_v = visu_init(ac, av);
 	cw.f_dump = -1;
+	cw.f_a = 0;
 	cw.f_d = -1;
 	cw.f_verbose = 0;
 	cw.ac = ac;

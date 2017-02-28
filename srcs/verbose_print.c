@@ -17,13 +17,10 @@ void	verbose_print(t_cw *cw, int i, int start, int end)
 	int	j;
 
 	j = start;
-	if (cw->f_verbose)
+	while (j < end)
 	{
-		while (j <= end)
-		{
-			ft_printf("%.2x ", cw->board[add_index_mod(cw->ap->pc, i + j)]);
-			++j;
-		}
+		ft_printf("%.2x ", cw->board[add_index_mod(cw->ap->pc, i + j)]);
+		++j;
 	}
 }
 

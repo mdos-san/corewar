@@ -100,26 +100,21 @@ static void	exec_turn(t_cw *cw, int *turn)
 			l->is_waiting = 1;
 			l->waiting_turn = *turn + get_turn(cw->board[l->pc]) - 1;
 			l->fct = cw->board[l->pc];
-//			if (cw->board[l->pc] == 1)
-//				l->nb_live++;
 		}
 		if (l->waiting_turn == *turn)
 		{
 			if (cw->board[l->pc] < 1 || 16 < cw->board[l->pc])
 				cw->param_error = 1;
-			if (cw->f_verbose && cw->board[l->pc] != 9
-			&& 1 <= cw->board[l->pc] && cw->board[l->pc] <= 16)
+			cw->nb_readed = 0;
+			cw->fct_tab[l->fct](cw, l);
+			if (cw->f_verbose && cw->nb_readed > 0)
 			{
-				++cw->ins;
-				ft_printf("%.2x ", cw->board[l->pc]);
-				cw->fct_tab[l->fct](cw, l);
+				verbose_print(cw, 0, 0, cw->nb_readed);
 				ft_putchar('\n');
 			}
-			else
-			{
-				cw->normal = 0;
-				cw->fct_tab[l->fct](cw, l);
-			}
+//			ft_printf("turn %d pc %d nb_readed %d\n", *turn, l->pc, cw->nb_readed);
+			l->pc += cw->nb_readed;
+			l->pc %= MEM_SIZE;
 			l->is_waiting = 0;
 		}
 		l = l->next;

@@ -22,16 +22,7 @@ int		add_index_mod(int a, int b)
 
 void	live(t_cw *cw, t_process *p)
 {
-	if (cw->normal == 0)
-	{
-		verbose_print(cw, 0, 0, 0);
-	}
-	if (cw->f_verbose)
-		++cw->ins;
-	verbose_print(cw, 0, 1, 4);
-	if (cw->normal == 0)
-		(cw->f_verbose) ? ft_printf("\n") : 0;
-	p->pc += 5;
+	cw->nb_readed = 5;
 	p->nb_live += 1;
 	(void)cw;
 }
@@ -47,7 +38,7 @@ void	ld(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, 0, 1);
+	ocp_parse(cw, p, ocp, 0, 1);
 	if (ft_strcmp(ocp.one, "11") == 0)
 	{
 		if (p->p_one[0] > 32768)
@@ -67,7 +58,6 @@ void	ld(t_cw *cw, t_process *p)
 		}
 		++y;
 	}
-	p->pc = add_index_mod(p->pc, i);
 	if (*p->p_two == 0)
 		p->carry = 1;
 	else
@@ -76,15 +66,12 @@ void	ld(t_cw *cw, t_process *p)
 
 void	st(t_cw *cw, t_process *p)
 {
-	int		i;
 	int		tmp;
 	t_ocp	ocp;
 
-	i = 1;
-	ocp = ocp_get(cw->board[p->pc + i]);
-	++i;
-	ocp_parse(cw, p, &i, ocp, 0, 1);
-	if (!cw->param_error)
+	ocp = ocp_get(cw->board[p->pc + 1]);
+	ocp_parse(cw, p, ocp, 0, 1);
+	if (!cw->param_error && cw->board[p->pc + 1] != 0)
 	{
 		tmp = (p->p_one[0] < 0) ? 4294967295 + p->p_one[0] + 1 : p->p_one[0];
 		if (ft_strcmp(ocp.two, "01") == 0)
@@ -98,7 +85,6 @@ void	st(t_cw *cw, t_process *p)
 			int_to_board(cw, &tmp, *p->p_two);
 		}
 	}
-	p->pc = add_index_mod(p->pc, i);
 }
 
 void	add(t_cw *cw, t_process *p)
@@ -110,10 +96,9 @@ void	add(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, 1, 0);
+	ocp_parse(cw, p, ocp, 1, 0);
 	tmp = *p->p_one + *p->p_two;
 	*p->p_three = tmp;
-	p->pc = add_index_mod(p->pc, i);
 	if (*p->p_three == 0)
 		p->carry = 1;
 	else
@@ -129,10 +114,9 @@ void	sub(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, 1, 0);
+	ocp_parse(cw, p, ocp, 1, 0);
 	tmp = *p->p_one - *p->p_two;
 	*p->p_three = tmp;
-	p->pc = add_index_mod(p->pc, i);
 	if (*p->p_three == 0)
 		p->carry = 1;
 	else
@@ -148,9 +132,8 @@ void	and(t_cw *cw, t_process *p)
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
 	cw->idx = 1;
-	ocp_parse(cw, p, &i, ocp, 0, 0);
+	ocp_parse(cw, p, ocp, 0, 0);
 	*p->p_three = *p->p_one & *p->p_two;
-	p->pc = add_index_mod(p->pc, i);
 	if (*p->p_three == 0)
 		p->carry = 1;
 	else
@@ -166,9 +149,8 @@ void	or(t_cw *cw, t_process *p)
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
 	cw->idx = 1;
-	ocp_parse(cw, p, &i, ocp, 0, 0);
+	ocp_parse(cw, p, ocp, 0, 0);
 	*p->p_three = *p->p_one | *p->p_two;
-	p->pc = add_index_mod(p->pc, i);
 	if (*p->p_three == 0)
 		p->carry = 1;
 	else
@@ -184,9 +166,8 @@ void	xor(t_cw *cw, t_process *p)
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
 	cw->idx = 1;
-	ocp_parse(cw, p, &i, ocp, 0, 0);
+	ocp_parse(cw, p, ocp, 0, 0);
 	*p->p_three = *p->p_one ^ *p->p_two;
-	p->pc = add_index_mod(p->pc, i);
 	if (*p->p_three == 0)
 		p->carry = 1;
 	else
@@ -204,14 +185,12 @@ void	zjmp(t_cw *cw, t_process *p)
 	else
 		j = j % IDX_MOD;
 	if (p->carry == 1)
-		p->pc = add_index_mod(p->pc, j);
-	else
 	{
-		++cw->ins;
-		verbose_print(cw, 0, 0, 2);
-		(cw->f_verbose) ? ft_putchar('\n') : 0;
-		p->pc = add_index_mod(p->pc, 3);
+		p->pc += j;
+		p->pc %= MEM_SIZE;
 	}
+	else
+		cw->nb_readed = 3;
 }
 
 void	ldi(t_cw *cw, t_process *p)
@@ -223,10 +202,9 @@ void	ldi(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, 1, 0);
+	ocp_parse(cw, p, ocp, 1, 0);
 	new_addr = add_index_mod(*p->p_one, *p->p_two);
 	board_to_int(cw, p->p_three, new_addr);
-	p->pc = (p->pc + i) % MEM_SIZE;
 }
 
 void	frk(t_cw *cw, t_process *p)
@@ -240,21 +218,20 @@ void	frk(t_cw *cw, t_process *p)
 	*(((unsigned char *)&j) + 1) = cw->board[p->pc + 1];
 	*(((unsigned char *)&j)) = cw->board[p->pc + 2];
 	++cw->ins;
-	verbose_print(cw, 0, 1, 2);
 	if (j > 32768)
 		j = j % IDX_MOD - IDX_MOD;
 	else
 		j = j % IDX_MOD;
 	child = process_new(&cw->process, p->nb_champ,
-			add_index_mod(p->pc, j), p->color_nb);
+			p->pc + j, p->color_nb);
 	while (i < 16)
 	{
 		child->r[i] = p->r[i];
 		++i;
 	}
 	child->carry = p->carry;
-//	child->is_waiting = -1;
-	p->pc = add_index_mod(p->pc, 3);
+	child->nb_live = 1;
+	cw->nb_readed = 3;
 }
 
 void	sti(t_cw *cw, t_process *p)
@@ -267,7 +244,7 @@ void	sti(t_cw *cw, t_process *p)
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
 	cw->idx = 1;
-	ocp_parse(cw, p, &i, ocp, 1, 0);
+	ocp_parse(cw, p, ocp, 1, 0);
 	*p->p_one = (p->p_one[0] < 0) ? 4294967295 + p->p_one[0] + 1 : p->p_one[0];
 	if (ft_strcmp(ocp.two, "10") == 0)
 	{
@@ -286,7 +263,6 @@ void	sti(t_cw *cw, t_process *p)
 	sum = *p->p_two + *p->p_three;
 	sum = sum % IDX_MOD;
 	int_to_board(cw, p->p_one, sum);
-	p->pc = add_index_mod(p->pc, i);
 }
 
 void	lld(t_cw *cw, t_process *p)
@@ -299,7 +275,7 @@ void	lld(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, 0, 0);
+	ocp_parse(cw, p, ocp, 0, 0);
 	while (y < 16)
 	{
 		if (p->r + y == p->p_two)
@@ -309,7 +285,6 @@ void	lld(t_cw *cw, t_process *p)
 		}
 		++y;
 	}
-	p->pc = add_index_mod(p->pc, i);
 	if (*p->p_two == 0)
 		p->carry = 1;
 	else
@@ -325,10 +300,9 @@ void	lldi(t_cw *cw, t_process *p)
 	i = 1;
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
-	ocp_parse(cw, p, &i, ocp, 1, 0);
+	ocp_parse(cw, p, ocp, 1, 0);
 	new_addr = add_index_mod(*p->p_one, *p->p_two);
 	board_to_int(cw, p->p_three, new_addr);
-	p->pc = (p->pc + i) % MEM_SIZE;
 }
 
 void	lfrk(t_cw *cw, t_process *p)
@@ -351,12 +325,16 @@ void	lfrk(t_cw *cw, t_process *p)
 		child->r[i] = p->r[i];
 		++i;
 	}
-	p->pc = add_index_mod(p->pc, 3);
 }
 
 void	aff(t_cw *cw, t_process *p)
 {
-	ft_putchar(cw->board[p->pc]);
+	if (cw->f_a)
+	{
+		ft_putchar(cw->board[p->pc]);
+	}
+	p->pc += 2;
+	p->pc %= MEM_SIZE;
 }
 
 int		get_turn(unsigned char c)

@@ -37,6 +37,7 @@ t_process	*process_new(t_process **act, int champ, int pc, int color_nb)
 	new = (t_process*)malloc(sizeof(t_process));
 	new->nb_champ = champ;
 	new->pc = pc;
+	new->pc %= MEM_SIZE;
 	new->is_waiting = 0;
 	new->waiting_turn = 0;
 	new->nb_live = 0;

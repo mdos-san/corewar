@@ -91,6 +91,7 @@ typedef	struct		s_cw
 	int				ac;
 	int				cycle_to_die;
 	int				f_v;
+	int				f_a;
 	int				f_verbose;
 	int				f_dump;
 	int				f_d;
@@ -103,6 +104,7 @@ typedef	struct		s_cw
 	int				param_error;
 	int				normal;
 	long long		ins;
+	int				nb_readed;
 }					t_cw;
 
 t_cw		cw_init(int ac, char **av);
@@ -131,7 +133,7 @@ void		lldi(t_cw *cw, t_process *p);
 void		lfrk(t_cw *cw, t_process *p);
 void		aff(t_cw *cw, t_process *p);
 t_ocp		ocp_get(unsigned char ocp);
-void		ocp_parse(t_cw *cw, t_process *p, int *i, t_ocp ocp, int dir_two, int get_index);
+void		ocp_parse(t_cw *cw, t_process *p, t_ocp ocp, int dir_two, int get_index);
 int			get_turn(unsigned char c);
 int			add_index_mod(int a, int b);
 

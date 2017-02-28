@@ -59,7 +59,7 @@ t_ocp			ocp_get(unsigned char ocp)
 	return (st);
 }
 
-static	void	ocp_part(t_cw *cw, t_process *p, int *i, int *v,
+static	void	ocp_part(t_cw *cw, t_process *p, int *v,
 		int **pt, char *str, int dir_two, int get_index)
 {
 	int	ind;
@@ -67,28 +67,26 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *i, int *v,
 	ind = 0;
 	if (ft_strcmp(str, "01") == 0)
 	{
-		if (1 <= cw->board[p->pc + *i] && cw->board[p->pc + *i] <= 16)
+		if (1 <= cw->board[p->pc + cw->nb_readed] && cw->board[p->pc + cw->nb_readed] <= 16)
 		{
-			*pt = p->r + (cw->board[add_index_mod(p->pc, *i)]) - 1;
+			*pt = p->r + (cw->board[add_index_mod(p->pc, cw->nb_readed)]) - 1;
 		}
 		else
 			cw->param_error = 1;
-		verbose_print(cw, *i, 0, 0);
-		++*i;
+		++cw->nb_readed;
 	}
 	else if (ft_strcmp(str, "11") == 0)
 	{
 		if (get_index == 1)
 		{
-			((unsigned char*)v)[1] = cw->board[add_index_mod(p->pc, *i)];
-			((unsigned char*)v)[0] = cw->board[add_index_mod(p->pc, *i + 1)];
-			verbose_print(cw, *i, 0, 1);
-			*i += 2;
+			((unsigned char*)v)[1] = cw->board[add_index_mod(p->pc, cw->nb_readed)];
+			((unsigned char*)v)[0] = cw->board[add_index_mod(p->pc, cw->nb_readed + 1)];
+			cw->nb_readed += 2;
 		}
 		else
 		{
-			((unsigned char*)&ind)[1] = cw->board[add_index_mod(p->pc, *i)];
-			((unsigned char*)&ind)[0] = cw->board[add_index_mod(p->pc, *i + 1)];
+			((unsigned char*)&ind)[1] = cw->board[add_index_mod(p->pc, cw->nb_readed)];
+			((unsigned char*)&ind)[0] = cw->board[add_index_mod(p->pc, cw->nb_readed + 1)];
 			if (cw->idx == 1)
 			{
 				if (ind > 32768)
@@ -96,36 +94,27 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *i, int *v,
 				else
 					ind = ind % IDX_MOD;
 			}
-			((unsigned char *)v)[3] = cw->board[add_index_mod(p->pc, ind)];
-			((unsigned char *)v)[2] = cw->board[add_index_mod(p->pc, ind + 1)];
-			((unsigned char *)v)[1] = cw->board[add_index_mod(p->pc, ind + 2)];
-			((unsigned char *)v)[0] = cw->board[add_index_mod(p->pc, ind + 3)];
-			verbose_print(cw, *i, 0, 3);
-			*i += 2;
+			board_to_int(cw, v, ind);
+			cw->nb_readed += 2;
 		}
 	}
 	else if (ft_strcmp(str, "10") == 0)
 	{
 		if (dir_two == 1)
 		{
-			((unsigned char *)v)[1] = cw->board[add_index_mod(p->pc, *i)];
-			((unsigned char *)v)[0] = cw->board[add_index_mod(p->pc, *i + 1)];
-			verbose_print(cw, *i, 0, 1);
-			*i += 2;
+			((unsigned char *)v)[1] = cw->board[add_index_mod(p->pc, cw->nb_readed)];
+			((unsigned char *)v)[0] = cw->board[add_index_mod(p->pc, cw->nb_readed + 1)];
+			cw->nb_readed += 2;
 		}
 		else
 		{
-			((unsigned char *)v)[3] = cw->board[add_index_mod(p->pc, *i)];
-			((unsigned char *)v)[2] = cw->board[add_index_mod(p->pc, *i + 1)];
-			((unsigned char *)v)[1] = cw->board[add_index_mod(p->pc, *i + 2)];
-			((unsigned char *)v)[0] = cw->board[add_index_mod(p->pc, *i + 3)];
-			verbose_print(cw, *i, 0, 3);
-			*i += 4;
+			board_to_int(cw, v, cw->nb_readed);
+			cw->nb_readed += 4;
 		}
 	}
 }
 
-void			ocp_parse(t_cw *cw, t_process *p, int *i,
+void			ocp_parse(t_cw *cw, t_process *p,
 				t_ocp ocp, int dir_two, int get_index)
 {
 	cw->ap = p;
@@ -136,9 +125,9 @@ void			ocp_parse(t_cw *cw, t_process *p, int *i,
 	p->two = 0;
 	p->three = 0;
 	cw->param_error = 0;
-	verbose_print(cw, *i, -1, -1);
-	ocp_part(cw, p, i, &p->one, &p->p_one, ocp.one, dir_two, get_index);
-	ocp_part(cw, p, i, &p->two, &p->p_two, ocp.two, dir_two, get_index);
-	ocp_part(cw, p, i, &p->three, &p->p_three, ocp.three, dir_two, get_index);
+	cw->nb_readed += 2;
+	ocp_part(cw, p, &p->one, &p->p_one, ocp.one, dir_two, get_index);
+	ocp_part(cw, p, &p->two, &p->p_two, ocp.two, dir_two, get_index);
+	ocp_part(cw, p, &p->three, &p->p_three, ocp.three, dir_two, get_index);
 	cw->idx = 0;
 }
