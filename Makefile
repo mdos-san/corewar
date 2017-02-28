@@ -40,6 +40,7 @@ fclean:	clean
 	rm -rf libs/libftprintf.a
 	rm -rf _out
 	rm -rf _verbose_out
+	rm -rf _ins_out _ins_zaz
 	rm -rf error
 
 re:	fclean all
