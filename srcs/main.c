@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:40:37 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/28 09:04:09 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/02/28 15:07:16 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void	die(t_cw *cw, int *check)
 		l->nb_live = 0;
 		l = l->next;
 	}
-	if (nb_live >= NBR_LIVE || max_check == MAX_CHECKS)
+	if (nb_live >= NBR_LIVE || max_check + 1 == MAX_CHECKS)
 	{
 		cw->cycle_to_die -= CYCLE_DELTA;
 		max_check = 0;
@@ -148,10 +148,11 @@ int			main(int ac, char **av)
 	{
 		if (turn == cw.f_dump || turn == cw.f_d)
 			break ;
-		if (check == cw.cycle_to_die)
-			die(&cw, &check);
 		if (cw.cycle_to_die <= 0)
 			break ;
+		if (check == cw.cycle_to_die)
+			die(&cw, &check);
+		exec_turn(&cw, &turn);
 		if (cw.f_v == 1)
 		{
 			attron(COLOR_PAIR(1));
@@ -161,8 +162,14 @@ int			main(int ac, char **av)
 			board_print(&cw);
 			refresh();
 		}
-		exec_turn(&cw, &turn);
-		++turn;
+//		if (turn >= 57955)
+//			sleep(2);
+/*		if (cw.ins >= 76374)
+		{
+			ft_printf("%d \n", turn);
+			sleep(2);
+		}
+*/		++turn;
 		++check;
 	}
 	if (cw.f_v == 1)

@@ -1,4 +1,56 @@
 #!/bin/bash
 
+fct st_1.cor 5
+fct st_2.cor 5 
+fct st_3.cor 5
+fct st_4.cor 5
+fct st_5.cor 5
+fct st_6.cor 5
+fct st_7.cor 5
+fct st_8.cor 5
+fct st_9.cor 5
+fct st_10.cor 5
+fct st_11.cor 5
+fct st_st_1.cor 10
+fct st_st_2.cor 10
+fct st_st_3.cor 10
+fct ld_st_1.cor 10
+fct ld_st_2.cor 10
+fct ld_st_3.cor 10
+fct ld_st_4.cor 10
+fct ld_st_5.cor 10
+fct ld_st_6.cor 10
+fct add_st_1.cor 15
+fct add_st_2.cor 15
+fct sub_st_1.cor 15
+fct sub_st_2.cor 15
+fct and_st_1.cor 11
+fct and_st_2.cor 11
+fct and_st_3.cor 11
+fct and_st_4.cor 11
+fct or_st_1.cor 11
+fct or_st_2.cor 11
+fct or_st_3.cor 11
+fct xor_st_1.cor 11
+fct xor_st_2.cor 11
+fct xor_st_3.cor 11
+#fct ldi_st_1.cor 30
+fct sti_1.cor 25
+fct sti_2.cor 25
+fct sti_3.cor 25
+fct sti_4.cor 25
+fct sti_5.cor 25
+fct ld_sti_1.cor 30
+fct ld_sti_2.cor 30
+fct ld_sti_3.cor 30
+fct and_and_st_zjmp_st_1.cor 42
+fct and_and_st_zjmp_st_2.cor 42
+fct and_and_st_zjmp_st_3.cor 42
+fct fork_st_st.cor 810
+fct errasing_waiting_process.cor 1000
+fct zork.cor 20000
+fct turtle.cor 20000
+#fct bee_gees.cor 20000
+fct bigzork.cor 20000
 fct fluttershy.cor
 fct helltrain.cor

@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 18:44:45 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/28 09:43:18 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/02/28 15:04:36 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ void	live(t_cw *cw, t_process *p)
 {
 	if (cw->normal == 0)
 	{
-		++cw->ins;
 		verbose_print(cw, 0, 0, 0);
 	}
+	if (cw->f_verbose)
+		++cw->ins;
 	verbose_print(cw, 0, 1, 4);
 	if (cw->normal == 0)
 		(cw->f_verbose) ? ft_printf("\n") : 0;
@@ -252,7 +253,7 @@ void	frk(t_cw *cw, t_process *p)
 		++i;
 	}
 	child->carry = p->carry;
-	child->nb_live = 1;
+//	child->nb_live = 1;
 	p->pc = add_index_mod(p->pc, 3);
 }
 
