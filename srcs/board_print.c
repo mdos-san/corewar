@@ -8,8 +8,9 @@ static void	get_ptr(t_cw *cw)
 	ft_bzero(cw->board_ptr, MEM_SIZE);
 	while (l)
 	{
-		cw->board_ptr[l->pc] = 1;
-			l = l->next;
+		if (0 <= l->pc && l->pc < MEM_SIZE)
+			cw->board_ptr[l->pc] = 1;
+		l = l->next;
 	}
 }
 
@@ -33,7 +34,7 @@ void	board_print(t_cw *cw)
 			attron(COLOR_PAIR((int)cw->board_color[i] + ((is_readed) ? 4 : 0)));
 		else if (is_readed)
 			attron(COLOR_PAIR(46));
-		printw("%.2x ", (int)cw->board[i]);
+		printw("%.2x ", cw->board[i]);
 		if ((i + 1) % NB_COL  == 0)
 			printw("\n");
 		++i;

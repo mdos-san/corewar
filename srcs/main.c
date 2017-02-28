@@ -145,7 +145,6 @@ int main(int ac, char **av)
 		if (cw.f_v == 1)
 		{
 			attron(COLOR_PAIR(1));
-			clear();
 			mvprintw(0, 0, "Turn: %d, Process: %d, Cycle to die: %d, Instruction executed: %lld\n", turn, process_count(cw.process), cw.cycle_to_die, cw.ins);
 			board_print(&cw);
 			refresh();
