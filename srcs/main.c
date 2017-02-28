@@ -44,58 +44,44 @@ void		d(t_cw *cw)
 	}
 }
 
+static int	die_recur(t_cw *cw, t_process *p, t_process *prev, int nb_live)
+{
+	if (p != NULL)
+	{
+		nb_live += p->nb_live;
+		if (p->nb_live > 0)
+		{
+			prev = p;
+			p->nb_live = 0;
+		}
+		else
+		{
+			if (prev == NULL)
+				cw->process = p->next;
+			else
+				prev->next = p->next;
+
+		}
+		return (die_recur(cw, p->next, prev, nb_live));
+	}
+	else
+		return (nb_live);
+}
+
 static void	die(t_cw *cw, int *check)
 {
 	static int	max_check = 0;
 	int			nb_live;
-	t_process	*l;
-	t_process	*prev;
 
-	l = cw->process;
-	nb_live = 0;
-	prev = NULL;
-	while (l)
-	{
-		if (l->nb_live > 0)
-		{
-			nb_live += l->nb_live;
-			prev = l;
-		}
-		else
-		{
-			if (prev != NULL)
-			{
-				prev->next = l->next;
-				free(l);
-				l = prev;
-			}
-			else
-			{
-				cw->process = l->next;
-				free(l);
-				if (process_count(cw->process) == 0)
-				{
-					if (cw->f_v == 1)
-						endwin();
-					exit(0);
-				}
-				l = cw->process;
-			}
-		}
-		if (l)
-		{
-			l->nb_live = 0;
-			l = l->next;
-		}
-	}
+	nb_live = die_recur(cw, cw->process, NULL, 0);
 	if (nb_live >= NBR_LIVE || max_check + 1 == MAX_CHECKS)
 	{
-//		if (cw->cycle_to_die - CYCLE_DELTA > 0)
 		cw->cycle_to_die -= CYCLE_DELTA;
 		max_check = 0;
 	}
 	else
 		max_check++;
+//	ft_printf("nbl: %d, max_check: %d, ctd: %d, process: %d\n", nb_live, max_check, cw->cycle_to_die, process_count(cw->process));
 	*check = 0;
 }
 
