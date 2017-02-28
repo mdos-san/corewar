@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 18:44:45 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/28 15:04:36 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/02/28 16:18:23 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,7 +253,7 @@ void	frk(t_cw *cw, t_process *p)
 		++i;
 	}
 	child->carry = p->carry;
-//	child->nb_live = 1;
+//	child->is_waiting = -1;
 	p->pc = add_index_mod(p->pc, 3);
 }
 

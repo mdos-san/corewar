@@ -48,6 +48,7 @@ fct and_and_st_zjmp_st_2.cor 42
 fct and_and_st_zjmp_st_3.cor 42
 fct fork_st_st.cor 810
 fct errasing_waiting_process.cor 1000
+fct basic_live.cor
 fct zork.cor 20000
 fct turtle.cor 20000
 #fct bee_gees.cor 20000

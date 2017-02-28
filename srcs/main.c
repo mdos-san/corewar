@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:40:37 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/28 15:07:16 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/02/28 16:31:04 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,15 @@ static void	die(t_cw *cw, int *check)
 				l = cw->process;
 			}
 		}
-		l->nb_live = 0;
-		l = l->next;
+		if (l)
+		{
+			l->nb_live = 0;
+			l = l->next;
+		}
 	}
 	if (nb_live >= NBR_LIVE || max_check + 1 == MAX_CHECKS)
 	{
+//		if (cw->cycle_to_die - CYCLE_DELTA > 0)
 		cw->cycle_to_die -= CYCLE_DELTA;
 		max_check = 0;
 	}
@@ -105,11 +109,13 @@ static void	exec_turn(t_cw *cw, int *turn)
 		cw->ap = l;
 		cw->param_error = 0;
 		cw->normal = 1;
-		if (l->is_waiting == 0)
+		if (l->is_waiting <= 0)
 		{
 			l->is_waiting = 1;
 			l->waiting_turn = *turn + get_turn(cw->board[l->pc]) - 1;
 			l->fct = cw->board[l->pc];
+//			if (cw->board[l->pc] == 1)
+//				l->nb_live++;
 		}
 		if (l->waiting_turn == *turn)
 		{
@@ -150,7 +156,7 @@ int			main(int ac, char **av)
 			break ;
 		if (cw.cycle_to_die <= 0)
 			break ;
-		if (check == cw.cycle_to_die)
+		if (check >= cw.cycle_to_die)
 			die(&cw, &check);
 		exec_turn(&cw, &turn);
 		if (cw.f_v == 1)
@@ -168,8 +174,8 @@ int			main(int ac, char **av)
 		{
 			ft_printf("%d \n", turn);
 			sleep(2);
-		}
-*/		++turn;
+		}*/
+		++turn;
 		++check;
 	}
 	if (cw.f_v == 1)

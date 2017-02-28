@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2017/02/16 14:26:53 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/02/28 16:20:26 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 #define COMMENT_CHAR			'#'
 #define LABEL_CHAR				':'
 #define DIRECT_CHAR				'%'
-#define SEPARATOR_CHAR		','
+#define SEPARATOR_CHAR			','
 
 #define LABEL_CHARS				"abcdefghijklmnopqrstuvwxyz_0123456789"
 
@@ -65,7 +65,7 @@ typedef char	t_arg_type;
 
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
-# define COREWAR_EXEC_MAGIC 0xea83f3
+# define COREWAR_EXEC_MAGIC		0xea83f3
 
 typedef struct		header_s
 {
