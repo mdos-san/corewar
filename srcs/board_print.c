@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   board_print.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/02/28 08:30:28 by mdos-san          #+#    #+#             */
+/*   Updated: 2017/02/28 08:30:29 by mdos-san         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 static void	get_ptr(t_cw *cw)
@@ -14,7 +26,7 @@ static void	get_ptr(t_cw *cw)
 	}
 }
 
-void	board_print(t_cw *cw)
+void		board_print(t_cw *cw)
 {
 	int		i;
 	int		is_readed;
@@ -35,7 +47,7 @@ void	board_print(t_cw *cw)
 		else if (is_readed)
 			attron(COLOR_PAIR(46));
 		printw("%.2x ", cw->board[i]);
-		if ((i + 1) % NB_COL  == 0)
+		if ((i + 1) % NB_COL == 0)
 			printw("\n");
 		++i;
 	}

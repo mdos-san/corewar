@@ -84,6 +84,7 @@ typedef	struct		s_cw
 	unsigned char	*board_color;
 	unsigned char	*board_ptr;
 	t_process		*process;
+	t_process		*ap;
 	void			(*fct_tab[256])(struct s_cw*, t_process*);
 	t_champ			champs[4];
 	int				nb_process;
@@ -107,9 +108,12 @@ typedef	struct		s_cw
 t_cw		cw_init(int ac, char **av);
 void		cw_parse(t_cw *cw);
 void		board_print(t_cw *cw);
+void		verbose_print(t_cw *cw, int i, int start, int end);
 int			bytecode_read(t_cw *cw, char *file, int	index, int color_nb);
-void		process_add(t_cw *cw, int champ, int pc, int color_nb);
-void		exec(t_cw *cw, t_process *p, void (*fct)(t_cw *, t_process *));
+t_process	*process_new(t_process **act, int champ, int pc, int color_nb);
+int			process_count(t_process *l);
+void		board_to_int(t_cw *cw, int *value, int offset);
+void		int_to_board(t_cw *cw, int *value, int offset);
 void		live(t_cw *cw, t_process *p);
 void		ld(t_cw *cw, t_process *p);
 void		st(t_cw *cw, t_process *p);
@@ -128,8 +132,6 @@ void		lfrk(t_cw *cw, t_process *p);
 void		aff(t_cw *cw, t_process *p);
 t_ocp		ocp_get(unsigned char ocp);
 void		ocp_parse(t_cw *cw, t_process *p, int *i, t_ocp ocp, int dir_two, int get_index);
-t_process	*process_new(t_process **act, int champ, int pc, int color_nb);
-int			process_count(t_process *l);
 int			get_turn(unsigned char c);
 int			add_index_mod(int a, int b);
 

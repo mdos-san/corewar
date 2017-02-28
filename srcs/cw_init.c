@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cw_init.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/02/28 08:13:05 by mdos-san          #+#    #+#             */
+/*   Updated: 2017/02/28 08:14:07 by mdos-san         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 static void	useless(t_cw *cw, t_process *process)
@@ -42,7 +54,7 @@ static void	init_tab(t_cw *cw)
 	i = 0;
 	while (i < 256)
 	{
-		cw->fct_tab[i] = useless;	
+		cw->fct_tab[i] = useless;
 		++i;
 	}
 	cw->fct_tab[1] = live;
@@ -53,7 +65,7 @@ static void	init_tab(t_cw *cw)
 	cw->fct_tab[6] = and;
 	cw->fct_tab[7] = or;
 	cw->fct_tab[8] = xor;
- 	cw->fct_tab[9] = zjmp;
+	cw->fct_tab[9] = zjmp;
 	cw->fct_tab[10] = ldi;
 	cw->fct_tab[11] = sti;
 	cw->fct_tab[12] = frk;
@@ -63,7 +75,7 @@ static void	init_tab(t_cw *cw)
 	cw->fct_tab[16] = aff;
 }
 
-t_cw	cw_init(int ac, char **av)
+t_cw		cw_init(int ac, char **av)
 {
 	t_cw	cw;
 

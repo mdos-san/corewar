@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/02/28 08:20:57 by mdos-san          #+#    #+#             */
+/*   Updated: 2017/02/28 08:21:52 by mdos-san         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 static int	str_is_digit(char *str)
@@ -56,11 +68,13 @@ static int	parse_get_number_player(t_cw *cw, int *nb)
 			if (i + 1 < cw->ac && nb_player < 4)
 				nb[nb_player] = ft_atoi(av[i + 1]);
 			else
-				parse_error(cw, (nb_player < 4) ? "-n value is missing." : "too many -n args");
+				parse_error(cw, (nb_player < 4)
+				? "-n value is missing." : "too many -n args");
 			++i;
 		}
 		else if (ft_strcmp(av[i], "-v") == 0)
-		{}
+		{
+		}
 		else if (ft_strcmp(av[i], "-verbose") == 0)
 		{
 			cw->f_verbose = 1;
@@ -73,7 +87,7 @@ static int	parse_get_number_player(t_cw *cw, int *nb)
 				fd_test = open(av[i], O_RDONLY);
 				if (fd_test == -1)
 					parse_error(cw, av[i]);
-			close(fd_test);	
+				close(fd_test);
 			}
 			++nb_player;
 		}
@@ -91,7 +105,7 @@ static void	wait_init(t_process *p)
 	}
 }
 
-void	cw_parse(t_cw *cw)
+void		cw_parse(t_cw *cw)
 {
 	int		nb_player;
 	int		i;
@@ -109,7 +123,8 @@ void	cw_parse(t_cw *cw)
 	while (i < nb_player)
 	{
 		ft_printf("* Player %d, ", i + 1);
-		bytecode_read(cw, cw->champs[i].path, (MEM_SIZE / nb_player) * i, i + 1);
+		bytecode_read(cw, cw->champs[i].path,
+				(MEM_SIZE / nb_player) * i, i + 1);
 		process_new(&cw->process, nb[i], (MEM_SIZE / nb_player) * i, i + 1);
 		ft_printf("\n");
 		++i;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   linked_list_process.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/02/28 08:12:17 by mdos-san          #+#    #+#             */
+/*   Updated: 2017/02/28 08:14:41 by mdos-san         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 static void	reg_init(int *r)
@@ -12,21 +24,13 @@ static void	reg_init(int *r)
 	}
 }
 
-/*static void	push_back(t_process *b, t_process *e)
-{
-	if (b->next != NULL)
-		push_back(b->next, e);
-	else
-		b->next = e;
-}*/
-
 static void	push_front(t_process **b, t_process *e)
 {
 	e->next = *b;
 	*b = e;
 }
 
-t_process *process_new(t_process **act, int champ, int pc, int color_nb)
+t_process	*process_new(t_process **act, int champ, int pc, int color_nb)
 {
 	t_process	*new;
 
@@ -54,8 +58,7 @@ t_process *process_new(t_process **act, int champ, int pc, int color_nb)
 	return (new);
 }
 
-
-int	process_count(t_process *l)
+int			process_count(t_process *l)
 {
 	int	i;
 
