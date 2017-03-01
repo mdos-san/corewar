@@ -81,7 +81,6 @@ static void	die(t_cw *cw, int *check)
 	}
 	else
 		max_check++;
-//	ft_printf("nbl: %d, max_check: %d, ctd: %d, process: %d\n", nb_live, max_check, cw->cycle_to_die, process_count(cw->process));
 	*check = 0;
 }
 
@@ -112,7 +111,6 @@ static void	exec_turn(t_cw *cw, int *turn)
 				verbose_print(cw, 0, 0, cw->nb_readed);
 				ft_putchar('\n');
 			}
-//			ft_printf("turn %d pc %d nb_readed %d\n", *turn, l->pc, cw->nb_readed);
 			l->pc += cw->nb_readed;
 			l->pc %= MEM_SIZE;
 			l->is_waiting = 0;
@@ -149,13 +147,6 @@ int			main(int ac, char **av)
 			board_print(&cw);
 			refresh();
 		}
-//		if (turn >= 57955)
-//			sleep(2);
-/*		if (cw.ins >= 76374)
-		{
-			ft_printf("%d \n", turn);
-			sleep(2);
-		}*/
 		++turn;
 		++check;
 	}
