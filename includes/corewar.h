@@ -136,5 +136,6 @@ t_ocp		ocp_get(unsigned char ocp);
 void		ocp_parse(t_cw *cw, t_process *p, t_ocp ocp, int dir_two, int get_index);
 int			get_turn(unsigned char c);
 int			mod(int a, int b);
+int			idx_mod(int a);
 
 #endif

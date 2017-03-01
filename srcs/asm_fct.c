@@ -23,31 +23,37 @@ int		mod(int a, int b)
 	return (i);
 }
 
+int		idx_mod(int a)
+{
+	int	n;
+
+	n = (a < 0) ? 1 : 0;
+	a *= (a < 0) ? -1 : 1;
+	a %= IDX_MOD;
+	if (n)
+		a *= -1;
+	return (a);
+}
+
 void	live(t_cw *cw, t_process *p)
 {
 	cw->nb_readed = 5;
 	p->nb_live += 1;
-	(void)cw;
 }
 
 void	ld(t_cw *cw, t_process *p)
 {
-	int		i;
 	int		y;
 	int		value;
 	t_ocp	ocp;
 
 	y = 0;
-	i = 1;
-	ocp = ocp_get(cw->board[p->pc + i]);
-	++i;
+	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	ocp_parse(cw, p, ocp, 0, 1);
 	if (ft_strcmp(ocp.one, "11") == 0)
 	{
-		if (p->p_one[0] > 32768)
-			p->p_one[0] = (p->p_one[0] % IDX_MOD) - IDX_MOD;
-		else
-			p->p_one[0] = (p->p_one[0] % IDX_MOD);
+		*p->p_one = (int)(short)(*p->p_one);		
+		*p->p_one = idx_mod(*p->p_one);
 		board_to_int(cw, &value, *p->p_one);
 	}
 	else
@@ -69,23 +75,19 @@ void	ld(t_cw *cw, t_process *p)
 
 void	st(t_cw *cw, t_process *p)
 {
-	int		tmp;
 	t_ocp	ocp;
 
-	ocp = ocp_get(cw->board[p->pc + 1]);
+	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	ocp_parse(cw, p, ocp, 0, 1);
-	if (!cw->param_error && cw->board[p->pc + 1] != 0)
+	if (!cw->param_error && cw->board[mod(p->pc, 1)] != 0)
 	{
-		tmp = (p->p_one[0] < 0) ? 4294967295 + p->p_one[0] + 1 : p->p_one[0];
 		if (ft_strcmp(ocp.two, "01") == 0)
-			p->p_two[0] = p->p_one[0];
+			*p->p_two = *p->p_one;
 		else
 		{
-			if (p->p_two[0] > 32768)
-				p->p_two[0] = (p->p_two[0] % IDX_MOD) - IDX_MOD;
-			else
-				p->p_two[0] = (p->p_two[0] % IDX_MOD);
-			int_to_board(cw, &tmp, *p->p_two);
+			*p->p_two = (int)(short)(*p->p_two);
+			*p->p_two = idx_mod(*p->p_two);
+			int_to_board(cw, p->p_one, *p->p_two);
 		}
 	}
 }
@@ -93,12 +95,9 @@ void	st(t_cw *cw, t_process *p)
 void	add(t_cw *cw, t_process *p)
 {
 	int		tmp;
-	int		i;
 	t_ocp	ocp;
 
-	i = 1;
-	ocp = ocp_get(cw->board[p->pc + i]);
-	++i;
+	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	ocp_parse(cw, p, ocp, 1, 0);
 	tmp = *p->p_one + *p->p_two;
 	*p->p_three = tmp;
@@ -111,12 +110,9 @@ void	add(t_cw *cw, t_process *p)
 void	sub(t_cw *cw, t_process *p)
 {
 	int		tmp;
-	int		i;
 	t_ocp	ocp;
 
-	i = 1;
-	ocp = ocp_get(cw->board[p->pc + i]);
-	++i;
+	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	ocp_parse(cw, p, ocp, 1, 0);
 	tmp = *p->p_one - *p->p_two;
 	*p->p_three = tmp;
@@ -128,12 +124,9 @@ void	sub(t_cw *cw, t_process *p)
 
 void	and(t_cw *cw, t_process *p)
 {
-	int		i;
 	t_ocp	ocp;
 
-	i = 1;
-	ocp = ocp_get(cw->board[p->pc + i]);
-	++i;
+	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	cw->idx = 1;
 	ocp_parse(cw, p, ocp, 0, 0);
 	*p->p_three = *p->p_one & *p->p_two;
@@ -145,12 +138,9 @@ void	and(t_cw *cw, t_process *p)
 
 void	or(t_cw *cw, t_process *p)
 {
-	int		i;
 	t_ocp	ocp;
 
-	i = 1;
-	ocp = ocp_get(cw->board[p->pc + i]);
-	++i;
+	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	cw->idx = 1;
 	ocp_parse(cw, p, ocp, 0, 0);
 	*p->p_three = *p->p_one | *p->p_two;
@@ -162,12 +152,9 @@ void	or(t_cw *cw, t_process *p)
 
 void	xor(t_cw *cw, t_process *p)
 {
-	int		i;
 	t_ocp	ocp;
 
-	i = 1;
-	ocp = ocp_get(cw->board[p->pc + i]);
-	++i;
+	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	cw->idx = 1;
 	ocp_parse(cw, p, ocp, 0, 0);
 	*p->p_three = *p->p_one ^ *p->p_two;
@@ -179,14 +166,11 @@ void	xor(t_cw *cw, t_process *p)
 
 void	zjmp(t_cw *cw, t_process *p)
 {
-	unsigned short	j;
+	short	j;
 
-	*(((unsigned char *)&j) + 1) = cw->board[p->pc + 1];
-	*(((unsigned char *)&j)) = cw->board[p->pc + 2];
-	if (j > 32768)
-		j = j % IDX_MOD - IDX_MOD;
-	else
-		j = j % IDX_MOD;
+	((unsigned char *)&j)[1] = cw->board[mod(p->pc, 1)];
+	((unsigned char *)&j)[0] = cw->board[mod(p->pc, 2)];
+	j = idx_mod(j);
 	if (p->carry == 1)
 	{
 		p->pc += j;
@@ -198,13 +182,10 @@ void	zjmp(t_cw *cw, t_process *p)
 
 void	ldi(t_cw *cw, t_process *p)
 {
-	int		i;
 	int		new_addr;
 	t_ocp	ocp;
 
-	i = 1;
-	ocp = ocp_get(cw->board[p->pc + i]);
-	++i;
+	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	ocp_parse(cw, p, ocp, 1, 0);
 	new_addr = mod(*p->p_one, *p->p_two);
 	board_to_int(cw, p->p_three, new_addr);
@@ -212,21 +193,17 @@ void	ldi(t_cw *cw, t_process *p)
 
 void	frk(t_cw *cw, t_process *p)
 {
-	unsigned short	j;
-	t_process		*child;
-	int				i;
+	short		j;
+	t_process	*child;
+	int			i;
 
 	i = 0;
 	j = 0;
-	*(((unsigned char *)&j) + 1) = cw->board[p->pc + 1];
-	*(((unsigned char *)&j)) = cw->board[p->pc + 2];
-	++cw->ins;
-	if (j > 32768)
-		j = j % IDX_MOD - IDX_MOD;
-	else
-		j = j % IDX_MOD;
+	((unsigned char *)&j)[1] = cw->board[mod(p->pc, 1)];
+	((unsigned char *)&j)[0] = cw->board[mod(p->pc, 2)];
+	j = idx_mod(j);
 	child = process_new(&cw->process, p->nb_champ,
-			p->pc + j, p->color_nb);
+			mod(p->pc, j), p->color_nb);
 	while (i < 16)
 	{
 		child->r[i] = p->r[i];
@@ -240,31 +217,17 @@ void	frk(t_cw *cw, t_process *p)
 void	sti(t_cw *cw, t_process *p)
 {
 	int		sum;
-	int		i;
 	t_ocp	ocp;
 
-	i = 1;
-	ocp = ocp_get(cw->board[p->pc + i]);
-	++i;
+	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	cw->idx = 1;
 	ocp_parse(cw, p, ocp, 1, 0);
-	*p->p_one = (p->p_one[0] < 0) ? 4294967295 + p->p_one[0] + 1 : p->p_one[0];
 	if (ft_strcmp(ocp.two, "10") == 0)
-	{
-		if (*p->p_two > 32768)
-			*p->p_two = *p->p_two % IDX_MOD - IDX_MOD;
-		else
-			*p->p_two = *p->p_two % IDX_MOD;
-	}
+		*p->p_two = (int)(short)(*p->p_two);
 	if (ft_strcmp(ocp.three, "10") == 0)
-	{
-		if (*p->p_three > 32768)
-			*p->p_three = *p->p_three % IDX_MOD - IDX_MOD;
-		else
-			*p->p_three = *p->p_three % IDX_MOD;
-	}
+		*p->p_three = (int)(short)(*p->p_three);
 	sum = *p->p_two + *p->p_three;
-	sum = sum % IDX_MOD;
+	sum = idx_mod(sum);
 	int_to_board(cw, p->p_one, sum);
 }
 

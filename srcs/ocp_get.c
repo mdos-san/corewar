@@ -86,13 +86,8 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *v,
 		{
 			((unsigned char*)&ind)[1] = cw->board[mod(p->pc, cw->nb_readed)];
 			((unsigned char*)&ind)[0] = cw->board[mod(p->pc, cw->nb_readed + 1)];
-			if (cw->idx == 1)
-			{
-				if (ind > 32768)
-					ind = ind % IDX_MOD - IDX_MOD;
-				else
-					ind = ind % IDX_MOD;
-			}
+			ind = (int)(short)(ind);
+			ind = idx_mod(ind);
 			board_to_int(cw, v, ind);
 			cw->nb_readed += 2;
 		}
