@@ -6,4 +6,4 @@ fct() {
 	`./ressources/corewar -d $2 ./_cor/$1 > ./_zaz_output/$1`
 }
 
-source ./core_test.sh
+source ./dump_tests

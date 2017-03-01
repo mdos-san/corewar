@@ -21,6 +21,6 @@ fct() {
 make re
 mkdir _out 2> /dev/null
 clear
-source ./core_test.sh
+source ./dump_tests
 echo "If you got errors, your outputs is in the folder _out and zaz's outputs is in _zaz_output folder."
 rm error

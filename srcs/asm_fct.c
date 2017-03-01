@@ -233,14 +233,11 @@ void	sti(t_cw *cw, t_process *p)
 
 void	lld(t_cw *cw, t_process *p)
 {
-	int		i;
 	int		y;
 	t_ocp	ocp;
 
 	y = 0;
-	i = 1;
-	ocp = ocp_get(cw->board[p->pc + i]);
-	++i;
+	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	ocp_parse(cw, p, ocp, 0, 0);
 	while (y < 16)
 	{
@@ -259,13 +256,10 @@ void	lld(t_cw *cw, t_process *p)
 
 void	lldi(t_cw *cw, t_process *p)
 {
-	int		i;
 	int		new_addr;
 	t_ocp	ocp;
 
-	i = 1;
-	ocp = ocp_get(cw->board[p->pc + i]);
-	++i;
+	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	ocp_parse(cw, p, ocp, 1, 0);
 	new_addr = mod(*p->p_one, *p->p_two);
 	board_to_int(cw, p->p_three, new_addr);
@@ -279,8 +273,8 @@ void	lfrk(t_cw *cw, t_process *p)
 
 	i = 0;
 	j = 0;
-	((unsigned char *)&j)[1] = cw->board[p->pc + 1];
-	((unsigned char *)&j)[0] = cw->board[p->pc + 2];
+	((unsigned char *)&j)[1] = cw->board[mod(p->pc, 1)];
+	((unsigned char *)&j)[0] = cw->board[mod(p->pc, 2)];
 	j = (int)(short)(j);
 	child = process_new(&cw->process, p->nb_champ, mod(p->pc, j), p->color_nb);
 	while (i < 16)
