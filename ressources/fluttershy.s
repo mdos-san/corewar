@@ -1,6 +1,3 @@
-#by zaz, it's not very good, but what did you expect, rainbowdash is way better
-#2013
-
 .name		"fluttershy"
 .comment	"oh, my, what a scary project"
 
@@ -49,7 +46,7 @@ ardefloop:
 
 
 coregeni:
-	st		r1, 6
+	st		r1, %6
 
 coregen:
 	live	%123012
@@ -62,9 +59,9 @@ coreinit:
 	st		r1, 58
 	st		r1, 58
 	st		r1, 58
-	st		r1, 58
-	st		r1, 58
-	st		r1, 58
+	st		r1, %58
+	st		r1, %58
+	st		r1, %58
 	st		r1, 58
 	ld		%0, r16
 
