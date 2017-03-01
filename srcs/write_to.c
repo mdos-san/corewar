@@ -17,10 +17,10 @@ void	board_to_int(t_cw *cw, int *value, int offset)
 	t_process	*p;
 
 	p = cw->ap;
-	((unsigned char*)value)[3] = cw->board[add_index_mod(p->pc, offset + 0)];
-	((unsigned char*)value)[2] = cw->board[add_index_mod(p->pc, offset + 1)];
-	((unsigned char*)value)[1] = cw->board[add_index_mod(p->pc, offset + 2)];
-	((unsigned char*)value)[0] = cw->board[add_index_mod(p->pc, offset + 3)];
+	((unsigned char*)value)[3] = cw->board[mod(p->pc, offset + 0)];
+	((unsigned char*)value)[2] = cw->board[mod(p->pc, offset + 1)];
+	((unsigned char*)value)[1] = cw->board[mod(p->pc, offset + 2)];
+	((unsigned char*)value)[0] = cw->board[mod(p->pc, offset + 3)];
 }
 
 void	int_to_board(t_cw *cw, int *value, int offset)
@@ -30,12 +30,12 @@ void	int_to_board(t_cw *cw, int *value, int offset)
 
 	p = cw->ap;
 	color = (unsigned char)p->color_nb;
-	cw->board[add_index_mod(p->pc, offset + 0)] = ((unsigned char*)value)[3];
-	cw->board[add_index_mod(p->pc, offset + 1)] = ((unsigned char*)value)[2];
-	cw->board[add_index_mod(p->pc, offset + 2)] = ((unsigned char*)value)[1];
-	cw->board[add_index_mod(p->pc, offset + 3)] = ((unsigned char*)value)[0];
-	cw->board_color[add_index_mod(p->pc, offset + 0)] = color;
-	cw->board_color[add_index_mod(p->pc, offset + 1)] = color;
-	cw->board_color[add_index_mod(p->pc, offset + 2)] = color;
-	cw->board_color[add_index_mod(p->pc, offset + 3)] = color;
+	cw->board[mod(p->pc, offset + 0)] = ((unsigned char*)value)[3];
+	cw->board[mod(p->pc, offset + 1)] = ((unsigned char*)value)[2];
+	cw->board[mod(p->pc, offset + 2)] = ((unsigned char*)value)[1];
+	cw->board[mod(p->pc, offset + 3)] = ((unsigned char*)value)[0];
+	cw->board_color[mod(p->pc, offset + 0)] = color;
+	cw->board_color[mod(p->pc, offset + 1)] = color;
+	cw->board_color[mod(p->pc, offset + 2)] = color;
+	cw->board_color[mod(p->pc, offset + 3)] = color;
 }

@@ -19,7 +19,7 @@ void	verbose_print(t_cw *cw, int i, int start, int end)
 	j = start;
 	while (j < end)
 	{
-		ft_printf("%.2x ", cw->board[add_index_mod(cw->ap->pc, i + j)]);
+		ft_printf("%.2x ", cw->board[mod(cw->ap->pc, i + j)]);
 		++j;
 	}
 }

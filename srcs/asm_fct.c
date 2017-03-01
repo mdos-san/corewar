@@ -12,12 +12,15 @@
 
 #include "corewar.h"
 
-int		add_index_mod(int a, int b)
+int		mod(int a, int b)
 {
 	int	i;
 
-	i = (a + b) % MEM_SIZE;
-	return ((i >= 0) ? i : MEM_SIZE + i);
+	i = a + b;
+	i %= MEM_SIZE;
+	if (i < 0)
+		i = MEM_SIZE + i;
+	return (i);
 }
 
 void	live(t_cw *cw, t_process *p)
@@ -203,7 +206,7 @@ void	ldi(t_cw *cw, t_process *p)
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
 	ocp_parse(cw, p, ocp, 1, 0);
-	new_addr = add_index_mod(*p->p_one, *p->p_two);
+	new_addr = mod(*p->p_one, *p->p_two);
 	board_to_int(cw, p->p_three, new_addr);
 }
 
@@ -301,7 +304,7 @@ void	lldi(t_cw *cw, t_process *p)
 	ocp = ocp_get(cw->board[p->pc + i]);
 	++i;
 	ocp_parse(cw, p, ocp, 1, 0);
-	new_addr = add_index_mod(*p->p_one, *p->p_two);
+	new_addr = mod(*p->p_one, *p->p_two);
 	board_to_int(cw, p->p_three, new_addr);
 }
 

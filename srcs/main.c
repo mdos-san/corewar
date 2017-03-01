@@ -156,6 +156,5 @@ int			main(int ac, char **av)
 		d(&cw);
 	else if (cw.f_dump != -1)
 		dump(&cw);
-	(cw.board) ? free(cw.board) : (void)0;
 	return (1);
 }

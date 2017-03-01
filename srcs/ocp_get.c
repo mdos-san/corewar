@@ -67,10 +67,9 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *v,
 	ind = 0;
 	if (ft_strcmp(str, "01") == 0)
 	{
-		if (1 <= cw->board[p->pc + cw->nb_readed] && cw->board[p->pc + cw->nb_readed] <= 16)
-		{
-			*pt = p->r + (cw->board[add_index_mod(p->pc, cw->nb_readed)]) - 1;
-		}
+		if (1 <= cw->board[mod(p->pc, cw->nb_readed)]
+		&& cw->board[mod(p->pc, cw->nb_readed)] <= 16)
+			*pt = p->r + (cw->board[mod(p->pc, cw->nb_readed)]) - 1;
 		else
 			cw->param_error = 1;
 		++cw->nb_readed;
@@ -79,14 +78,14 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *v,
 	{
 		if (get_index == 1)
 		{
-			((unsigned char*)v)[1] = cw->board[add_index_mod(p->pc, cw->nb_readed)];
-			((unsigned char*)v)[0] = cw->board[add_index_mod(p->pc, cw->nb_readed + 1)];
+			((unsigned char*)v)[1] = cw->board[mod(p->pc, cw->nb_readed)];
+			((unsigned char*)v)[0] = cw->board[mod(p->pc, cw->nb_readed + 1)];
 			cw->nb_readed += 2;
 		}
 		else
 		{
-			((unsigned char*)&ind)[1] = cw->board[add_index_mod(p->pc, cw->nb_readed)];
-			((unsigned char*)&ind)[0] = cw->board[add_index_mod(p->pc, cw->nb_readed + 1)];
+			((unsigned char*)&ind)[1] = cw->board[mod(p->pc, cw->nb_readed)];
+			((unsigned char*)&ind)[0] = cw->board[mod(p->pc, cw->nb_readed + 1)];
 			if (cw->idx == 1)
 			{
 				if (ind > 32768)
@@ -102,8 +101,8 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *v,
 	{
 		if (dir_two == 1)
 		{
-			((unsigned char *)v)[1] = cw->board[add_index_mod(p->pc, cw->nb_readed)];
-			((unsigned char *)v)[0] = cw->board[add_index_mod(p->pc, cw->nb_readed + 1)];
+			((unsigned char *)v)[1] = cw->board[mod(p->pc, cw->nb_readed)];
+			((unsigned char *)v)[0] = cw->board[mod(p->pc, cw->nb_readed + 1)];
 			cw->nb_readed += 2;
 		}
 		else
