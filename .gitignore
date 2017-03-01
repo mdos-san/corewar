@@ -1,0 +1,8 @@
+*.o
+*.swp
+corewar
+_out/
+includes/libft.h
+includes/libftprintf.h
+libs/libftprintf.a
+_verbose_out

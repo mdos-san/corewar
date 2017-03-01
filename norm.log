@@ -1,0 +1,23 @@
+Norme: ./srcs/board_print.c
+Norme: ./srcs/bytecode_read.c
+Error (line 21): function bytecode_read has 48 lines
+Error (line 21, col 0): bytecode_read has 8 variables
+Norme: ./srcs/linked_list_process.c
+Norme: ./srcs/cw_init.c
+Norme: ./srcs/parse.c
+Error (line 38): function parse_get_number_player has 57 lines
+Norme: ./srcs/verbose_print.c
+Error: file must end with a single empty line
+Norme: ./srcs/main.c
+Error (line 47): function die has 47 lines
+Error (line 98): function exec_turn has 35 lines
+Error (line 137): function main has 37 lines
+Norme: ./srcs/write_to.c
+Norme: ./srcs/ocp_get.c
+Error (line 62): ocp_part have 8 parameters
+Error (line 62): function ocp_part has 61 lines
+Error (line 128): ocp_parse have 6 parameters
+Norme: ./srcs/asm_fct.c
+Error: 18 functions in the file
+Error (line 38): function ld has 34 lines
+Error (line 259): function sti has 28 lines
