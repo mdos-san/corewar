@@ -1,33 +1,29 @@
 # Vm *Corewar* Quick start
-Apres avoir cloner le repo aller dans le dossier *mdos-san*:
 
-    $> git clone https://github.com/mdos-san/corewar
-    $> cd corewar/mdos-san
+Quick start:
 
-Pour compiler la vm il suffit de faire un faire un:
-
+    $> git clone https://github.com/mdos-san/corewar && cd corewar
     $> make
-    
-La vm etant encore en **beta**, elle prend **forcément** 3 parametres qui sont les champions,
-le visualiseur est activé par **defaut (pas de -n)**, voici un example d'utilisation:
 
-    $> ./corewar ../ressources/test.cor ../ressources/fluttershy.cor ../ressources/bee_gees.cor
-    
-La vm n'etant pas finie, le vainqueur de la partie n'est pas afficher a la fin.
+Options:
 
-Les commandes asm gerée sont (*opcode* **commande**):
+    -dump [nb]      ## Dump de la memoire au cycle [nb] conforme au sujet
+    -d [nb]         ## Dump de la memoire au cycle [nb] conforme a la vm de zaz
+    -n [nb] player  ## Set numero du joueur suivant a [nb]
+    -v              ## Active le visualiseur ncurse
+    -verbose        ## Similaire a l'option -v 16 de la vm de zaz
 
-* *1* **live**
-* *2* **ld**
-* *3* **st**
-* *4* **add**
-* *6* **and**
-* *8* **xor**
-* *9* **zjmp**
-* *10* **ldi**
-* *11* **sti**
-* *12* **fork**
+Examples:
 
-Quelque soucis sont encore présent avec le **carry**, des tests seront fait lors de la prochaine version pour s'assurer de son bon fonctionnement.
+    $> ./corewar _cor/fluttershy.cor _cor/helltrain.cor
+    $> ./corewar -v _cor/fluttershy.cor _cor/helltrain.cor
+    $> ./corewar -dump 15000 _cor/fluttershy.cor _cor/helltrain.cor
+    $> ./corewar -v -n 42 _cor/fluttershy.cor -n -3 _cor/helltrain.cor -n 21 _cor/turtle.cor _cor/bee_gees.cor
+    $> ./corewar -verbose _cor/fluttershy.cor _cor/helltrain.cor
+
+Utilisation des scripts de tests:
+
+    $> bash dump_inspect        # Verifie si les dumps memoire sont correct
+    $> bash verbose_inspect     # Verifie si le verbose est correct (hard)
 
 Pour connaitre les prochaines **features**, rendez-vous sur la page [Projects](https://github.com/mdos-san/corewar/projects) du repo.
