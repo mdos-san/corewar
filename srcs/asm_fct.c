@@ -279,28 +279,25 @@ void	lfrk(t_cw *cw, t_process *p)
 
 	i = 0;
 	j = 0;
-	*(((unsigned char *)&j) + 1) = cw->board[p->pc + 1];
-	*(((unsigned char *)&j)) = cw->board[p->pc + 2];
-	if (j > 32768)
-		child = process_new(&cw->process, p->nb_champ,
-				p->pc + (j - 65535 - 1), p->color_nb);
-	else
-		child = process_new(&cw->process, p->nb_champ, p->pc + j, p->color_nb);
+	((unsigned char *)&j)[1] = cw->board[p->pc + 1];
+	((unsigned char *)&j)[0] = cw->board[p->pc + 2];
+	j = (int)(short)(j);
+	child = process_new(&cw->process, p->nb_champ, mod(p->pc, j), p->color_nb);
 	while (i < 16)
 	{
 		child->r[i] = p->r[i];
 		++i;
 	}
+	child->carry = p->carry;
+	child->nb_live = 1;
+	cw->nb_readed = 3;
 }
 
 void	aff(t_cw *cw, t_process *p)
 {
 	if (cw->f_a)
-	{
 		ft_putchar(cw->board[p->pc]);
-	}
-	p->pc += 2;
-	p->pc %= MEM_SIZE;
+	p->pc = mod(p->pc, 2);
 }
 
 int		get_turn(unsigned char c)
