@@ -37,7 +37,7 @@ int		idx_mod(int a)
 
 void	assign_live(t_cw *cw, int number, int champ_offset)
 {
-	if (champ_offset < 4)
+	if (champ_offset < 4 && cw->champs[champ_offset].path != NULL)
 	{
 		if (cw->champs[champ_offset].number == number)
 			cw->champs[champ_offset].last_live = cw->turn;
