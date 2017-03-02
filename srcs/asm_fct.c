@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 18:44:45 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/28 16:18:23 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/02 11:57:03 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	ld(t_cw *cw, t_process *p)
 	t_ocp	ocp;
 
 	y = 0;
+	cw->nb_param = 2;
 	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	ocp_parse(cw, p, ocp, 0, 1);
 	if (ft_strcmp(ocp.one, "11") == 0)
@@ -92,9 +93,10 @@ void	st(t_cw *cw, t_process *p)
 {
 	t_ocp	ocp;
 
+	cw->nb_param = 2;
 	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	ocp_parse(cw, p, ocp, 0, 1);
-	if (!cw->param_error && cw->board[mod(p->pc, 1)] != 0)
+	if (cw->param_error == 0)
 	{
 		if (ft_strcmp(ocp.two, "01") == 0)
 			*p->p_two = *p->p_one;
@@ -112,6 +114,7 @@ void	add(t_cw *cw, t_process *p)
 	int		tmp;
 	t_ocp	ocp;
 
+	cw->nb_param = 3;
 	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	ocp_parse(cw, p, ocp, 1, 0);
 	tmp = *p->p_one + *p->p_two;
@@ -127,6 +130,7 @@ void	sub(t_cw *cw, t_process *p)
 	int		tmp;
 	t_ocp	ocp;
 
+	cw->nb_param = 3;
 	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	ocp_parse(cw, p, ocp, 1, 0);
 	tmp = *p->p_one - *p->p_two;
@@ -141,6 +145,7 @@ void	and(t_cw *cw, t_process *p)
 {
 	t_ocp	ocp;
 
+	cw->nb_param = 3;
 	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	cw->idx = 1;
 	ocp_parse(cw, p, ocp, 0, 0);
@@ -155,6 +160,7 @@ void	or(t_cw *cw, t_process *p)
 {
 	t_ocp	ocp;
 
+	cw->nb_param = 3;
 	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	cw->idx = 1;
 	ocp_parse(cw, p, ocp, 0, 0);
@@ -169,6 +175,7 @@ void	xor(t_cw *cw, t_process *p)
 {
 	t_ocp	ocp;
 
+	cw->nb_param = 3;
 	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	cw->idx = 1;
 	ocp_parse(cw, p, ocp, 0, 0);
@@ -200,6 +207,7 @@ void	ldi(t_cw *cw, t_process *p)
 	int		new_addr;
 	t_ocp	ocp;
 
+	cw->nb_param = 3;
 	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	ocp_parse(cw, p, ocp, 1, 0);
 	new_addr = mod(*p->p_one, *p->p_two);
@@ -234,6 +242,7 @@ void	sti(t_cw *cw, t_process *p)
 	int		sum;
 	t_ocp	ocp;
 
+	cw->nb_param = 3;
 	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	cw->idx = 1;
 	ocp_parse(cw, p, ocp, 1, 0);
@@ -252,6 +261,7 @@ void	lld(t_cw *cw, t_process *p)
 	t_ocp	ocp;
 
 	y = 0;
+	cw->nb_param = 2;
 	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	ocp_parse(cw, p, ocp, 0, 0);
 	while (y < 16)
@@ -274,6 +284,7 @@ void	lldi(t_cw *cw, t_process *p)
 	int		new_addr;
 	t_ocp	ocp;
 
+	cw->nb_param = 3;
 	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	ocp_parse(cw, p, ocp, 1, 0);
 	new_addr = mod(*p->p_one, *p->p_two);

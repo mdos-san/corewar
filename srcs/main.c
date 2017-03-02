@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:40:37 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/02 11:25:57 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/02 11:39:35 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ static void	exec_turn(t_cw *cw, int *turn)
 			if (cw->board[l->pc] < 1 || 16 < cw->board[l->pc])
 				cw->param_error = 1;
 			cw->nb_readed = 0;
+			cw->nb_param = 0;
 			cw->fct_tab[l->fct](cw, l);
 			if (cw->f_verbose && cw->nb_readed > 0)
 			{
@@ -131,7 +132,7 @@ int			main(int ac, char **av)
 	cw_parse(&cw);
 	while (cw.process)
 	{
-		if (cw.turn == cw.f_dump || cw.turn == cw.f_d)
+		if (cw.turn - 1 == cw.f_dump || cw.turn - 1 == cw.f_d)
 			break ;
 		if (cw.cycle_to_die <= 0)
 			break ;
@@ -146,6 +147,10 @@ int			main(int ac, char **av)
 			cw.turn, process_count(cw.process), cw.cycle_to_die, cw.ins);
 			board_print(&cw);
 			refresh();
+		}
+		if (cw.turn == 15)
+		{
+		//	sleep(14143);
 		}
 		++cw.turn;
 		++check;

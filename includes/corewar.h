@@ -92,6 +92,7 @@ typedef	struct			s_cw
 	int					normal;
 	long long			ins;
 	int					nb_readed;
+	int					nb_param;
 }						t_cw;
 
 t_cw					cw_init(int ac, char **av);
