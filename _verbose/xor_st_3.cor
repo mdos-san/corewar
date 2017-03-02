@@ -1,3 +1,5 @@
-08 f4 02 01 fd ff 01 
-03 70 01 00 2a 
-0a f5 ff 00 00 00 00 
+Introducing contestants...
+* Player 1, weighing 12 bytes, "test" ("Testing champ") !
+ADV 7 (0x0000 -> 0x0007) 08 f4 02 01 fd ff 01 
+ADV 5 (0x0007 -> 0x000c) 03 70 01 00 2a 
+ADV 7 (0x0032 -> 0x0039) 0a f5 ff 00 00 00 00 

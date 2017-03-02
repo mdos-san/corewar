@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:40:37 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/02 11:39:35 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/02 12:56:40 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ static void	exec_turn(t_cw *cw, int *turn)
 			cw->fct_tab[l->fct](cw, l);
 			if (cw->f_verbose && cw->nb_readed > 0)
 			{
+				ft_printf("ADV %d (0x%.4x -> 0x%.4x) ", cw->nb_readed, l->pc, mod(l->pc, cw->nb_readed));
 				verbose_print(cw, 0, 0, cw->nb_readed);
 				ft_putchar('\n');
 			}
@@ -147,10 +148,6 @@ int			main(int ac, char **av)
 			cw.turn, process_count(cw.process), cw.cycle_to_die, cw.ins);
 			board_print(&cw);
 			refresh();
-		}
-		if (cw.turn == 15)
-		{
-		//	sleep(14143);
 		}
 		++cw.turn;
 		++check;
