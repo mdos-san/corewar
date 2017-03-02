@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 18:44:45 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/02 11:57:03 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/02 13:18:04 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,7 +317,7 @@ void	aff(t_cw *cw, t_process *p)
 {
 	if (cw->f_a)
 		ft_putchar(cw->board[p->pc]);
-	p->pc = mod(p->pc, 2);
+	cw->nb_readed = 2;
 }
 
 int		get_turn(unsigned char c)
