@@ -1,6 +1,6 @@
 .name  "Test"
 .comment "Testing champ"
 
-ldi %1, r1, r7
+lldi %42, %42, r7
 st r7, 21
 

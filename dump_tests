@@ -18,6 +18,10 @@ fct ld_st_3.cor 10
 fct ld_st_4.cor 10
 fct ld_st_5.cor 10
 fct ld_st_6.cor 10
+fct lld_st_1.cor 15
+fct lld_st_2.cor 15
+fct lld_st_3.cor 15
+fct lld_st_4.cor 15
 fct add_st_1.cor 15
 fct add_st_2.cor 15
 fct sub_st_1.cor 15
@@ -32,7 +36,15 @@ fct or_st_3.cor 11
 fct xor_st_1.cor 11
 fct xor_st_2.cor 11
 fct xor_st_3.cor 11
-#fct ldi_st_1.cor 30
+fct ldi_st_1.cor 30
+fct ldi_st_2.cor 30
+fct ldi_st_3.cor 30
+fct ldi_st_4.cor 30
+fct lldi_st_1.cor 55
+fct lldi_st_2.cor 55
+fct lldi_st_3.cor 55
+fct lldi_st_4.cor 55
+fct lldi_st_5.cor 55
 fct sti_1.cor 25
 fct sti_2.cor 25
 fct sti_3.cor 25
