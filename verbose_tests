@@ -61,6 +61,8 @@ fct ocp_1.cor 100
 fct ocp_2.cor 100
 fct ocp_3.cor 100
 fct ocp_4.cor 100
+fct ocp_5.cor 100
+fct ocp_6.cor 100
 fct fork_st_st.cor 810
 fct errasing_waiting_process.cor 1000
 fct zork.cor 20000
