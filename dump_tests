@@ -56,6 +56,8 @@ fct ld_sti_3.cor 30
 fct and_and_st_zjmp_st_1.cor 42
 fct and_and_st_zjmp_st_2.cor 42
 fct and_and_st_zjmp_st_3.cor 42
+fct ocp_1.cor 100
+fct ocp_2.cor 100
 fct fork_st_st.cor 810
 fct errasing_waiting_process.cor 1000
 fct zork.cor 20000

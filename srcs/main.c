@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:40:37 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/28 16:31:04 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/02 11:25:57 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int			main(int ac, char **av)
 	int			check;
 
 	cw = cw_init(ac, av);
-	cw.turn = 0;
+	cw.turn = 1;
 	check = 0;
 	cw_parse(&cw);
 	while (cw.process)
