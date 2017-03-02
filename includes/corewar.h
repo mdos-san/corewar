@@ -52,7 +52,7 @@ typedef struct			s_process
 typedef struct			s_champ
 {
 	char				*path;
-	header_t			h;
+	t_header			h;
 	int					number;
 	int					last_live;
 }						t_champ;
