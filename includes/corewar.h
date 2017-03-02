@@ -76,6 +76,7 @@ typedef	struct			s_cw
 	t_champ				champs[4];
 	int					nb_process;
 	int					ac;
+	int					turn;
 	int					cycle_to_die;
 	int					f_v;
 	int					f_a;
@@ -86,7 +87,6 @@ typedef	struct			s_cw
 	int					asm_tmp;
 	t_ocp				asm_ocp;
 	char				debug;
-	short				padding;
 	int					idx;
 	int					param_error;
 	int					normal;
