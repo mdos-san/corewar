@@ -53,8 +53,8 @@ int	bytecode_read(t_cw *cw, char *file, int index, int color_nb)
 				h->comment[i - (4 + PROG_NAME_LENGTH + 8)] = buf[0];
 			else if (i >= 4 + PROG_NAME_LENGTH + 8 + COMMENT_LENGTH + 4)
 			{
-				cw->board[j + index] = (unsigned char)buf[0];
-				cw->board_color[j + index] = (unsigned char)color_nb;
+				cw->board[mod(j, index)] = (unsigned char)buf[0];
+				cw->board_color[mod(j, index)] = (unsigned char)color_nb;
 				++j;
 				if (j > h->prog_size)
 					exit(0);
