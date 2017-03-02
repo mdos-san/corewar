@@ -127,6 +127,7 @@ void		cw_parse(t_cw *cw)
 				(MEM_SIZE / nb_player) * i, i + 1);
 		process_new(&cw->process, nb[i], (MEM_SIZE / nb_player) * i, i + 1);
 		ft_printf("\n");
+		cw->champs[i].number = nb[i];
 		++i;
 	}
 	wait_init(cw->process);

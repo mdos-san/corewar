@@ -61,12 +61,12 @@
 
 typedef char	t_arg_type;
 
-typedef struct	header_s
+typedef struct	s_header
 {
   unsigned int	magic;
   unsigned int	prog_size;
   char			prog_name[PROG_NAME_LENGTH + 1];
   char			comment[COMMENT_LENGTH + 1];
-}				header_t;
+}				t_header;
 
 #endif

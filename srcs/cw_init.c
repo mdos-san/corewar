@@ -76,6 +76,24 @@ static void	init_tab(t_cw *cw)
 	cw->fct_tab[16] = aff;
 }
 
+static void init_champ(t_cw *cw)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		cw->champs[i].path = NULL;
+		cw->champs[i].number = 0;
+		cw->champs[i].last_live = 0;
+		cw->champs[i].h.magic = 0;
+		cw->champs[i].h.prog_size = 0;
+		ft_bzero(cw->champs[i].h.prog_name, PROG_NAME_LENGTH + 1);
+		ft_bzero(cw->champs[i].h.comment, COMMENT_LENGTH + 1);
+		++i;
+	}
+}
+
 t_cw		cw_init(int ac, char **av)
 {
 	t_cw	cw;
@@ -96,5 +114,6 @@ t_cw		cw_init(int ac, char **av)
 	cw.process = NULL;
 	cw.cycle_to_die = CYCLE_TO_DIE;
 	init_tab(&cw);
+	init_champ(&cw);
 	return (cw);
 }

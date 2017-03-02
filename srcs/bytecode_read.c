@@ -20,21 +20,19 @@
 
 int	bytecode_read(t_cw *cw, char *file, int index, int color_nb)
 {
+	static int		call = 0;
 	int				fd;
 	char			buf[1];
 	int				i;
-	int				j;
+	unsigned int	j;
 	int				len_offset;
-	int				len;
-	char			*name;
-	char			*comment;
+	t_header		*h;
+	
 
 	i = 0;
 	j = 0;
-	len = 0;
 	len_offset = 3;
-	name = ft_strnew(PROG_NAME_LENGTH);
-	comment = ft_strnew(COMMENT_LENGTH);
+	h = &cw->champs[call].h;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (-1);
@@ -43,29 +41,32 @@ int	bytecode_read(t_cw *cw, char *file, int index, int color_nb)
 		while (read(fd, buf, 1) > 0)
 		{
 			if (i >= 4 && i < 4 + PROG_NAME_LENGTH)
-				name[i - 4] = buf[0];
+				h->prog_name[i - 4] = buf[0];
 			else if (i >= 4 + PROG_NAME_LENGTH + 4
 			&& i < 4 + PROG_NAME_LENGTH + 8)
 			{
-				((unsigned char *)(&len))[len_offset] = buf[0];
+				((unsigned char *)(&h->prog_size))[len_offset] = buf[0];
 				len_offset -= 1;
 			}
 			else if (i >= 4 + PROG_NAME_LENGTH + 8
 			&& i < 4 + PROG_NAME_LENGTH + 8 + COMMENT_LENGTH)
-				comment[i - (4 + PROG_NAME_LENGTH + 8)] = buf[0];
+				h->comment[i - (4 + PROG_NAME_LENGTH + 8)] = buf[0];
 			else if (i >= 4 + PROG_NAME_LENGTH + 8 + COMMENT_LENGTH + 4)
 			{
-				cw->board[j + index] = (unsigned char)buf[0];
-				cw->board_color[j + index] = (unsigned char)color_nb;
+				cw->board[mod(j, index)] = (unsigned char)buf[0];
+				cw->board_color[mod(j, index)] = (unsigned char)color_nb;
 				++j;
-				if (j > len)
+				if (j > h->prog_size)
 					exit(0);
 			}
 			++i;
 		}
-		if (j != len)
+		if (j != h->prog_size)
 			exit(0);
-		ft_printf("weighing %ld bytes, \"%s\" (\"%s\") !", len, name, comment);
+		ft_printf("weighing %ld bytes, \"%s\" (\"%s\") !",
+		h->prog_size, h->prog_name, h->comment);
+		if (call < 3)
+			++call;
 		return (1);
 	}
 }

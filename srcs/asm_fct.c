@@ -35,8 +35,23 @@ int		idx_mod(int a)
 	return (a);
 }
 
+void	assign_live(t_cw *cw, int number, int champ_offset)
+{
+	if (champ_offset < 4 && cw->champs[champ_offset].path != NULL)
+	{
+		if (cw->champs[champ_offset].number == number)
+			cw->champs[champ_offset].last_live = cw->turn;
+		else
+			assign_live(cw, number, champ_offset + 1);
+	}
+}
+
 void	live(t_cw *cw, t_process *p)
 {
+	int	champ_nb;
+
+	board_to_int(cw, &champ_nb, 1);
+	assign_live(cw, champ_nb, 0);
 	cw->nb_readed = 5;
 	p->nb_live += 1;
 }

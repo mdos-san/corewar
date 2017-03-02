@@ -11,6 +11,7 @@ SRC_O	=		main.o\
 				board_print.o\
 				ocp_get.o\
 				linked_list_process.o\
+				print_winner.o\
 				parse.o
 
 all:    corewar
