@@ -122,32 +122,31 @@ static void	exec_turn(t_cw *cw, int *turn)
 int			main(int ac, char **av)
 {
 	t_cw		cw;
-	int			turn;
 	int			check;
 
 	cw = cw_init(ac, av);
-	turn = 0;
+	cw.turn = 0;
 	check = 0;
 	cw_parse(&cw);
 	while (cw.process)
 	{
-		if (turn == cw.f_dump || turn == cw.f_d)
+		if (cw.turn == cw.f_dump || cw.turn == cw.f_d)
 			break ;
 		if (cw.cycle_to_die <= 0)
 			break ;
 		if (check >= cw.cycle_to_die)
 			die(&cw, &check);
-		exec_turn(&cw, &turn);
+		exec_turn(&cw, &cw.turn);
 		if (cw.f_v == 1)
 		{
 			attron(COLOR_PAIR(1));
 			mvprintw(0, 0,
 			"Turn: %d, Process: %d, Cycle to die: %d, Instructions: %lld\n",
-			turn, process_count(cw.process), cw.cycle_to_die, cw.ins);
+			cw.turn, process_count(cw.process), cw.cycle_to_die, cw.ins);
 			board_print(&cw);
 			refresh();
 		}
-		++turn;
+		++cw.turn;
 		++check;
 	}
 	if (cw.f_v == 1)
