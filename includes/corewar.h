@@ -127,5 +127,6 @@ void					ocp_parse(t_cw *cw, t_process *p, t_ocp ocp,
 int						get_turn(unsigned char c);
 int						mod(int a, int b);
 int						idx_mod(int a);
+void					print_winner(t_cw *cw);
 
 #endif
