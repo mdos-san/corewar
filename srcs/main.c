@@ -134,10 +134,7 @@ int			main(int ac, char **av)
 		if (cw.turn == cw.f_dump || cw.turn == cw.f_d)
 			break ;
 		if (cw.cycle_to_die <= 0)
-		{
-			print_winner(&cw);
 			break ;
-		}
 		if (check >= cw.cycle_to_die)
 			die(&cw, &check);
 		exec_turn(&cw, &cw.turn);
@@ -155,6 +152,8 @@ int			main(int ac, char **av)
 	}
 	if (cw.f_v == 1)
 		endwin();
+	if (cw.process == NULL || cw.cycle_to_die <= 0)
+		print_winner(&cw);
 	else if (cw.f_d != -1)
 		d(&cw);
 	else if (cw.f_dump != -1)

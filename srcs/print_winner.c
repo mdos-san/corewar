@@ -4,12 +4,13 @@ static int	get_winner(t_cw *cw, int max_last_live, int champ_off, int win)
 {
 	if (0 <= champ_off && champ_off <= 3)
 	{
-		
 		if (max_last_live < cw->champs[champ_off].last_live)
 		{
 			max_last_live = cw->champs[champ_off].last_live;
 			win = champ_off;
 		}
+		if (cw->champs[champ_off].path == NULL)
+			--win;
 		return (get_winner(cw, max_last_live, champ_off - 1, win));
 	}
 	else
