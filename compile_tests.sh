@@ -7,4 +7,4 @@ fct (){
 	mv ./tests/$1 ./_cor/$1
 }
 
-source ./core_test.sh
+source ./dump_tests
