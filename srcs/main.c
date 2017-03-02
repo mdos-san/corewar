@@ -94,6 +94,7 @@ static void	exec_turn(t_cw *cw, int *turn)
 		cw->ap = l;
 		cw->param_error = 0;
 		cw->normal = 1;
+		l->pc = mod(l->pc, 0);
 		if (l->is_waiting <= 0)
 		{
 			l->is_waiting = 1;
