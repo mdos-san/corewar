@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2017/02/28 16:20:26 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/03 11:46:49 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # define IND_SIZE				2
 # define REG_SIZE				4
 # define DIR_SIZE				REG_SIZE
-
 
 # define REG_CODE				1
 # define DIR_CODE				2
@@ -59,14 +58,14 @@
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
-typedef char	t_arg_type;
+typedef char		t_arg_type;
 
-typedef struct	s_header
+typedef struct		s_header
 {
-  unsigned int	magic;
-  unsigned int	prog_size;
-  char			prog_name[PROG_NAME_LENGTH + 1];
-  char			comment[COMMENT_LENGTH + 1];
-}				t_header;
+	unsigned int	magic;
+	unsigned int	prog_size;
+	char			prog_name[PROG_NAME_LENGTH + 1];
+	char			comment[COMMENT_LENGTH + 1];
+}					t_header;
 
 #endif

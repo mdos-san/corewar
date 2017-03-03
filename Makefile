@@ -1,18 +1,26 @@
-FLAG	=		-Wextra -Werror -Wall #-Weverything
+FLAG	=		-Wextra -Werror -Wall #-fsanitize=address #-Weverything
 I		=		-I./includes
 L		=		-L./libs ./libs/libftprintf.a -lncurses
 
 SRC_O	=		main.o\
 				cw_init.o\
 				write_to.o\
+				exec_turn.o\
+				mod.o\
 				asm_fct.o\
+				ld.o\
+				st.o\
+				operation.o\
+				fork.o\
 				bytecode_read.o\
 				verbose_print.o\
 				board_print.o\
 				ocp_get.o\
 				linked_list_process.o\
+				dump.o\
 				print_winner.o\
-				parse.o
+				parse.o\
+				error.o
 
 all:    corewar
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   corewar.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/03 11:38:18 by mdos-san          #+#    #+#             */
+/*   Updated: 2017/03/03 14:28:05 by mdos-san         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef COREWAR_H
 # define COREWAR_H
 
@@ -14,12 +26,12 @@
 # define DEBUG 1
 # define NB_COL	64
 
-typedef struct		s_ocp
+typedef struct			s_ocp
 {
-	char			one[3];
-	char			two[3];
-	char			three[3];
-}					t_ocp;
+	char				one[3];
+	char				two[3];
+	char				three[3];
+}						t_ocp;
 
 /*
 **|	struct s_process
@@ -77,6 +89,7 @@ typedef	struct			s_cw
 	int					nb_process;
 	int					ac;
 	int					turn;
+	int					check;
 	int					cycle_to_die;
 	int					f_v;
 	int					f_a;
@@ -93,6 +106,12 @@ typedef	struct			s_cw
 	long long			ins;
 	int					nb_readed;
 	int					nb_param;
+	int					fd;
+	char				buf[1];
+	t_header			*h;
+	int					len_offset;
+	int					index;
+	int					color_nb;
 }						t_cw;
 
 t_cw					cw_init(int ac, char **av);
@@ -106,6 +125,7 @@ t_process				*process_new(t_process **act, int champ, int pc,
 int						process_count(t_process *l);
 void					board_to_int(t_cw *cw, int *value, int offset);
 void					int_to_board(t_cw *cw, int *value, int offset);
+void					exec_turn(t_cw *cw, int *turn);
 void					live(t_cw *cw, t_process *p);
 void					ld(t_cw *cw, t_process *p);
 void					st(t_cw *cw, t_process *p);
@@ -128,6 +148,9 @@ void					ocp_parse(t_cw *cw, t_process *p, t_ocp ocp,
 int						get_turn(unsigned char c);
 int						mod(int a, int b);
 int						idx_mod(int a);
+void					d(t_cw *cw);
+void					dump(t_cw *cw);
 void					print_winner(t_cw *cw);
+int						error(t_cw *cw, char *s);
 
 #endif
