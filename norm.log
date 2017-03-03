@@ -8,32 +8,20 @@ Norme: ./srcs/parse.c
 Error (line 38): function parse_get_number_player has 57 lines
 Norme: ./srcs/print_winner.c
 Norme: ./srcs/verbose_print.c
-Error: file must end with a single empty line
 Norme: ./srcs/main.c
 Error: 6 functions in the file
-Error (line 63): Empty line
-Error (line 64, col 2): no empty line before block
-Error (line 87): function exec_turn has 34 lines
-Error (line 113): line has 102 characters
-Error (line 125): function main has 37 lines
+Error (line 92): function exec_turn has 34 lines
+Error (line 118): line has 102 characters
+Error (line 130): function main has 37 lines
 Norme: ./srcs/write_to.c
 Norme: ./srcs/ocp_get.c
 Error (line 62): ocp_part have 7 parameters
 Error (line 62): function ocp_part has 46 lines
 Error (line 88): line has 82 characters
 Error (line 113): ocp_parse have 5 parameters
-Norme: ./includes/corewar.h
-Norme: ./includes/op.h
-Error (line 25): multiple empty lines
-Error (line 66): must begin only by tabulations
-Error (line 66): bad indentation
-Error (line 67): must begin only by tabulations
-Error (line 67): bad indentation
-Error (line 68): must begin only by tabulations
-Error (line 68): bad indentation
-Error (line 69): must begin only by tabulations
-Error (line 69): bad indentation
 Norme: ./includes/libftprintf.h
+Norme: ./includes/op.h
+Norme: ./includes/corewar.h
 Norme: ./includes/libft.h
 Norme: ./srcs/asm_fct.c
 Error: 20 functions in the file

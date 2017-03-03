@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:40:37 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/03 11:14:02 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/03 11:50:08 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ void		d(t_cw *cw)
 
 static int	die_recur(t_cw *cw, t_process *p, t_process *prev, int nb_live)
 {
+	int	ret;
+	int	f;
+
 	if (p != NULL)
 	{
 		nb_live += p->nb_live;
@@ -53,6 +56,7 @@ static int	die_recur(t_cw *cw, t_process *p, t_process *prev, int nb_live)
 		{
 			prev = p;
 			p->nb_live = 0;
+			f = 0;
 		}
 		else
 		{
@@ -60,12 +64,13 @@ static int	die_recur(t_cw *cw, t_process *p, t_process *prev, int nb_live)
 				cw->process = p->next;
 			else
 				prev->next = p->next;
-
+			f = 1;
 		}
-		return (die_recur(cw, p->next, prev, nb_live));
+		ret = die_recur(cw, p->next, prev, nb_live);
+		(f) ? free(p) : 0;
+		return (ret);
 	}
-	else
-		return (nb_live);
+	return (nb_live);
 }
 
 static void	die(t_cw *cw, int *check)

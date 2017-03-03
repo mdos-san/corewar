@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 09:03:05 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/28 09:03:17 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/03 11:54:49 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,3 @@ void	verbose_print(t_cw *cw, int i, int start, int end)
 		++j;
 	}
 }
-
