@@ -6,7 +6,12 @@ SRC_O	=		main.o\
 				cw_init.o\
 				write_to.o\
 				exec_turn.o\
+				mod.o\
 				asm_fct.o\
+				ld.o\
+				st.o\
+				operation.o\
+				fork.o\
 				bytecode_read.o\
 				verbose_print.o\
 				board_print.o\
