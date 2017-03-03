@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:13:05 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/28 08:14:07 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/03 11:39:16 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	init_tab(t_cw *cw)
 	cw->fct_tab[16] = aff;
 }
 
-static void init_champ(t_cw *cw)
+static void	init_champ(t_cw *cw)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 18:44:45 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/03 11:14:02 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/03 11:42:45 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,31 +66,23 @@ void	ld(t_cw *cw, t_process *p)
 	cw->nb_param = 2;
 	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	ocp_parse(cw, p, ocp, 0, 1);
+	value = *p->p_one;
 	if (ft_strcmp(ocp.one, "11") == 0)
 	{
-		*p->p_one = (int)(short)(*p->p_one);		
+		*p->p_one = (int)(short)(*p->p_one);
 		*p->p_one = idx_mod(*p->p_one);
 		board_to_int(cw, &value, *p->p_one);
 	}
-	else
-		value = *p->p_one;
 	if (cw->param_error == 0)
 	{
 		while (y < 16)
 		{
 			if (p->r + y == p->p_two)
-			{
 				*p->p_two = value;
-				break ;
-			}
 			++y;
 		}
-		if (*p->p_two == 0)
-			p->carry = 1;
-		else
-			p->carry = 0;
+		p->carry = (*p->p_two == 0) ? 1 : 0;
 	}
-
 }
 
 void	st(t_cw *cw, t_process *p)

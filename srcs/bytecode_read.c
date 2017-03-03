@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 11:27:43 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/28 08:11:50 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/03 11:37:08 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	bytecode_read(t_cw *cw, char *file, int index, int color_nb)
 	unsigned int	j;
 	int				len_offset;
 	t_header		*h;
-	
 
 	i = 0;
 	j = 0;

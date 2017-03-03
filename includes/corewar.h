@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   corewar.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/03 11:38:18 by mdos-san          #+#    #+#             */
+/*   Updated: 2017/03/03 11:38:34 by mdos-san         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef COREWAR_H
 # define COREWAR_H
 
@@ -14,12 +26,12 @@
 # define DEBUG 1
 # define NB_COL	64
 
-typedef struct		s_ocp
+typedef struct			s_ocp
 {
-	char			one[3];
-	char			two[3];
-	char			three[3];
-}					t_ocp;
+	char				one[3];
+	char				two[3];
+	char				three[3];
+}						t_ocp;
 
 /*
 **|	struct s_process
