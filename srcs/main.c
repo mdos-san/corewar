@@ -113,6 +113,8 @@ static void	exec_turn(t_cw *cw, int *turn)
 				ft_printf("ADV %d (0x%.4x -> 0x%.4x) ", cw->nb_readed, l->pc, mod(l->pc, cw->nb_readed));
 				verbose_print(cw, 0, 0, cw->nb_readed);
 				ft_putchar('\n');
+//				if (cw->board[l->pc] != l->fct )
+//					ft_printf("Ins was %.2x \n", l->fct);
 			}
 			l->pc += cw->nb_readed;
 			l->pc %= MEM_SIZE;
