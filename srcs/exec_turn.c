@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 11:58:01 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/03 12:03:11 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/03 12:12:36 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static void	assign_turn(t_cw *cw, t_process *l, int *turn)
 
 static void	verbose(t_cw *cw, t_process *l)
 {
-	ft_printf("ADV %d (0x%.4x -> 0x%.4x) ", cw->nb_readed, l->pc, l->pc + cw->nb_readed);
+	ft_printf("ADV %d (0x%.4x -> 0x%.4x) ",
+	cw->nb_readed, l->pc, l->pc + cw->nb_readed);
 	verbose_print(cw, 0, 0, cw->nb_readed);
 	ft_putchar('\n');
 }

@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:40:37 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/03 12:03:23 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/03 12:50:39 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,16 @@ static void	die(t_cw *cw, int *check)
 	*check = 0;
 }
 
+static void	display(t_cw *cw)
+{
+	attron(COLOR_PAIR(1));
+	mvprintw(0, 0,
+	"Turn: %d, Process: %d, Cycle to die: %d, Instructions: %lld\n",
+	cw->turn, process_count(cw->process), cw->cycle_to_die, cw->ins);
+	board_print(cw);
+	refresh();
+}
+
 int			main(int ac, char **av)
 {
 	t_cw		cw;
@@ -104,28 +114,18 @@ int			main(int ac, char **av)
 			break ;
 		if (cw.cycle_to_die <= 0)
 			break ;
-		if (check >= cw.cycle_to_die)
-			die(&cw, &check);
+		(check >= cw.cycle_to_die) ? die(&cw, &check) : (void)0;
 		exec_turn(&cw, &cw.turn);
-		if (cw.f_v == 1)
-		{
-			attron(COLOR_PAIR(1));
-			mvprintw(0, 0,
-			"Turn: %d, Process: %d, Cycle to die: %d, Instructions: %lld\n",
-			cw.turn, process_count(cw.process), cw.cycle_to_die, cw.ins);
-			board_print(&cw);
-			refresh();
-		}
+		(cw.f_v == 1) ? display(&cw) : (void)0;
 		++cw.turn;
 		++check;
 	}
-	if (cw.f_v == 1)
-		endwin();
+	(cw.f_v) ? endwin() : 0;
 	if (cw.process == NULL || cw.cycle_to_die <= 0)
 		print_winner(&cw);
-	else if (cw.f_d != -1)
+	else if (cw.f_d)
 		d(&cw);
-	else if (cw.f_dump != -1)
+	else if (cw.f_dump)
 		dump(&cw);
 	return (1);
 }

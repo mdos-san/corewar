@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 11:38:18 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/03 12:03:48 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/03 12:31:44 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,12 @@ typedef	struct			s_cw
 	long long			ins;
 	int					nb_readed;
 	int					nb_param;
+	int					fd;
+	char				buf[1];
+	t_header			*h;
+	int					len_offset;
+	int					index;
+	int					color_nb;
 }						t_cw;
 
 t_cw					cw_init(int ac, char **av);
