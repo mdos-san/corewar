@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 11:38:18 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/03 11:38:34 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/03 12:03:48 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ t_process				*process_new(t_process **act, int champ, int pc,
 int						process_count(t_process *l);
 void					board_to_int(t_cw *cw, int *value, int offset);
 void					int_to_board(t_cw *cw, int *value, int offset);
+void					exec_turn(t_cw *cw, int *turn);
 void					live(t_cw *cw, t_process *p);
 void					ld(t_cw *cw, t_process *p);
 void					st(t_cw *cw, t_process *p);

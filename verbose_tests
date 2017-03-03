@@ -1,4 +1,5 @@
 #!/bin/bash
+
 fct st_1.cor 5
 fct st_2.cor 5 
 fct st_3.cor 5
@@ -70,7 +71,6 @@ fct errasing_waiting_process_3.cor 1500
 fct errasing_waiting_process_4.cor 1500
 fct zork.cor 20000
 fct turtle.cor 20000
-#fct bee_gees.cor 20000
 fct bigzork.cor 20000
-fct helltrain.cor 20000
 fct fluttershy.cor 20000
+fct helltrain.cor 20000

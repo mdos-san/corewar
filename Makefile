@@ -5,6 +5,7 @@ L		=		-L./libs ./libs/libftprintf.a -lncurses
 SRC_O	=		main.o\
 				cw_init.o\
 				write_to.o\
+				exec_turn.o\
 				asm_fct.o\
 				bytecode_read.o\
 				verbose_print.o\
