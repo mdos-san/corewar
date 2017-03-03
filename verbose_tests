@@ -64,7 +64,10 @@ fct ocp_4.cor 100
 fct ocp_5.cor 100
 fct ocp_6.cor 100
 fct fork_st_st.cor 810
-fct errasing_waiting_process.cor 1000
+fct errasing_waiting_process.cor 1500
+fct errasing_waiting_process_2.cor 1500
+fct errasing_waiting_process_3.cor 1500
+fct errasing_waiting_process_4.cor 1500
 fct zork.cor 20000
 fct turtle.cor 20000
 #fct bee_gees.cor 20000
