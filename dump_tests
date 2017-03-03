@@ -1,3 +1,5 @@
+#!/bin/bash
+
 fct st_1.cor 5
 fct st_2.cor 5 
 fct st_3.cor 5
@@ -56,8 +58,17 @@ fct ld_sti_3.cor 30
 fct and_and_st_zjmp_st_1.cor 42
 fct and_and_st_zjmp_st_2.cor 42
 fct and_and_st_zjmp_st_3.cor 42
+fct ocp_1.cor 100
+fct ocp_2.cor 100
+fct ocp_3.cor 100
+fct ocp_4.cor 100
+fct ocp_5.cor 100
+fct ocp_6.cor 100
 fct fork_st_st.cor 810
-fct errasing_waiting_process.cor 1000
+fct errasing_waiting_process.cor 1500
+fct errasing_waiting_process_2.cor 1500
+fct errasing_waiting_process_3.cor 1500
+fct errasing_waiting_process_4.cor 1500
 fct zork.cor 20000
 fct turtle.cor 20000
 fct bee_gees.cor 20000

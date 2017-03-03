@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:40:37 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/28 16:31:04 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/03 11:14:02 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,11 @@ static void	exec_turn(t_cw *cw, int *turn)
 			if (cw->board[l->pc] < 1 || 16 < cw->board[l->pc])
 				cw->param_error = 1;
 			cw->nb_readed = 0;
+			cw->nb_param = 0;
 			cw->fct_tab[l->fct](cw, l);
 			if (cw->f_verbose && cw->nb_readed > 0)
 			{
+				ft_printf("ADV %d (0x%.4x -> 0x%.4x) ", cw->nb_readed, l->pc, l->pc + cw->nb_readed);
 				verbose_print(cw, 0, 0, cw->nb_readed);
 				ft_putchar('\n');
 			}
@@ -126,12 +128,12 @@ int			main(int ac, char **av)
 	int			check;
 
 	cw = cw_init(ac, av);
-	cw.turn = 0;
+	cw.turn = 1;
 	check = 0;
 	cw_parse(&cw);
 	while (cw.process)
 	{
-		if (cw.turn == cw.f_dump || cw.turn == cw.f_d)
+		if (cw.turn - 1 == cw.f_dump || cw.turn - 1 == cw.f_d)
 			break ;
 		if (cw.cycle_to_die <= 0)
 			break ;

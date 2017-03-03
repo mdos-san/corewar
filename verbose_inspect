@@ -4,7 +4,7 @@ exec 2> error
 
 fct() {
 	echo -e "Testing $1: \c"
-	./corewar -verbose ./_cor/$1 | tail -n +3 | tac | tail -n +2 | tac  > ./_verbose_out/$1
+	./corewar -verbose ./_cor/$1 | sed '$d'  > ./_verbose_out/$1
 	DIFF=`diff ./_verbose_out/$1 ./_verbose/$1`
 	ERROR=`cat error`
 	if [ "$DIFF" = "" ]

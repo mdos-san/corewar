@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:42:04 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/28 09:03:17 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/02 11:54:25 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *v,
 			cw->nb_readed += 4;
 		}
 	}
+	else
+		cw->param_error = 1;
 }
 
 void			ocp_parse(t_cw *cw, t_process *p,
@@ -120,8 +122,14 @@ void			ocp_parse(t_cw *cw, t_process *p,
 	p->three = 0;
 	cw->param_error = 0;
 	cw->nb_readed += 2;
-	ocp_part(cw, p, &p->one, &p->p_one, ocp.one, dir_two, get_index);
-	ocp_part(cw, p, &p->two, &p->p_two, ocp.two, dir_two, get_index);
-	ocp_part(cw, p, &p->three, &p->p_three, ocp.three, dir_two, get_index);
+	if (cw->nb_param >= 1)
+		ocp_part(cw, p, &p->one, &p->p_one, ocp.one, dir_two, get_index);
+	if (cw->nb_param >= 2)
+		ocp_part(cw, p, &p->two, &p->p_two, ocp.two, dir_two, get_index);
+	if (cw->nb_param >= 3)
+		ocp_part(cw, p, &p->three, &p->p_three, ocp.three, dir_two, get_index);
+	else if (cw->nb_param == 2 && ft_strcmp(ocp.three, "00") != 0)
+		cw->param_error = 1;
+	cw->nb_param = 0;
 	cw->idx = 0;
 }
