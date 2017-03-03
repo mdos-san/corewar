@@ -233,7 +233,7 @@ void	frk(t_cw *cw, t_process *p)
 		++i;
 	}
 	child->carry = p->carry;
-	child->nb_live = 1;
+	child->nb_live = p->nb_live;
 	cw->nb_readed = 3;
 }
 
