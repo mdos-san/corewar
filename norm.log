@@ -1,23 +1,23 @@
 Norme: ./srcs/board_print.c
+Norme: ./srcs/dump.c
+Norme: ./srcs/error.c
 Norme: ./srcs/bytecode_read.c
-Norme: ./srcs/exec_turn.c
 Norme: ./srcs/linked_list_process.c
+Norme: ./srcs/exec_turn.c
 Norme: ./srcs/cw_init.c
 Norme: ./srcs/main.c
-Error (line 92): function main has 37 lines
 Norme: ./srcs/print_winner.c
 Norme: ./srcs/verbose_print.c
 Norme: ./srcs/parse.c
-Error (line 38): function parse_get_number_player has 57 lines
+Norme: ./srcs/write_to.c
+Norme: ./includes/corewar.h
 Norme: ./srcs/ocp_get.c
 Error (line 62): ocp_part have 7 parameters
 Error (line 62): function ocp_part has 46 lines
 Error (line 88): line has 82 characters
 Error (line 113): ocp_parse have 5 parameters
-Norme: ./srcs/write_to.c
-Norme: ./includes/corewar.h
-Norme: ./includes/op.h
-Norme: ./includes/libftprintf.h
 Norme: ./includes/libft.h
+Norme: ./includes/libftprintf.h
+Norme: ./includes/op.h
 Norme: ./srcs/asm_fct.c
 Error: 20 functions in the file

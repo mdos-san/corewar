@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:13:05 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/03 11:39:16 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/03 13:16:14 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ t_cw		cw_init(int ac, char **av)
 	cw.nb_process = 0;
 	cw.process = NULL;
 	cw.cycle_to_die = CYCLE_TO_DIE;
+	cw.turn = 1;
+	cw.check = 0;
 	init_tab(&cw);
 	init_champ(&cw);
 	return (cw);

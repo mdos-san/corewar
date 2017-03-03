@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 11:38:18 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/03 12:31:44 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/03 14:28:05 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef	struct			s_cw
 	int					nb_process;
 	int					ac;
 	int					turn;
+	int					check;
 	int					cycle_to_die;
 	int					f_v;
 	int					f_a;
@@ -147,6 +148,9 @@ void					ocp_parse(t_cw *cw, t_process *p, t_ocp ocp,
 int						get_turn(unsigned char c);
 int						mod(int a, int b);
 int						idx_mod(int a);
+void					d(t_cw *cw);
+void					dump(t_cw *cw);
 void					print_winner(t_cw *cw);
+int						error(t_cw *cw, char *s);
 
 #endif

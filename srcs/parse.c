@@ -6,93 +6,55 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:20:57 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/28 08:21:52 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/03 14:29:07 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static int	str_is_digit(char *str)
+static void	get_value(t_cw *cw, int *i, int *n, char *str)
 {
-	int	i;
+	if (*i + 1 < cw->ac)
+		*n = ft_atoi(cw->av[*i + 1]);
+	else
+		error(cw, str);
+	++*i;
+}
 
-	i = 0;
-	while (str[i])
+static int	travel_av(t_cw *cw, int *nb_player, int *nb, int i)
+{
+	if (i >= cw->ac)
+		return (0);
+	if (ft_strcmp(cw->av[i], "-dump") == 0)
+		get_value(cw, &i, &cw->f_dump, "-dump value is missing.");
+	else if (ft_strcmp(cw->av[i], "-d") == 0)
+		get_value(cw, &i, &cw->f_dump, "-d value is missing.");
+	else if (ft_strcmp(cw->av[i], "-n") == 0 && *nb_player < 4)
+		get_value(cw, &i, nb + *nb_player, "-n value is missing.");
+	else if (ft_strcmp(cw->av[i], "-v") == 0)
+		cw->f_v = 1;
+	else if (ft_strcmp(cw->av[i], "-verbose") == 0)
+		cw->f_verbose = 1;
+	else if (*nb_player < 4)
 	{
-		if (!ft_isdigit(str[i]))
-			return (0);
-		++i;
+		cw->champs[*nb_player].path = ft_strdup(cw->av[i]);
+		cw->fd = open(cw->av[i], O_RDONLY);
+		if (cw->fd == -1)
+			error(cw, cw->av[i]);
+		close(cw->fd);
+		++*nb_player;
 	}
-	return (1);
+	else
+		error(cw, "Too many player.");
+	return (travel_av(cw, nb_player, nb, ++i));
 }
 
-static int	parse_error(t_cw *cw, char *s)
+static int	parse_get_flag(t_cw *cw, int *nb)
 {
-	if (cw->f_v)
-		endwin();
-	ft_printf("ERROR: %s", s);
-	ft_putchar('\n');
-	exit(0);
-}
-
-static int	parse_get_number_player(t_cw *cw, int *nb)
-{
-	char	**av;
-	int		i;
 	int		nb_player;
-	int		fd_test;
 
-	av = cw->av;
-	i = 1;
 	nb_player = 0;
-	while (i < cw->ac)
-	{
-		if (ft_strcmp(av[i], "-dump") == 0)
-		{
-			if (i + 1 < cw->ac && str_is_digit(av[i + 1]))
-				cw->f_dump = ft_atoi(av[i + 1]);
-			else
-				parse_error(cw, "-dump value is missing.");
-			++i;
-		}
-		else if (ft_strcmp(av[i], "-d") == 0)
-		{
-			if (i + 1 < cw->ac && str_is_digit(av[i + 1]))
-				cw->f_d = ft_atoi(av[i + 1]);
-			else
-				parse_error(cw, "-d value is missing.");
-			++i;
-		}
-		else if (ft_strcmp(av[i], "-n") == 0)
-		{
-			if (i + 1 < cw->ac && nb_player < 4)
-				nb[nb_player] = ft_atoi(av[i + 1]);
-			else
-				parse_error(cw, (nb_player < 4)
-				? "-n value is missing." : "too many -n args");
-			++i;
-		}
-		else if (ft_strcmp(av[i], "-v") == 0)
-		{
-		}
-		else if (ft_strcmp(av[i], "-verbose") == 0)
-		{
-			cw->f_verbose = 1;
-		}
-		else
-		{
-			if (nb_player < 4)
-			{
-				cw->champs[nb_player].path = ft_strdup(av[i]);
-				fd_test = open(av[i], O_RDONLY);
-				if (fd_test == -1)
-					parse_error(cw, av[i]);
-				close(fd_test);
-			}
-			++nb_player;
-		}
-		++i;
-	}
+	travel_av(cw, &nb_player, nb, 1);
 	return (nb_player);
 }
 
@@ -115,16 +77,16 @@ void		cw_parse(t_cw *cw)
 	nb[1] = -2;
 	nb[2] = -3;
 	nb[3] = -4;
-	nb_player = parse_get_number_player(cw, nb);
+	nb_player = parse_get_flag(cw, nb);
 	if (nb_player > 4 || nb_player < 1)
-		parse_error(cw, "Bad number of player.");
+		error(cw, "Bad number of player.");
 	i = 0;
 	ft_printf("Introducing contestants...\n");
 	while (i < nb_player)
 	{
 		ft_printf("* Player %d, ", i + 1);
 		bytecode_read(cw, cw->champs[i].path,
-				(MEM_SIZE / nb_player) * i, i + 1);
+		(MEM_SIZE / nb_player) * i, i + 1);
 		process_new(&cw->process, nb[i], (MEM_SIZE / nb_player) * i, i + 1);
 		ft_printf("\n");
 		cw->champs[i].number = nb[i];

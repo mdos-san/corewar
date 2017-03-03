@@ -6,43 +6,11 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:40:37 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/03 12:50:39 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/03 14:06:42 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-void		dump(t_cw *cw)
-{
-	int	i;
-
-	i = 0;
-	while (i < MEM_SIZE)
-	{
-		if (i % 32 == 0)
-			ft_printf("0x%.4x: ", i);
-		ft_printf("%.2x ", cw->board[i]);
-		if ((i + 1) % 32 == 0)
-			ft_putchar('\n');
-		++i;
-	}
-}
-
-void		d(t_cw *cw)
-{
-	int	i;
-
-	i = 0;
-	while (i < MEM_SIZE)
-	{
-		if (i % 64 == 0)
-			ft_printf("0x%.4x : ", i);
-		ft_printf("%.2x ", cw->board[i]);
-		if ((i + 1) % 64 == 0)
-			ft_putchar('\n');
-		++i;
-	}
-}
 
 static int	die_recur(t_cw *cw, t_process *p, t_process *prev, int nb_live)
 {
@@ -73,7 +41,7 @@ static int	die_recur(t_cw *cw, t_process *p, t_process *prev, int nb_live)
 	return (nb_live);
 }
 
-static void	die(t_cw *cw, int *check)
+static void	die(t_cw *cw)
 {
 	static int	max_check = 0;
 	int			nb_live;
@@ -86,7 +54,7 @@ static void	die(t_cw *cw, int *check)
 	}
 	else
 		max_check++;
-	*check = 0;
+	cw->check = 0;
 }
 
 static void	display(t_cw *cw)
@@ -102,11 +70,8 @@ static void	display(t_cw *cw)
 int			main(int ac, char **av)
 {
 	t_cw		cw;
-	int			check;
 
 	cw = cw_init(ac, av);
-	cw.turn = 1;
-	check = 0;
 	cw_parse(&cw);
 	while (cw.process)
 	{
@@ -114,11 +79,11 @@ int			main(int ac, char **av)
 			break ;
 		if (cw.cycle_to_die <= 0)
 			break ;
-		(check >= cw.cycle_to_die) ? die(&cw, &check) : (void)0;
+		(cw.check >= cw.cycle_to_die) ? die(&cw) : (void)0;
 		exec_turn(&cw, &cw.turn);
 		(cw.f_v == 1) ? display(&cw) : (void)0;
 		++cw.turn;
-		++check;
+		++cw.check;
 	}
 	(cw.f_v) ? endwin() : 0;
 	if (cw.process == NULL || cw.cycle_to_die <= 0)
