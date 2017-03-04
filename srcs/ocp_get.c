@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:42:04 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/04 12:53:27 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/04 13:11:18 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,13 @@ t_ocp			ocp_get(unsigned char ocp)
 	return (st);
 }
 
-static	void	ocp_part(t_cw *cw, t_process *p, int *v,
-		int **pt, char *str)
+static	void	ocp_part(t_cw *cw, int *v, int **pt, char *str)
 {
-	int	ind;
+	int			ind;
+	t_process	*p;
 
 	ind = 0;
+	p = cw->ap;
 	if (ft_strcmp(str, "01") == 0)
 	{
 		if (1 <= cw->board[mod(p->pc, cw->nb_readed)]
@@ -122,11 +123,11 @@ void			ocp_parse(t_cw *cw, t_process *p, t_ocp ocp)
 	cw->param_error = 0;
 	cw->nb_readed += 2;
 	if (cw->nb_param >= 1)
-		ocp_part(cw, p, &p->one, &p->p_one, ocp.one);
+		ocp_part(cw, &p->one, &p->p_one, ocp.one);
 	if (cw->nb_param >= 2)
-		ocp_part(cw, p, &p->two, &p->p_two, ocp.two);
+		ocp_part(cw, &p->two, &p->p_two, ocp.two);
 	if (cw->nb_param >= 3)
-		ocp_part(cw, p, &p->three, &p->p_three, ocp.three);
+		ocp_part(cw, &p->three, &p->p_three, ocp.three);
 	else if (cw->nb_param == 2 && ft_strcmp(ocp.three, "00") != 0)
 		cw->param_error = 1;
 	cw->nb_param = 0;
