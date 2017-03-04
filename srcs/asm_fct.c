@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 18:44:45 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/03 14:38:04 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/04 13:46:23 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	aff(t_cw *cw, t_process *p)
 
 	cw->nb_param = 1;
 	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
-	ocp_parse(cw, p, ocp, 1, 0);
-	if (cw->f_a)
-		ft_putchar((char)*p->p_one);
+	ocp_parse(cw, p, ocp);
+	if (!cw->f_v)
+		ft_putchar((char)(*p->p_one % 256));
 }
 
 int		get_turn(unsigned char c)

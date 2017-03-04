@@ -1,14 +1,15 @@
 Norme: ./srcs/asm_fct.c
-Norme: ./srcs/board_print.c
 Norme: ./srcs/dump.c
 Norme: ./srcs/error.c
+Norme: ./srcs/board_print.c
 Norme: ./srcs/bytecode_read.c
+Norme: ./srcs/get_bin.c
 Norme: ./srcs/fork.c
 Norme: ./srcs/exec_turn.c
-Norme: ./srcs/ld.c
 Norme: ./srcs/cw_init.c
-Norme: ./srcs/mod.c
 Norme: ./srcs/linked_list_process.c
+Norme: ./srcs/mod.c
+Norme: ./srcs/ld.c
 Norme: ./srcs/main.c
 Norme: ./srcs/print_winner.c
 Norme: ./srcs/operation.c
@@ -16,12 +17,8 @@ Norme: ./srcs/verbose_print.c
 Norme: ./srcs/st.c
 Norme: ./srcs/parse.c
 Norme: ./srcs/write_to.c
-Norme: ./includes/libftprintf.h
-Norme: ./includes/op.h
-Norme: ./includes/corewar.h
-Norme: ./includes/libft.h
 Norme: ./srcs/ocp_get.c
-Error (line 62): ocp_part have 7 parameters
-Error (line 62): function ocp_part has 46 lines
-Error (line 88): line has 82 characters
-Error (line 113): ocp_parse have 5 parameters
+Norme: ./includes/corewar.h
+Norme: ./includes/op.h
+Norme: ./includes/libftprintf.h
+Norme: ./includes/libft.h
