@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 11:38:18 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/03 14:28:05 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/04 13:18:12 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ typedef	struct			s_cw
 	int					len_offset;
 	int					index;
 	int					color_nb;
+	int					dir_size;
+	int					get_index;
 }						t_cw;
 
 t_cw					cw_init(int ac, char **av);
@@ -143,8 +145,7 @@ void					lldi(t_cw *cw, t_process *p);
 void					lfrk(t_cw *cw, t_process *p);
 void					aff(t_cw *cw, t_process *p);
 t_ocp					ocp_get(unsigned char ocp);
-void					ocp_parse(t_cw *cw, t_process *p, t_ocp ocp,
-						int dir_two, int get_index);
+void					ocp_parse(t_cw *cw, t_process *p, t_ocp ocp);
 int						get_turn(unsigned char c);
 int						mod(int a, int b);
 int						idx_mod(int a);
@@ -152,5 +153,6 @@ void					d(t_cw *cw);
 void					dump(t_cw *cw);
 void					print_winner(t_cw *cw);
 int						error(t_cw *cw, char *s);
+void					get_bin(char *buf, int nbr, int base);
 
 #endif

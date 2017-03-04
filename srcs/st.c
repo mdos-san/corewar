@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 14:37:44 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/03 14:38:04 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/04 12:59:18 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	st(t_cw *cw, t_process *p)
 
 	cw->nb_param = 2;
 	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
-	ocp_parse(cw, p, ocp, 0, 1);
+	cw->get_index = 1;
+	ocp_parse(cw, p, ocp);
 	if (cw->param_error == 0)
 	{
 		if (ft_strcmp(ocp.two, "01") == 0)
@@ -40,7 +41,8 @@ void	sti(t_cw *cw, t_process *p)
 	cw->nb_param = 3;
 	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	cw->idx = 1;
-	ocp_parse(cw, p, ocp, 1, 0);
+	cw->dir_size = 2;
+	ocp_parse(cw, p, ocp);
 	if (ft_strcmp(ocp.two, "10") == 0)
 		*p->p_two = (int)(short)(*p->p_two);
 	if (ft_strcmp(ocp.three, "10") == 0)

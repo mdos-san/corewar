@@ -6,40 +6,11 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:42:04 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/02 11:54:25 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/04 13:19:12 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-static void		get_bin(char *buf, int nbr, int base)
-{
-	int	i;
-	int	mod;
-	int	neg;
-
-	i = 0;
-	ft_bzero(buf, 9);
-	neg = (nbr < 0) ? -1 : 1;
-	while (nbr != 0)
-	{
-		mod = nbr % base;
-		if (mod <= 9)
-			buf[7 - i] = (char)(mod * neg + 48);
-		else
-		{
-			mod -= 10;
-			buf[7 - i] = (char)(mod * neg + 97);
-		}
-		nbr /= base;
-		++i;
-	}
-	while (i < 8)
-	{
-		buf[7 - i] = '0';
-		++i;
-	}
-}
 
 t_ocp			ocp_get(unsigned char ocp)
 {
@@ -59,59 +30,73 @@ t_ocp			ocp_get(unsigned char ocp)
 	return (st);
 }
 
-static	void	ocp_part(t_cw *cw, t_process *p, int *v,
-		int **pt, char *str, int dir_two, int get_index)
+static void		manage_ind(t_cw *cw, int *v)
 {
-	int	ind;
+	int			ind;
+	t_process	*p;
 
 	ind = 0;
+	p = cw->ap;
+	if (cw->get_index == 1)
+	{
+		((unsigned char*)v)[1] = cw->board[mod(p->pc, cw->nb_readed)];
+		((unsigned char*)v)[0] = cw->board[mod(p->pc, cw->nb_readed + 1)];
+		cw->nb_readed += 2;
+	}
+	else
+	{
+		((unsigned char*)&ind)[1] = cw->board[mod(p->pc, cw->nb_readed)];
+		((unsigned char*)&ind)[0] = cw->board[mod(p->pc, cw->nb_readed + 1)];
+		ind = (int)(short)(ind);
+		ind = idx_mod(ind);
+		board_to_int(cw, v, ind);
+		cw->nb_readed += 2;
+	}
+}
+
+static void		manage_dir(t_cw *cw, int *v)
+{
+	t_process	*p;
+
+	p = cw->ap;
+	if (cw->dir_size == 2)
+	{
+		((unsigned char *)v)[1] = cw->board[mod(p->pc, cw->nb_readed)];
+		((unsigned char *)v)[0] = cw->board[mod(p->pc, cw->nb_readed + 1)];
+		cw->nb_readed += 2;
+	}
+	else
+	{
+		board_to_int(cw, v, cw->nb_readed);
+		cw->nb_readed += 4;
+	}
+}
+
+static void		ocp_part(t_cw *cw, int *v, int **pt, char *str)
+{
+	int			ind;
+	t_process	*p;
+
+	ind = 0;
+	p = cw->ap;
 	if (ft_strcmp(str, "01") == 0)
 	{
 		if (1 <= cw->board[mod(p->pc, cw->nb_readed)]
-		&& cw->board[mod(p->pc, cw->nb_readed)] <= 16)
+				&& cw->board[mod(p->pc, cw->nb_readed)] <= 16)
 			*pt = p->r + (cw->board[mod(p->pc, cw->nb_readed)]) - 1;
 		else
 			cw->param_error = 1;
 		++cw->nb_readed;
 	}
 	else if (ft_strcmp(str, "11") == 0)
-	{
-		if (get_index == 1)
-		{
-			((unsigned char*)v)[1] = cw->board[mod(p->pc, cw->nb_readed)];
-			((unsigned char*)v)[0] = cw->board[mod(p->pc, cw->nb_readed + 1)];
-			cw->nb_readed += 2;
-		}
-		else
-		{
-			((unsigned char*)&ind)[1] = cw->board[mod(p->pc, cw->nb_readed)];
-			((unsigned char*)&ind)[0] = cw->board[mod(p->pc, cw->nb_readed + 1)];
-			ind = (int)(short)(ind);
-			ind = idx_mod(ind);
-			board_to_int(cw, v, ind);
-			cw->nb_readed += 2;
-		}
-	}
+		manage_ind(cw, v);
 	else if (ft_strcmp(str, "10") == 0)
-	{
-		if (dir_two == 1)
-		{
-			((unsigned char *)v)[1] = cw->board[mod(p->pc, cw->nb_readed)];
-			((unsigned char *)v)[0] = cw->board[mod(p->pc, cw->nb_readed + 1)];
-			cw->nb_readed += 2;
-		}
-		else
-		{
-			board_to_int(cw, v, cw->nb_readed);
-			cw->nb_readed += 4;
-		}
-	}
+		manage_dir(cw, v);
 	else
 		cw->param_error = 1;
 }
 
-void			ocp_parse(t_cw *cw, t_process *p,
-				t_ocp ocp, int dir_two, int get_index)
+void			ocp_parse(t_cw *cw, t_process *p, t_ocp ocp)
 {
 	cw->ap = p;
 	p->p_one = &p->one;
@@ -123,13 +108,15 @@ void			ocp_parse(t_cw *cw, t_process *p,
 	cw->param_error = 0;
 	cw->nb_readed += 2;
 	if (cw->nb_param >= 1)
-		ocp_part(cw, p, &p->one, &p->p_one, ocp.one, dir_two, get_index);
+		ocp_part(cw, &p->one, &p->p_one, ocp.one);
 	if (cw->nb_param >= 2)
-		ocp_part(cw, p, &p->two, &p->p_two, ocp.two, dir_two, get_index);
+		ocp_part(cw, &p->two, &p->p_two, ocp.two);
 	if (cw->nb_param >= 3)
-		ocp_part(cw, p, &p->three, &p->p_three, ocp.three, dir_two, get_index);
+		ocp_part(cw, &p->three, &p->p_three, ocp.three);
 	else if (cw->nb_param == 2 && ft_strcmp(ocp.three, "00") != 0)
 		cw->param_error = 1;
 	cw->nb_param = 0;
 	cw->idx = 0;
+	cw->dir_size = 4;
+	cw->get_index = 0;
 }
