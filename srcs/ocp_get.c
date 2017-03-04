@@ -41,6 +41,7 @@ static void		manage_ind(t_cw *cw, int *v)
 	{
 		((unsigned char*)v)[1] = cw->board[mod(p->pc, cw->nb_readed)];
 		((unsigned char*)v)[0] = cw->board[mod(p->pc, cw->nb_readed + 1)];
+		*v = (int)(short)(*v);
 		cw->nb_readed += 2;
 	}
 	else
@@ -64,6 +65,7 @@ static void		manage_dir(t_cw *cw, int *v)
 	{
 		((unsigned char *)v)[1] = cw->board[mod(p->pc, cw->nb_readed)];
 		((unsigned char *)v)[0] = cw->board[mod(p->pc, cw->nb_readed + 1)];
+		*v = (int)(short)(*v);
 		cw->nb_readed += 2;
 	}
 	else
@@ -75,10 +77,8 @@ static void		manage_dir(t_cw *cw, int *v)
 
 static void		ocp_part(t_cw *cw, int *v, int **pt, char *str)
 {
-	int			ind;
 	t_process	*p;
 
-	ind = 0;
 	p = cw->ap;
 	if (ft_strcmp(str, "01") == 0)
 	{

@@ -63,7 +63,10 @@ void	ldi(t_cw *cw, t_process *p)
 	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	cw->dir_size = 2;
 	ocp_parse(cw, p, ocp);
+	*p->p_one = idx_mod(*p->p_one);
+	*p->p_two = idx_mod(*p->p_two);
 	new_addr = mod(*p->p_one, *p->p_two);
+//	ft_printf("one: %d two: %d ne: %d \n ", *p->p_one, *p->p_two, new_addr);
 	board_to_int(cw, p->p_three, new_addr);
 }
 
