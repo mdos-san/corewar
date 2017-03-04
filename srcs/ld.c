@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 14:31:13 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/04 14:01:23 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/04 14:02:24 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ldi(t_cw *cw, t_process *p)
 	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	cw->dir_size = 2;
 	ocp_parse(cw, p, ocp);
-	new_addr = idx_mod(*p->p_one + *p->p_two);
+	new_addr = mod(*p->p_one, *p->p_two);
 	board_to_int(cw, p->p_three, new_addr);
 }
 
