@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:42:04 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/02 11:54:25 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/04 12:53:27 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_ocp			ocp_get(unsigned char ocp)
 }
 
 static	void	ocp_part(t_cw *cw, t_process *p, int *v,
-		int **pt, char *str, int dir_two, int get_index)
+		int **pt, char *str)
 {
 	int	ind;
 
@@ -76,7 +76,7 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *v,
 	}
 	else if (ft_strcmp(str, "11") == 0)
 	{
-		if (get_index == 1)
+		if (cw->get_index == 1)
 		{
 			((unsigned char*)v)[1] = cw->board[mod(p->pc, cw->nb_readed)];
 			((unsigned char*)v)[0] = cw->board[mod(p->pc, cw->nb_readed + 1)];
@@ -94,7 +94,7 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *v,
 	}
 	else if (ft_strcmp(str, "10") == 0)
 	{
-		if (dir_two == 1)
+		if (cw->dir_size == 2)
 		{
 			((unsigned char *)v)[1] = cw->board[mod(p->pc, cw->nb_readed)];
 			((unsigned char *)v)[0] = cw->board[mod(p->pc, cw->nb_readed + 1)];
@@ -110,8 +110,7 @@ static	void	ocp_part(t_cw *cw, t_process *p, int *v,
 		cw->param_error = 1;
 }
 
-void			ocp_parse(t_cw *cw, t_process *p,
-				t_ocp ocp, int dir_two, int get_index)
+void			ocp_parse(t_cw *cw, t_process *p, t_ocp ocp)
 {
 	cw->ap = p;
 	p->p_one = &p->one;
@@ -123,13 +122,15 @@ void			ocp_parse(t_cw *cw, t_process *p,
 	cw->param_error = 0;
 	cw->nb_readed += 2;
 	if (cw->nb_param >= 1)
-		ocp_part(cw, p, &p->one, &p->p_one, ocp.one, dir_two, get_index);
+		ocp_part(cw, p, &p->one, &p->p_one, ocp.one);
 	if (cw->nb_param >= 2)
-		ocp_part(cw, p, &p->two, &p->p_two, ocp.two, dir_two, get_index);
+		ocp_part(cw, p, &p->two, &p->p_two, ocp.two);
 	if (cw->nb_param >= 3)
-		ocp_part(cw, p, &p->three, &p->p_three, ocp.three, dir_two, get_index);
+		ocp_part(cw, p, &p->three, &p->p_three, ocp.three);
 	else if (cw->nb_param == 2 && ft_strcmp(ocp.three, "00") != 0)
 		cw->param_error = 1;
 	cw->nb_param = 0;
 	cw->idx = 0;
+	cw->dir_size = 4;
+	cw->get_index = 0;
 }
