@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 11:38:18 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/04 13:18:12 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/04 14:44:17 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,5 +154,6 @@ void					dump(t_cw *cw);
 void					print_winner(t_cw *cw);
 int						error(t_cw *cw, char *s);
 void					get_bin(char *buf, int nbr, int base);
+void					swap(int *value);
 
 #endif
