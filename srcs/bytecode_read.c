@@ -22,7 +22,7 @@ static void	recur(t_cw *cw, unsigned int *j, int i)
 {
 	if (read(cw->fd, cw->buf, 1) > 0)
 	{
-		if (i < 4)
+		if (0 <= i && i < 4)
 			((unsigned char*)(&cw->h->magic))[3 - i] = cw->buf[0];
 		if (i >= 4 && i < 4 + PROG_NAME_LENGTH)
 			cw->h->prog_name[i - 4] = cw->buf[0];
