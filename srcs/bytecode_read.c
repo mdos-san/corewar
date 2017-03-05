@@ -22,6 +22,8 @@ static void	recur(t_cw *cw, unsigned int *j, int i)
 {
 	if (read(cw->fd, cw->buf, 1) > 0)
 	{
+		if (0 <= i && i < 4)
+			((unsigned char*)(&cw->h->magic))[3 - i] = cw->buf[0];
 		if (i >= 4 && i < 4 + PROG_NAME_LENGTH)
 			cw->h->prog_name[i - 4] = cw->buf[0];
 		else if (i >= 4 + PROG_NAME_LENGTH + 4
@@ -65,6 +67,8 @@ int			bytecode_read(t_cw *cw, char *file, int index, int color_nb)
 			exit(0);
 		ft_printf("weighing %ld bytes, \"%s\" (\"%s\") !",
 		cw->h->prog_size, cw->h->prog_name, cw->h->comment);
+		if (cw->h->magic != COREWAR_EXEC_MAGIC)
+			exit(0);
 		if (call < 3)
 			++call;
 		return (1);
