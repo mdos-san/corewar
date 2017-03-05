@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:42:04 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/04 13:19:12 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/04 14:36:16 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void		manage_ind(t_cw *cw, int *v)
 	{
 		((unsigned char*)v)[1] = cw->board[mod(p->pc, cw->nb_readed)];
 		((unsigned char*)v)[0] = cw->board[mod(p->pc, cw->nb_readed + 1)];
+		*v = (int)(short)(*v);
 		cw->nb_readed += 2;
 	}
 	else
@@ -48,7 +49,8 @@ static void		manage_ind(t_cw *cw, int *v)
 		((unsigned char*)&ind)[1] = cw->board[mod(p->pc, cw->nb_readed)];
 		((unsigned char*)&ind)[0] = cw->board[mod(p->pc, cw->nb_readed + 1)];
 		ind = (int)(short)(ind);
-		ind = idx_mod(ind);
+		if (cw->idx != -1)
+			ind = idx_mod(ind);
 		board_to_int(cw, v, ind);
 		cw->nb_readed += 2;
 	}
@@ -63,6 +65,7 @@ static void		manage_dir(t_cw *cw, int *v)
 	{
 		((unsigned char *)v)[1] = cw->board[mod(p->pc, cw->nb_readed)];
 		((unsigned char *)v)[0] = cw->board[mod(p->pc, cw->nb_readed + 1)];
+		*v = (int)(short)(*v);
 		cw->nb_readed += 2;
 	}
 	else
@@ -74,10 +77,8 @@ static void		manage_dir(t_cw *cw, int *v)
 
 static void		ocp_part(t_cw *cw, int *v, int **pt, char *str)
 {
-	int			ind;
 	t_process	*p;
 
-	ind = 0;
 	p = cw->ap;
 	if (ft_strcmp(str, "01") == 0)
 	{

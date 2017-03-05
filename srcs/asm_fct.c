@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 18:44:45 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/04 13:46:23 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/04 14:05:57 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,22 @@ void	zjmp(t_cw *cw, t_process *p)
 
 void	aff(t_cw *cw, t_process *p)
 {
+	int		i;
 	t_ocp	ocp;
 
 	cw->nb_param = 1;
+	i = 0;
 	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	ocp_parse(cw, p, ocp);
-	if (!cw->f_v)
-		ft_putchar((char)(*p->p_one % 256));
+	while (i < cw->ac)
+	{
+		if (ft_strcmp(cw->av[i], "-a") == 0)
+		{
+			ft_putchar((char)(*p->p_one % 256));
+			break ;
+		}
+		++i;
+	}
 }
 
 int		get_turn(unsigned char c)

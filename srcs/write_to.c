@@ -6,11 +6,22 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 09:42:59 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/02/28 09:43:18 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/04 14:44:29 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+void	swap(int *value)
+{
+	int	b;
+
+	b = *value;
+	((unsigned char*)value)[3] = ((unsigned char*)&b)[0];
+	((unsigned char*)value)[2] = ((unsigned char*)&b)[1];
+	((unsigned char*)value)[1] = ((unsigned char*)&b)[2];
+	((unsigned char*)value)[0] = ((unsigned char*)&b)[3];
+}
 
 void	board_to_int(t_cw *cw, int *value, int offset)
 {
