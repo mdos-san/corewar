@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 14:31:13 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/06 12:23:00 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/06 12:35:10 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	lld_bug(int v)
 	return (v);
 }
 
-void	lld(t_cw *cw, t_process *p)
+void		lld(t_cw *cw, t_process *p)
 {
 	t_ocp	ocp;
 
@@ -54,7 +54,7 @@ void	lld(t_cw *cw, t_process *p)
 	}
 }
 
-void	ldi(t_cw *cw, t_process *p)
+void		ldi(t_cw *cw, t_process *p)
 {
 	int		new_addr;
 	t_ocp	ocp;
@@ -63,13 +63,16 @@ void	ldi(t_cw *cw, t_process *p)
 	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	cw->dir_size = 2;
 	ocp_parse(cw, p, ocp);
-	*p->p_one = idx_mod(*p->p_one);
-	*p->p_two = idx_mod(*p->p_two);
-	new_addr = mod(*p->p_one, *p->p_two);
-	board_to_int(cw, p->p_three, new_addr);
+	if (cw->param_error == 0)
+	{
+		*p->p_one = idx_mod(*p->p_one);
+		*p->p_two = idx_mod(*p->p_two);
+		new_addr = mod(*p->p_one, *p->p_two);
+		board_to_int(cw, p->p_three, new_addr);
+	}
 }
 
-void	lldi(t_cw *cw, t_process *p)
+void		lldi(t_cw *cw, t_process *p)
 {
 	int		new_addr;
 	t_ocp	ocp;
@@ -78,6 +81,9 @@ void	lldi(t_cw *cw, t_process *p)
 	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	cw->dir_size = 2;
 	ocp_parse(cw, p, ocp);
-	new_addr = mod(*p->p_one, *p->p_two);
-	board_to_int(cw, p->p_three, new_addr);
+	if (cw->param_error == 0)
+	{
+		new_addr = mod(*p->p_one, *p->p_two);
+		board_to_int(cw, p->p_three, new_addr);
+	}
 }

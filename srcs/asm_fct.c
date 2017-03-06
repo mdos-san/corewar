@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 18:44:45 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/04 14:05:57 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/06 12:32:41 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,17 @@ void	aff(t_cw *cw, t_process *p)
 	i = 0;
 	ocp = ocp_get(cw->board[mod(p->pc, 1)]);
 	ocp_parse(cw, p, ocp);
-	while (i < cw->ac)
+	if (cw->param_error == 0)
 	{
-		if (ft_strcmp(cw->av[i], "-a") == 0)
+		while (i < cw->ac)
 		{
-			ft_putchar((char)(*p->p_one % 256));
-			break ;
+			if (ft_strcmp(cw->av[i], "-a") == 0)
+			{
+				ft_putchar((char)(*p->p_one % 256));
+				break ;
+			}
+			++i;
 		}
-		++i;
 	}
 }
 

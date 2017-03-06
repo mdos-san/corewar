@@ -1,28 +1,25 @@
 Norme: ./srcs/board_print.c
-Norme: ./srcs/dump.c
-Norme: ./srcs/error.c
-Norme: ./srcs/bytecode_read.c
 Norme: ./srcs/asm_fct.c
+Norme: ./srcs/error.c
+Norme: ./srcs/dump.c
+Norme: ./srcs/bytecode_read.c
 Norme: ./srcs/exit.c
-Error: global scope bad aligned
-Norme: ./srcs/exec_turn.c
-Norme: ./srcs/get_bin.c
 Norme: ./srcs/cw_init.c
+Norme: ./srcs/get_bin.c
 Norme: ./srcs/fork.c
-Norme: ./srcs/linked_list_process.c
+Norme: ./srcs/exec_turn.c
 Norme: ./srcs/mod.c
+Norme: ./srcs/linked_list_process.c
 Norme: ./srcs/ld.c
-Error: global scope bad aligned
-Error (line 69): C++ comment
 Norme: ./srcs/main.c
 Norme: ./srcs/print_winner.c
 Norme: ./srcs/operation.c
 Norme: ./srcs/verbose_print.c
 Norme: ./srcs/st.c
+Norme: ./srcs/ocp_get.c
 Norme: ./srcs/parse.c
 Norme: ./srcs/write_to.c
-Norme: ./srcs/ocp_get.c
-Norme: ./includes/op.h
 Norme: ./includes/corewar.h
 Norme: ./includes/libftprintf.h
+Norme: ./includes/op.h
 Norme: ./includes/libft.h
