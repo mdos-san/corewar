@@ -6,7 +6,7 @@
 /*   By: jcao <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 10:40:13 by jcao              #+#    #+#             */
-/*   Updated: 2017/02/11 16:26:49 by jcao             ###   ########.fr       */
+/*   Updated: 2017/03/06 15:54:48 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ static char		*take_line(t_asm *var)
 	}
 	var->i = init;
 	tmp = (char *)malloc(sizeof(char) * i + 1);
+	if (tmp == NULL)
+		exit(0);
 	tmp = ft_strncpy(tmp, &var->stock[var->i], i);
+	tmp[i] = '\0';
 	return (tmp);
 }
 
@@ -38,7 +41,7 @@ static int		nb_param(char *str)
 
 	i = 0;
 	len = 1;
-	while (str[i] != '\n' && str[i] != '\0')
+	while (str[i] != '\0' && str[i] != '\n')
 	{
 		if (str[i] == SEPARATOR_CHAR)
 			len++;

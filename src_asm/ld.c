@@ -6,7 +6,7 @@
 /*   By: jcao <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 11:39:22 by jcao              #+#    #+#             */
-/*   Updated: 2017/02/11 15:12:46 by jcao             ###   ########.fr       */
+/*   Updated: 2017/03/06 15:57:48 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ static char		*take_line(t_asm *var)
 	}
 	var->i = init;
 	tmp = ft_strnew(i + 1);
+	if (tmp == NULL)
+		exit(0);
 	tmp = ft_strncpy(tmp, &var->stock[var->i], i);
 	return (tmp);
+	tmp[i] = '\0';
 }
 
 static int		nb_param(char *str)

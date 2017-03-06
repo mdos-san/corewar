@@ -6,7 +6,7 @@
 #    By: jcao <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/27 11:13:26 by jcao              #+#    #+#              #
-#    Updated: 2017/03/04 16:37:00 by jcao             ###   ########.fr        #
+#    Updated: 2017/03/06 15:41:12 by mdos-san         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ INC = corewar_asm.h
 
 CC = clang
 
-CFLAGS = -Werror -Wall -Wextra
+CFLAGS = -Werror -Wall -Wextra -fsanitize=address
 
 LIBFT = libft/libft.a
 
