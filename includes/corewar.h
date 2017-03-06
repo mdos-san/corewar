@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 11:38:18 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/06 12:38:55 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/06 13:05:41 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,5 +161,6 @@ void					error(t_cw *cw, char *s);
 void					get_bin(char *buf, int nbr, int base);
 void					swap(int *value);
 void					cw_exit(t_cw *cw, int error, char *error_msg);
+void					print_help(void);
 
 #endif

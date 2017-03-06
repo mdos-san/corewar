@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:13:05 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/06 11:21:47 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/06 13:01:35 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ t_cw		cw_init(int ac, char **av)
 {
 	t_cw	cw;
 
+	(ac == 1) ? print_help() : 0;
 	cw.debug = DEBUG;
 	ft_bzero(cw.board, MEM_SIZE + 1);
 	ft_bzero(cw.board_color, MEM_SIZE + 1);
