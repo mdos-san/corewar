@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 18:44:45 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/06 12:32:41 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/06 16:19:19 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,27 @@
 
 void	assign_live(t_cw *cw, int number, int champ_offset)
 {
+	int	i;
+
+	i = 0;
 	if (champ_offset < 4 && cw->champs[champ_offset].path != NULL)
 	{
 		if (cw->champs[champ_offset].number == number)
+		{
 			cw->champs[champ_offset].last_live = cw->turn;
+			while (i < cw->ac)
+			{
+				if (ft_strcmp(cw->av[i], "-l") == 0)
+				{
+					ft_printf("un processus dit que le joueur ");
+					ft_printf("%d(%s) est en vie\n",
+					champ_offset + 1,
+					cw->champs[champ_offset].h.prog_name);
+					break ;
+				}
+				++i;
+			}
+		}
 		else
 			assign_live(cw, number, champ_offset + 1);
 	}

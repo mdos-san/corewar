@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:20:57 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/06 12:43:50 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/06 16:18:18 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	travel_av(t_cw *cw, int *nb_player, int *nb, int i)
 		cw->f_v = 1;
 	else if (ft_strcmp(cw->av[i], "-verbose") == 0)
 		cw->f_verbose = 1;
-	else if (*nb_player < 4)
+	else if (cw->av[i][0] != '-' && *nb_player < 4)
 	{
 		cw->champs[*nb_player].path = cw->av[i];
 		cw->fd = open(cw->av[i], O_RDONLY);
@@ -45,7 +45,7 @@ static int	travel_av(t_cw *cw, int *nb_player, int *nb, int i)
 			error(cw, cw->av[i]);
 		++*nb_player;
 	}
-	else
+	else if (cw->av[i][0] != '-')
 		error(cw, "Too many player.");
 	return (travel_av(cw, nb_player, nb, ++i));
 }
