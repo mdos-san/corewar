@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:20:57 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/03 14:29:07 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/06 11:34:00 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	travel_av(t_cw *cw, int *nb_player, int *nb, int i)
 		cw->f_verbose = 1;
 	else if (*nb_player < 4)
 	{
-		cw->champs[*nb_player].path = ft_strdup(cw->av[i]);
+		cw->champs[*nb_player].path = cw->av[i];
 		cw->fd = open(cw->av[i], O_RDONLY);
 		if (cw->fd == -1)
 			error(cw, cw->av[i]);
@@ -87,7 +87,8 @@ void		cw_parse(t_cw *cw)
 		ft_printf("* Player %d, ", i + 1);
 		bytecode_read(cw, cw->champs[i].path,
 		(MEM_SIZE / nb_player) * i, i + 1);
-		process_new(&cw->process, nb[i], (MEM_SIZE / nb_player) * i, i + 1);
+		if (!process_new(&cw->process, nb[i], MEM_SIZE / nb_player * i, i + 1))
+			exit(0);
 		ft_printf("\n");
 		cw->champs[i].number = nb[i];
 		++i;
