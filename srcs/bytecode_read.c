@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 11:27:43 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/06 12:19:51 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/06 12:53:39 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	recur(t_cw *cw, unsigned int *j, int i)
 {
-	if (read(cw->fd, cw->buf, 1) > 0)
+	if ((cw->ret = read(cw->fd, cw->buf, 1)) > 0)
 	{
 		if (0 <= i && i < EXEC_OFFSET)
 			((unsigned char*)(&cw->h->magic))[3 - i] = cw->buf[0];
@@ -53,12 +53,12 @@ int			bytecode_read(t_cw *cw, char *file, int index, int color_nb)
 	cw->index = index;
 	cw->color_nb = color_nb;
 	if (cw->fd == -1)
-		return (-1);
+		cw_exit(cw, 1, "ERROR: Open fail.");
 	else
 	{
 		recur(cw, &j, 0);
-		if (j != cw->h->prog_size)
-			cw_exit(cw, 1, "ERROR: Prog size doesn't match.");
+		(cw->ret == -1) ? cw_exit(cw, 1, "ERROR: Read fail.") : (void)0;
+		(j != cw->h->prog_size) ? cw_exit(cw, 1, "ERROR: Prog size.") : (void)0;
 		ft_printf("weighing %ld bytes, \"%s\" (\"%s\") !",
 		cw->h->prog_size, cw->h->prog_name, cw->h->comment);
 		if (cw->h->magic != COREWAR_EXEC_MAGIC)
@@ -67,4 +67,5 @@ int			bytecode_read(t_cw *cw, char *file, int index, int color_nb)
 			++call;
 		return (1);
 	}
+	return (0);
 }

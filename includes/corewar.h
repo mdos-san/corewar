@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 11:38:18 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/06 12:19:20 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/06 12:38:55 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ typedef	struct			s_cw
 	int					color_nb;
 	int					dir_size;
 	int					get_index;
+	int					ret;
 }						t_cw;
 
 t_cw					cw_init(int ac, char **av);

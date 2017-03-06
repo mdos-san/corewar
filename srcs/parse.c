@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:20:57 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/06 11:47:27 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/06 12:43:50 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static int	travel_av(t_cw *cw, int *nb_player, int *nb, int i)
 		cw->fd = open(cw->av[i], O_RDONLY);
 		if (cw->fd == -1)
 			error(cw, cw->av[i]);
-		close(cw->fd);
+		if (close(cw->fd) == -1)
+			error(cw, cw->av[i]);
 		++*nb_player;
 	}
 	else
