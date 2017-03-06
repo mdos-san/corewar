@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:13:05 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/04 12:58:01 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/06 11:21:47 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ t_cw		cw_init(int ac, char **av)
 	t_cw	cw;
 
 	cw.debug = DEBUG;
-	cw.board = (unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE);
-	cw.board_color = (unsigned char *)ft_strnew(MEM_SIZE);
-	cw.board_ptr = (unsigned char *)ft_strnew(MEM_SIZE);
+	ft_bzero(cw.board, MEM_SIZE + 1);
+	ft_bzero(cw.board_color, MEM_SIZE + 1);
+	ft_bzero(cw.board_ptr, MEM_SIZE + 1);
 	cw.f_v = visu_init(ac, av);
 	cw.f_dump = -1;
 	cw.f_a = 0;

@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 11:38:18 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/04 14:44:17 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/06 11:20:49 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ typedef struct			s_champ
 typedef	struct			s_cw
 {
 	char				**av;
-	unsigned char		*board;
-	unsigned char		*board_color;
-	unsigned char		*board_ptr;
+	unsigned char		board[MEM_SIZE + 1];
+	unsigned char		board_color[MEM_SIZE + 1];
+	unsigned char		board_ptr[MEM_SIZE + 1];
 	t_process			*process;
 	t_process			*ap;
 	void				(*fct_tab[256])(struct s_cw*, t_process*);
