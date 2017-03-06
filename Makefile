@@ -21,6 +21,8 @@ SRC_O	=		main.o\
 				print_winner.o\
 				parse.o\
 				error.o\
+				exit.o\
+				print_help.o\
 				get_bin.o
 
 all:    corewar

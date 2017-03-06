@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 14:33:35 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/04 14:13:36 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/06 11:47:47 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	frk(t_cw *cw, t_process *p)
 	j = idx_mod(j);
 	child = process_new(&cw->process, p->nb_champ,
 			mod(p->pc, j), p->color_nb);
+	if (child == NULL)
+		cw_exit(cw, 1, "Malloc fail, can't create a new process.");
 	while (i < 16)
 	{
 		child->r[i] = p->r[i];
@@ -47,6 +49,8 @@ void	lfrk(t_cw *cw, t_process *p)
 	((unsigned char *)&j)[0] = cw->board[mod(p->pc, 2)];
 	child = process_new(&cw->process, p->nb_champ,
 			mod(p->pc, j), p->color_nb);
+	if (child == NULL)
+		cw_exit(cw, 1, "Malloc fail, can't create a new process.");
 	while (i < 16)
 	{
 		child->r[i] = p->r[i];

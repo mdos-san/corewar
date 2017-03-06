@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 11:38:18 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/04 14:44:17 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/06 13:05:41 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@
 # include "op.h"
 # include "libftprintf.h"
 
+# define EXEC_OFFSET 4
+# define NAME_OFFSET (EXEC_OFFSET + PROG_NAME_LENGTH)
+# define LEN_OFFSET (EXEC_OFFSET + PROG_NAME_LENGTH + 8)
+# define COMMENT_OFFSET (EXEC_OFFSET + PROG_NAME_LENGTH + 8 + COMMENT_LENGTH)
 # define DEBUG 1
 # define NB_COL	64
 
@@ -79,9 +83,9 @@ typedef struct			s_champ
 typedef	struct			s_cw
 {
 	char				**av;
-	unsigned char		*board;
-	unsigned char		*board_color;
-	unsigned char		*board_ptr;
+	unsigned char		board[MEM_SIZE + 1];
+	unsigned char		board_color[MEM_SIZE + 1];
+	unsigned char		board_ptr[MEM_SIZE + 1];
 	t_process			*process;
 	t_process			*ap;
 	void				(*fct_tab[256])(struct s_cw*, t_process*);
@@ -114,6 +118,7 @@ typedef	struct			s_cw
 	int					color_nb;
 	int					dir_size;
 	int					get_index;
+	int					ret;
 }						t_cw;
 
 t_cw					cw_init(int ac, char **av);
@@ -152,8 +157,10 @@ int						idx_mod(int a);
 void					d(t_cw *cw);
 void					dump(t_cw *cw);
 void					print_winner(t_cw *cw);
-int						error(t_cw *cw, char *s);
+void					error(t_cw *cw, char *s);
 void					get_bin(char *buf, int nbr, int base);
 void					swap(int *value);
+void					cw_exit(t_cw *cw, int error, char *error_msg);
+void					print_help(void);
 
 #endif

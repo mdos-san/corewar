@@ -1,22 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/03 14:27:37 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/06 11:50:08 by mdos-san         ###   ########.fr       */
+/*   Created: 2017/03/06 11:39:50 by mdos-san          #+#    #+#             */
+/*   Updated: 2017/03/06 12:47:06 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	error(t_cw *cw, char *s)
+static void	process_free(t_process *l)
+{
+	if (l != NULL)
+	{
+		process_free(l->next);
+		free(l);
+		l = NULL;
+	}
+}
+
+void		cw_exit(t_cw *cw, int error, char *error_msg)
 {
 	if (cw->f_v)
 		endwin();
-	ft_printf("ERROR: %s", s);
-	ft_putchar('\n');
-	cw_exit(cw, 0, NULL);
+	if (cw->process != NULL)
+	{
+		process_free(cw->process);
+		cw->process = NULL;
+	}
+	if (error == 1)
+		printf("%s\n", error_msg);
+	exit(0);
 }
