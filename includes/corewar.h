@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 11:38:18 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/06 11:20:49 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/06 12:19:20 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@
 # include "op.h"
 # include "libftprintf.h"
 
+# define EXEC_OFFSET 4
+# define NAME_OFFSET (EXEC_OFFSET + PROG_NAME_LENGTH)
+# define LEN_OFFSET (EXEC_OFFSET + PROG_NAME_LENGTH + 8)
+# define COMMENT_OFFSET (EXEC_OFFSET + PROG_NAME_LENGTH + 8 + COMMENT_LENGTH)
 # define DEBUG 1
 # define NB_COL	64
 
@@ -152,8 +156,9 @@ int						idx_mod(int a);
 void					d(t_cw *cw);
 void					dump(t_cw *cw);
 void					print_winner(t_cw *cw);
-int						error(t_cw *cw, char *s);
+void					error(t_cw *cw, char *s);
 void					get_bin(char *buf, int nbr, int base);
 void					swap(int *value);
+void					cw_exit(t_cw *cw, int error, char *error_msg);
 
 #endif

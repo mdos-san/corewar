@@ -6,13 +6,13 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 14:31:13 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/04 15:01:53 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/06 12:23:00 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	ld(t_cw *cw, t_process *p)
+void		ld(t_cw *cw, t_process *p)
 {
 	t_ocp	ocp;
 
@@ -66,7 +66,6 @@ void	ldi(t_cw *cw, t_process *p)
 	*p->p_one = idx_mod(*p->p_one);
 	*p->p_two = idx_mod(*p->p_two);
 	new_addr = mod(*p->p_one, *p->p_two);
-//	ft_printf("one: %d two: %d ne: %d \n ", *p->p_one, *p->p_two, new_addr);
 	board_to_int(cw, p->p_three, new_addr);
 }
 

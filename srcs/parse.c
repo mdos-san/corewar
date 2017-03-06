@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 08:20:57 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/06 11:34:00 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/06 11:47:27 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void		cw_parse(t_cw *cw)
 		bytecode_read(cw, cw->champs[i].path,
 		(MEM_SIZE / nb_player) * i, i + 1);
 		if (!process_new(&cw->process, nb[i], MEM_SIZE / nb_player * i, i + 1))
-			exit(0);
+			cw_exit(cw, 1, "Malloc fail, can't create a new process.");
 		ft_printf("\n");
 		cw->champs[i].number = nb[i];
 		++i;
