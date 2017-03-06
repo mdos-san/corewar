@@ -1,3 +1,0 @@
-Introducing contestants...
-* Player 1, weighing 5 bytes, "st_ri" ("Testing st with reg and indirect") !
-ADV 5 (0x0000 -> 0x0005) 03 70 01 ff eb 

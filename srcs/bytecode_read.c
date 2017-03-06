@@ -6,7 +6,7 @@
 /*   By: mdos-san <mdos-san@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 11:27:43 by mdos-san          #+#    #+#             */
-/*   Updated: 2017/03/06 12:53:39 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/06 13:27:35 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ int			bytecode_read(t_cw *cw, char *file, int index, int color_nb)
 		recur(cw, &j, 0);
 		(cw->ret == -1) ? cw_exit(cw, 1, "ERROR: Read fail.") : (void)0;
 		(j != cw->h->prog_size) ? cw_exit(cw, 1, "ERROR: Prog size.") : (void)0;
+		(0 == cw->h->prog_size) ? cw_exit(cw, 1, "ERROR: Prog size.") : (void)0;
 		ft_printf("weighing %ld bytes, \"%s\" (\"%s\") !",
 		cw->h->prog_size, cw->h->prog_name, cw->h->comment);
 		if (cw->h->magic != COREWAR_EXEC_MAGIC)
 			cw_exit(cw, 1, "ERROR: Exec magic doesn't match.");
-		if (call < 3)
-			++call;
+		call += (call < 3) ? 1 : 0;
 		return (1);
 	}
 	return (0);

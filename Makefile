@@ -53,6 +53,6 @@ fclean:	clean
 	rm -rf _out
 	rm -rf _verbose_out
 	rm -rf _ins_out _ins_zaz
-	rm -rf error
+	rm -rf _zaz_output _verbose
 
 re:	fclean all

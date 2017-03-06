@@ -1,8 +1,0 @@
-Introducing contestants...
-* Player 1, weighing 22 bytes, "Test" ("Testing champ") !
-ADV 7 (0x0000 -> 0x0007) 02 90 55 01 02 03 07 
-ADV 5 (0x0007 -> 0x000c) 03 70 07 00 06 
-ADV 4 (0x000c -> 0x0010) 03 55 01 02 
-ADV 2 (0x0010 -> 0x0012) 03 01 
-ADV 2 (0x0012 -> 0x0014) 02 03 
-ADV 3 (0x0014 -> 0x0017) 04 05 00 
