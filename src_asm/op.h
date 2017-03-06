@@ -6,14 +6,9 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2017/03/03 11:46:49 by mdos-san         ###   ########.fr       */
+/*   Updated: 2017/03/06 14:18:03 by mdos-san         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-** Toutes les tailles sont en octets.
-** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous ?
-*/
 
 #ifndef OP_H
 # define OP_H
@@ -34,7 +29,7 @@
 
 # define COMMENT_CHAR			'#'
 # define LABEL_CHAR				':'
-# define DIRECT_CHAR				'%'
+# define DIRECT_CHAR			'%'
 # define SEPARATOR_CHAR			','
 
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
@@ -58,14 +53,27 @@
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
-typedef char		t_arg_type;
+typedef char					t_arg_type;
 
-typedef struct		s_header
+typedef struct					s_op
 {
-	unsigned int	magic;
-	unsigned int	prog_size;
-	char			prog_name[PROG_NAME_LENGTH + 1];
-	char			comment[COMMENT_LENGTH + 1];
-}					t_header;
+	char	*str;
+	int		i;
+	int		flag;
+	int		j;
+	int		k;
+	char	*descr;
+	int		l;
+	int		m;
+}								t_op;
+
+typedef struct					s_header
+{
+	unsigned char				*magic;
+	char						*prog_name;
+	unsigned int				prog_size;
+	unsigned char				*size;
+	char						*comment;
+}								t_header;
 
 #endif
